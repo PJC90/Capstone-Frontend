@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Login from './Login';
 
-function NavbarOriz() {
+function CustomNavbar() {
   const [modalShow, setModalShow] = useState(false);
 
   return (
@@ -54,4 +54,4 @@ function NavbarOriz() {
   );
 }
 
-export default NavbarOriz;
+export default CustomNavbar;

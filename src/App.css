@@ -1,3 +1,54 @@
-.dropdown-toggle::after {
+.dropdown-toggle::after { /*Rimuove la freccia il basso dal bottone dropdown*/
     display: none !important;
+  }
+.icon-effect {
+    background-color: transparent !important; /* Rimuove lo sfondo */
+    border: none !important; /* Rimuove il bordo */
+    color: black !important; /* Cambia il colore del testo in nero */
+    transition: transform 0.3s ease; /* Aggiunge un'animazione di transizione */
+    transform-origin: center; /* Imposta l'origine della trasformazione al centro */
+}
+.icon-effect:hover {
+    background-color: rgb(228, 228, 228) !important; /* Cambia il colore dello sfondo al passaggio del mouse */
+    transform: scale(1.03); /* Ingrossa leggermente il bottone al passaggio del mouse */
+  }
+  .artesum-button {
+    background-color: transparent !important; /* Rimuove lo sfondo */
+    color: black !important; /* Cambia il colore del testo in nero */
+    border: none !important; /* Rimuove il bordo */
+    transition: box-shadow 0.3s, transform 0.3s; /* Aggiunge transizioni per ombra e trasformazione */
+    border: 1px solid black !important; /* Aggiunge un bordo nero */
+  }
+  
+  .artesum-button:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important; /* Aggiunge un'ombra al passaggio del mouse */
+    transform: scale(1.03); /* Ingrossa leggermente il bottone al passaggio del mouse */
+  }
+  
+  .artesum-button:active {
+    box-shadow: inset 0 0 10px rgba(233, 117, 22, 0.5) !important; /* Aggiunge un'ombra quando il pulsante viene cliccato */
+    border: 1px solid rgb(238, 157, 7) !important; 
+    color: rgb(236, 165, 10) !important; /* Cambia il colore del testo  */
+  }
+  .artesum-button-black {
+    background-color: black !important; /* Rimuove lo sfondo */
+    color: white!important; /* Cambia il colore del testo in nero */
+    border: none !important; /* Rimuove il bordo */
+    transition: box-shadow 0.3s, transform 0.3s; /* Aggiunge transizioni per ombra e trasformazione */
+    border: 1px solid black !important; /* Aggiunge un bordo nero */
+  }
+  
+  .artesum-button-black:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5) !important; /* Aggiunge un'ombra al passaggio del mouse */
+    transform: scale(1.05); /* Ingrossa leggermente il bottone al passaggio del mouse */
+  }
+  
+  .custom-input-group {
+    border: 2px solid black; /* Aggiungi un contorno nero */
+  }
+
+  .custom-input-group-text {
+    background-color: orange !important;
+    color: white !important;
+    margin: 3px;
   }
