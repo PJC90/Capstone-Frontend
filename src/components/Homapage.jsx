@@ -1,9 +1,9 @@
-import NavbarOriz from "./NavbarOriz"
+import CustomNavbar from "./CustomNavbar"
 
 function Homepage(){
     return(
         <>
-        <NavbarOriz/>
+        <CustomNavbar/>
         </>
     )
 }

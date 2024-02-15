@@ -42,7 +42,7 @@ const Registrazione = (props) => {
         setTimeout(() => {
           setRegisterSuccess(false);
           props.onHide();
-        }, 3000);
+        }, 1000);
       })
       .catch((err) => {
         console.log(err);

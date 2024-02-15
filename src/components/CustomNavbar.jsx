@@ -9,6 +9,10 @@ import Login from './Login';
 function CustomNavbar() {
   const [modalShow, setModalShow] = useState(false);
 
+  const handleLoginSuccess = () => {
+    setModalShow(false); // Chiudi il modale solo se l'autenticazione ha avuto successo
+  };
+
   return (
     <Navbar expand="lg" className="border-2 border-bottom" >
       <Container className='mt-2 mb-2'>
@@ -41,7 +45,7 @@ function CustomNavbar() {
     <Button className='ms-5 me-3 icon-effect rounded-pill' onClick={()=> setModalShow(true)}>
       Accedi
     </Button>
-    <Login show={modalShow} onHide={()=> setModalShow(false)}/>
+    <Login show={modalShow} onHide={()=> setModalShow(false)} onLoginSuccess={handleLoginSuccess}/>
 
  
      <Heart className='icon-effect fs-2'/>
