@@ -2,6 +2,9 @@ import { useParams } from "react-router-dom";
 import CustomNavbar from "./CustomNavbar"
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import React from 'react';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 
 function ProductDetail(){
     const { productId } = useParams(); // Ottieni l'ID del prodotto dall'URL
@@ -36,42 +39,42 @@ function ProductDetail(){
     return(
     <>
     <CustomNavbar/>
-    <Container>
-      <Row>
-        {/* Prima colonna */}
-        <Col sm={4}>
-          {productDetail && (
-            <>
-              <img src={productDetail.photo1} alt={productDetail.title} />
-              <img src={productDetail.photo2} alt={productDetail.title} />
-              <img src={productDetail.photo3} alt={productDetail.title} />
-            </>
-          )}
-        </Col>
-        
-        {/* Seconda colonna */}
-        <Col sm={4}>
-          {productDetail && (
-            <>
-              <img src={productDetail.photo1} alt={productDetail.title} />
-              <img src={productDetail.photo2} alt={productDetail.title} />
-              <img src={productDetail.photo3} alt={productDetail.title} />
-            </>
-          )}
-        </Col>
-        
-        {/* Terza colonna */}
-        <Col sm={4}>
-          {productDetail && (
-            <>
-              <h2>{productDetail.title}</h2>
-              <p>{productDetail.description}</p>
-              <p>Prezzo: € {productDetail.price}</p>
-              {/* Aggiungi altre informazioni del prodotto qui */}
-            </>
-          )}
-        </Col>
-      </Row>
+    <Container className="w-100">
+        <Row>
+            <Col >
+            {productDetail ? (
+                 <CarouselProvider
+                 naturalSlideWidth={25}
+                 naturalSlideHeight={50}
+                 totalSlides={3}
+               >
+                 <ButtonBack>Back</ButtonBack>
+        <ButtonNext>Next</ButtonNext>
+                 <Slider>
+                   <Slide index={0}><img src={productDetail.photo1} alt={productDetail.title} style={{ width: "100%", height: "50%", display: "block" }}/></Slide>
+                   <Slide index={1}><img src={productDetail.photo2} alt={productDetail.title} style={{ width: "100%", height: "50%", display: "block" }}/> </Slide>
+                   <Slide index={2}><img src={productDetail.photo3} alt={productDetail.title} style={{ width: "100%", height: "50%", display: "block" }}/></Slide>
+                 </Slider>
+                
+               </CarouselProvider>  
+            ) : (
+                <p>Loading...</p>
+              )}
+            </Col>
+            <Col>
+            {productDetail ? (
+                <>
+                 <div>{productDetail.title}</div>
+                 <div>{productDetail.description}</div>
+                 <div>{productDetail.productType}</div>
+                 <div>{productDetail.price}</div>
+                 </>
+            ) : (
+                <p>Loading...</p>
+              )}
+            </Col>
+        </Row>
+    
     </Container>
     </>
     )
