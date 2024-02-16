@@ -1,6 +1,7 @@
 import CustomNavbar from "./CustomNavbar"
 import Header from "./Header"
 import Product from "./Product"
+import Shop from "./Shop"
 
 function Homepage(){
     return(
@@ -8,6 +9,7 @@ function Homepage(){
         <CustomNavbar/>
         <Header/>
         <Product/>
+        <Shop/>
         </>
     )
 }

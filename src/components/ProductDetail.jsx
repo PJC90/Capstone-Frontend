@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CustomNavbar from "./CustomNavbar"
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
@@ -13,6 +13,7 @@ function ProductDetail(){
     const { productId } = useParams(); // Ottieni l'ID del prodotto dall'URL
     const [productDetail, setProductDetail] = useState(null);
     const [review, setReview] = useState([]);
+    const navigate = useNavigate();
   
     // Funzione per recuperare i dettagli del prodotto
     const getProductDetail = (productId) => {
@@ -139,7 +140,11 @@ function ProductDetail(){
                             <Col>
                             <div>Ti presentiamo il venditore: </div>
                           <div>  {productDetail.shop.seller.name} {productDetail.shop.seller.surname}</div>
-                          <div>Proprietario di {productDetail.shop.shopName}</div>
+                          <div
+                          onClick={() => {
+                            navigate(`/shop/${productDetail.shop.shopId}`); // Reindirizza all'URL del dettaglio del prodotto con l'ID dinamico
+                          }}
+                          >Proprietario di <span style={{ cursor: 'pointer' }} className="orange-on-hover">{productDetail.shop.shopName}</span></div>
                             </Col>
                           </Row>
                           <Button className="py-2 rounded-pill icon-effect my-2 "><Heart/> Segui Negozio</Button>

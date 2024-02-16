@@ -55,5 +55,7 @@
   .bg-header{
     background: linear-gradient(to bottom, rgba(255, 251, 0, 0.479) 70%, transparent 30%);
   }
-
-  
+  .orange-on-hover:hover {
+    color: orange; /* Cambia il colore del testo in arancione quando il mouse è sopra l'elemento*/
+  }
+ 
