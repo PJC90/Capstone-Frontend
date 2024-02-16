@@ -5,9 +5,11 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Login from './Login';
+import { useNavigate } from 'react-router-dom';
 
 function CustomNavbar() {
   const [modalShow, setModalShow] = useState(false);
+  const navigate = useNavigate();
 
   const handleLoginSuccess = () => {
     setModalShow(false); // Chiudi il modale solo se l'autenticazione ha avuto successo
@@ -17,7 +19,7 @@ function CustomNavbar() {
     <Navbar expand="lg" className="border-2 border-bottom" >
       <Container className='mt-2 mb-2'>
         
-       <Navbar.Brand href="#home">artesum</Navbar.Brand>
+       <Navbar.Brand href="#home" onClick={()=>{navigate('/')}}>artesum</Navbar.Brand>
         
         <Nav>
           <Dropdown>
