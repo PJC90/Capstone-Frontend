@@ -1,4 +1,4 @@
-.dropdown-toggle::after { /*Rimuove la freccia il basso dal bottone dropdown*/
+.custom-dropdown-toggle::after { /*Rimuove la freccia il basso dal bottone dropdown*/
     display: none !important;
   }
 .icon-effect {
@@ -58,4 +58,10 @@
   .orange-on-hover:hover {
     color: orange; /* Cambia il colore del testo in arancione quando il mouse è sopra l'elemento*/
   }
- 
+ .hoover-card:hover{
+  background-color: white;
+  box-shadow: 0 0 15px black;
+  border-radius: 10px;
+  transform: scale(1.06);
+  z-index: 1;
+ }

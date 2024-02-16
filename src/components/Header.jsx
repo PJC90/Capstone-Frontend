@@ -35,7 +35,7 @@ function Header(){
       {category && category.slice(0,6).map((cat, index) => {
                     return (
                         <Col xs={6} sm={4} md={2} className="text-center" key={index}>
-                            <img src={cat.photoCategory} alt={cat.nameCategory} className="img-fluid rounded-circle mb-2" style={{ width: '120px', height: '120px' }} />
+                            <img src={cat.photoCategory} alt={cat.nameCategory} className="img-fluid rounded-circle mb-2 hoover-card" style={{ width: '120px', height: '120px',cursor: 'pointer' }} />
                             <p className="mb-0">{cat.nameCategory}</p>
                         </Col>
                     );

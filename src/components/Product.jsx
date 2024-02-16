@@ -36,7 +36,7 @@ useEffect(()=>{
         <h1 className="fs-4">Prodotti</h1>
         <Row xs={1} md={5} className="g-4">
           {product && product.map((product) => (
-            <Col key={product.productId}>
+            <Col key={product.productId} className="hoover-card py-2 px-2">
               <div
                 style={{
                   position: "relative",
@@ -52,7 +52,8 @@ useEffect(()=>{
                     position: "absolute",
                     width: "100%",   // Assicura che l'immagine occupi l'intero spazio del contenitore
                     height: "100%",  // Assicura che l'immagine occupi l'intero spazio del contenitore
-                    objectFit: "cover"  // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
+                    objectFit: "cover" , // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
+                    cursor: 'pointer' 
                   }}
                   onClick={() => {
                     navigate(`/product/${product.productId}`); // Reindirizza all'URL del dettaglio del prodotto con l'ID dinamico

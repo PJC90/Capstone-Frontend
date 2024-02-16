@@ -122,7 +122,7 @@ function ProductDetail(){
                           <>
                           <div>{productDetail.title}</div>
                           <div>{productDetail.description}</div>
-                          <div>{productDetail.productType}</div>
+                          <div>Tipo di prodotto: {productDetail.productType}</div>
                           <div>{productDetail.price}</div>
                           <Button className="bg-dark py-2 rounded-pill my-2 d-block w-100">Acquista</Button>
                           <Button className="bg-white text-dark border-black border-2 py-2 rounded-pill d-block my-2 w-100">Aggiungi al carrello</Button>

@@ -23,7 +23,7 @@ function CustomNavbar() {
         
         <Nav>
           <Dropdown>
-            <Dropdown.Toggle id="dropdown-basic" className=' icon-effect rounded-pill me-4' >
+            <Dropdown.Toggle id="dropdown-basic" className='custom-dropdown-toggle icon-effect rounded-pill me-4' >
             <List className='me-2'/> Categorie
             </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -41,7 +41,7 @@ function CustomNavbar() {
           aria-describedby="inputGroup-sizing-sm"
           className="m-1 rounded-pill border border-0"
         />
-     <InputGroup.Text id="inputGroup-sizing-lg" className="custom-input-group-text rounded-pill"><Search/></InputGroup.Text>
+     <InputGroup.Text id="inputGroup-sizing-lg" className="custom-input-group-text rounded-pill" style={{ cursor: 'pointer' }}><Search/></InputGroup.Text>
     </InputGroup>
 
     <Button className='ms-5 me-3 icon-effect rounded-pill' onClick={()=> setModalShow(true)}>
@@ -50,10 +50,10 @@ function CustomNavbar() {
     <Login show={modalShow} onHide={()=> setModalShow(false)} onLoginSuccess={handleLoginSuccess}/>
 
  
-     <Heart className='icon-effect fs-2'/>
+     <Heart className='icon-effect fs-2'style={{ cursor: 'pointer' }}/>
  
   
-     <Cart2 className='icon-effect fs-1 ms-4'/> 
+     <Cart2 className='icon-effect fs-1 ms-4'style={{ cursor: 'pointer' }}/> 
   
      </Container>
     </Navbar>

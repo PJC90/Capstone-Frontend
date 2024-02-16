@@ -35,21 +35,16 @@ function Shop(){
         <h1 className="fs-4">I Negozi di artesum:</h1>
         <Row xs={1} md={5} >
           {shop && shop.map((shop) => (
-            <Col key={shop.shopId}>
-              <div
-                style={{
-                  width: "100%",   // Imposta la larghezza del contenitore all'immagine
-                  paddingBottom: "100%",  // Imposta l'altezza del contenitore come rapporto 1:1 rispetto alla larghezza
-                  overflow: "hidden"  // Assicura che l'immagine non vada al di fuori del contenitore
-                }}
-              >
+            <Col key={shop.shopId} className="hoover-card py-2 px-2">
+              <div>
                 <img
                   src={shop.logoShop}
                   alt={shop.shopName}
                   style={{
                     width: "100%",   // Assicura che l'immagine occupi l'intero spazio del contenitore
                     height: "100%",  // Assicura che l'immagine occupi l'intero spazio del contenitore
-                    objectFit: "cover"  // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
+                    objectFit: "cover",  // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
+                    cursor: 'pointer' 
                   }}
                   onClick={() => {
                     navigate(`/shop/${shop.shopId}`); // Reindirizza all'URL del dettaglio del prodotto con l'ID dinamico

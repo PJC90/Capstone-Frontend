@@ -1,16 +1,24 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import CustomNavbar from "./CustomNavbar";
-import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Col, Container, Dropdown, Form, InputGroup, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { List } from "react-bootstrap-icons";
 {/*  <FontAwesomeIcon icon={faHeart} size={20} color="black" />  Utilizza l'icona di cuore da FontAwesome */}
 
 function ShopDetail(){
     const {shopId} = useParams(); // Ottieni l'ID del prodotto dall'URL
     const [shopDetail, setShopDetail] = useState(null);
     const [shopProducts, setShopProducts] = useState([]);
+    const [selectedOption, setSelectedOption] = useState("Più recente"); // Imposta l'opzione predefinita
+
     const navigate = useNavigate();
+    
+    const handleSelect = (eventKey) => {
+        setSelectedOption(eventKey);
+      };
+
 
     const getShop = (shopId)=>{
         fetch(`http://localhost:3010/shop/${shopId}`,{
@@ -58,7 +66,7 @@ function ShopDetail(){
         <>
         <CustomNavbar/>
         {shopDetail ? (
-            <Container className="p-0">
+            <Container>
                   <img src={shopDetail.coverImageShop} alt={shopDetail.shopName} className="img-fluid w-100" style={{height:"300px", objectFit: 'cover'}}/>
                   <Row className="mt-5">
                     <Col xs={2}>
@@ -104,10 +112,25 @@ function ShopDetail(){
                         </InputGroup>
                         </Col>
                     </Row>
-                <Row xs={1} md={5} >
+                    <Row>
+                        <Col><h3>Articoli</h3></Col>
+                        <Col className="d-flex justify-content-end">
+                        <Dropdown onSelect={handleSelect}>
+                            <Dropdown.Toggle id="dropdown-basic" className=' icon-effect rounded-pill px-5 fs-5' >
+                             Ordina: {selectedOption}
+                            </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                <Dropdown.Item eventKey="Più recente">Più recente</Dropdown.Item>
+                                <Dropdown.Item eventKey="Prezzo più basso">Prezzo più basso</Dropdown.Item>
+                                <Dropdown.Item eventKey="Prezzo più alto">Prezzo più alto</Dropdown.Item>
+                                </Dropdown.Menu>
+                        </Dropdown>
+                        </Col>
+                    </Row>
+                <Row xs={1} md={5}>
              {shopProducts && shopProducts.map((product)=>{
                 return(
-                    <Col key={product.productId} className="p-0">
+                    <Col key={product.productId} className="hoover-card pt-3" >
                         <div
                 style={{
                   position: "relative",
@@ -123,7 +146,8 @@ function ShopDetail(){
                     position: "absolute",
                     width: "100%",   // Assicura che l'immagine occupi l'intero spazio del contenitore
                     height: "100%",  // Assicura che l'immagine occupi l'intero spazio del contenitore
-                    objectFit: "cover"  // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
+                    objectFit: "cover",  // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
+                    cursor: 'pointer' 
                   }}
                   onClick={() => {
                     navigate(`/product/${product.productId}`); // Reindirizza all'URL del dettaglio del prodotto con l'ID dinamico
@@ -151,10 +175,12 @@ function ShopDetail(){
                 </div>
               </div>
                         <div>{product.title}</div>
+                        <div>€ {product.price}</div>
                     </Col>
                 )
                 })}
                 </Row>
+                
                 </Container>
         </>
     )
