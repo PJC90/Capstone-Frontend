@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Col, Dropdown, Form, InputGroup, Row} from 'react-bootstrap';
-import {  List, Search } from 'react-bootstrap-icons';
+import {  List, Person, Search } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -9,10 +9,18 @@ import { useNavigate } from 'react-router-dom';
 
 function CustomNavbar() {
   const [modalShow, setModalShow] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   const handleLoginSuccess = () => {
     setModalShow(false); // Chiudi il modale solo se l'autenticazione ha avuto successo
+    setIsLoggedIn(true); // Imposta lo stato di accesso su true dopo il login
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false); // Imposta lo stato di accesso su false dopo il logout
+    localStorage.removeItem("tokenAdmin");
+    navigate("/")
   };
 
   return (
@@ -20,10 +28,11 @@ function CustomNavbar() {
     <Navbar expand="lg" className="border-2 border-bottom" >
       <Container className='mt-2 mb-2'>
       <Row className='w-100 d-flex flex-nowrap align-items-center'>
+{/*--------------------------------------------- LOGO ARTESUM ----------------------------------------------------*/}
         <Col >
              <Navbar.Brand href="#home" onClick={()=>{navigate('/')}}>artesum</Navbar.Brand>
        </Col>
-
+{/*------------------------------------------------ CATEGORIE ----------------------------------------------------*/}
        <Col >
             <Nav >
               <Dropdown >
@@ -38,7 +47,7 @@ function CustomNavbar() {
               </Dropdown>
             </Nav>
         </Col>
-
+{/*------------------------------------------------ INPUT ----------------------------------------------------*/}
         <Col xs={7}>
           <InputGroup size="md" className="custom-input-group rounded-pill bg-white ">
             <Form.Control
@@ -50,14 +59,29 @@ function CustomNavbar() {
             <InputGroup.Text id="inputGroup-sizing-lg" className="custom-input-group-text rounded-pill" style={{ cursor: 'pointer' }}><Search/></InputGroup.Text>
             </InputGroup>
             </Col>
-
+{/*------------------------------------------------ ACCEDI ----------------------------------------------------*/}
     <Col >
-          <Button className='icon-effect rounded-pill' onClick={()=> setModalShow(true)}>
-            Accedi
-          </Button>
-          <Login show={modalShow} onHide={()=> setModalShow(false)} onLoginSuccess={handleLoginSuccess}/>
+            {isLoggedIn ?(
+              // Se l'utente è loggato, mostra l'icona "Person" per il logout
+            <Dropdown >
+            <Dropdown.Toggle id="dropdown-basic" className='custom-dropdown-toggle icon-effect rounded-pill' >
+            <Person style={{width:'30px', height:'30px'}}/>
+            </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item >Action</Dropdown.Item>
+                  <Dropdown.Item >Modifica Profilo</Dropdown.Item>
+                  <Dropdown.Item onClick={handleLogout}>Log out</Dropdown.Item>
+                </Dropdown.Menu>
+          </Dropdown>
+            ):(
+            // Se l'utente non è loggato, mostra il pulsante "Accedi" per il login
+              <Button className='icon-effect rounded-pill' onClick={()=> setModalShow(true)}>
+                    Accedi
+                  </Button>
+            )}
+   <Login show={modalShow} onHide={()=> setModalShow(false)} onLoginSuccess={handleLoginSuccess} />
     </Col>
-
+{/*---------------------------------------------- LOGO HEART ----------------------------------------------------*/}
   <Col >
                <div className='icon-effect'
                   style={{
@@ -76,7 +100,7 @@ function CustomNavbar() {
 </svg>
          </div>
   </Col>
-
+{/*--------------------------------------------- LOGO CARRELLO ----------------------------------------------------*/}
   <Col >
   <div className='icon-effect'
                   style={{
