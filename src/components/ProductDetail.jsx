@@ -8,6 +8,7 @@ import 'react-awesome-slider/dist/styles.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Heart, HeartFill } from "react-bootstrap-icons";
+import StarRating from "./StarRating";
 
 function ProductDetail(){
     const { productId } = useParams(); // Ottieni l'ID del prodotto dall'URL
@@ -101,13 +102,7 @@ function ProductDetail(){
                               <p>data acquisto: {reviewItem.dateReview}</p>
                               </Col>
                             </Row>
-                            {Array.from({ length: 5 }, (_, index) => (
-                                <FontAwesomeIcon
-                                  key={index}
-                                  icon={index < reviewItem.rating ? faStar : ['far', 'star']}
-                                  style={{ color: '#f9b339' }}
-                                />
-                              ))}
+                            <StarRating rating={reviewItem.rating}/>
                             <p>{reviewItem.description}</p>
                       </Col>
                     </Row>               

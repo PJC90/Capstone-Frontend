@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import CustomNavbar from "./CustomNavbar";
-import { Col, Container, Dropdown, Form, InputGroup, Row } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, Form, InputGroup, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faMessage } from '@fortawesome/free-solid-svg-icons';
 import { List } from "react-bootstrap-icons";
+import StarRating from "./StarRating";
 {/*  <FontAwesomeIcon icon={faHeart} size={20} color="black" />  Utilizza l'icona di cuore da FontAwesome */}
 
 function ShopDetail(){
@@ -229,7 +230,7 @@ const getShopReview = (shopId)=>{
                                 <Row className="d-flex flex-column">
                                 {reviewShop && reviewShop.map((reviews)=>{
                                     return(
-                                        <Row key={reviews.reviewId}>
+                                        <Row key={reviews.reviewId} className="mb-3 border-bottom">
                                     <Col xs={1}  className="m-0 p-0">
                                     <img src={reviews.buyerReview.avatar} alt="review" style={{                   
                                         width: "50px",   // Assicura che l'immagine occupi l'intero spazio del contenitore
@@ -241,9 +242,24 @@ const getShopReview = (shopId)=>{
                                         padding:"0"
                                     }}/>
                                     </Col>
-                                    <Col>
-                                    <p><span className="orange-on-hover">{reviews.buyerReview.name} {reviews.buyerReview.surname}</span> il {reviews.dateReview}</p>
-                                    <p></p>
+                                    <Col className="mb-4">
+                                        <p><span className="orange-on-hover">{reviews.buyerReview.name} {reviews.buyerReview.surname}</span> il {reviews.dateReview}</p>
+                                        <StarRating rating={reviews.rating}/>
+                                        <p className="mt-2 mb-0">{reviews.description}</p>
+                                        <Button className='my-3 fs-6 icon-effect rounded-pill px-3'>
+                                            Contatta acquirente<FontAwesomeIcon icon={faMessage} className="ms-3"/></Button>
+                                            <div className="d-flex align-items-center">
+                                                <div><img src={reviews.photoReview} alt="reviews" style={{
+                                                    width: "120px",   // Assicura che l'immagine occupi l'intero spazio del contenitore
+                                                    height: "80px",  // Assicura che l'immagine occupi l'intero spazio del contenitore
+                                                    objectFit: "cover", // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
+                                                    aspectRatio: '1 / 1', // Imposta un rapporto d'aspetto 1:1
+                                                    overflow: 'hidden', // Nasconde le parti dell'immagine che eccedono il contenitore
+                                                    borderRadius: '8px', 
+                                                    padding:"0"
+                                                }}/></div>
+                                                <div><h6 className="ms-4">{reviews.productReview.title}</h6></div>
+                                            </div>
                                     </Col>
                                     </Row>
                                             )
