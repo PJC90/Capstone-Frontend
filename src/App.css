@@ -12,6 +12,11 @@
     background-color: rgb(228, 228, 228) !important; /* Cambia il colore dello sfondo al passaggio del mouse */
     transform: scale(1.03); /* Ingrossa leggermente il bottone al passaggio del mouse */
   }
+.icon-effect-heart:hover {
+    transform: scale(1.2); /* Ingrossa leggermente il bottone al passaggio del mouse */
+    fill: red;
+    stroke: red;
+  }
   .artesum-button {
     background-color: transparent !important; /* Rimuove lo sfondo */
     color: black !important; /* Cambia il colore del testo in nero */
@@ -57,6 +62,7 @@
   }
   .orange-on-hover:hover {
     color: orange; /* Cambia il colore del testo in arancione quando il mouse è sopra l'elemento*/
+    cursor: pointer;
   }
  .hoover-card:hover{
   background-color: white;

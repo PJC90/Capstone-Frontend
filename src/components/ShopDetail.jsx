@@ -11,13 +11,18 @@ function ShopDetail(){
     const {shopId} = useParams(); // Ottieni l'ID del prodotto dall'URL
     const [shopDetail, setShopDetail] = useState(null);
     const [shopProducts, setShopProducts] = useState([]);
+    const [reviewShop, setReviewShop] = useState([]);
     const [selectedOption, setSelectedOption] = useState("Più recente"); // Imposta l'opzione predefinita
+    const [selectedOptionReview, setSelectedOptionReview] = useState("Suggeriti");
 
     const navigate = useNavigate();
     
     const handleSelect = (eventKey) => {
         setSelectedOption(eventKey);
       };
+    const handleSelectReview = (eventKey) => {
+        setSelectedOptionReview(eventKey);
+    };  
 
 
     const getShop = (shopId)=>{
@@ -58,9 +63,30 @@ function ShopDetail(){
             console.log(err)
         })
     }
+const getShopReview = (shopId)=>{
+    fetch(`http://localhost:3010/review/filter?shopId=${shopId}`, {
+        headers: {Authorization: localStorage.getItem("tokenAdmin")},
+    }).then((res)=>{
+        if(res.ok){
+            return res.json()
+        }else{
+            throw new Error("Errore nel recupero recensioni del negozio")
+        }
+    })
+    .then((data)=>{
+        setReviewShop(data)
+        console.log("Recensioni Negozio:")
+        console.log(data)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+}
+
     useEffect(()=>{
         getShop(shopId)
         getShopProducts(shopId)
+        getShopReview(shopId)
     },[shopId])
     return(
         <>
@@ -169,8 +195,8 @@ function ShopDetail(){
                   }}
                 >
              {/*  <FontAwesomeIcon icon={faHeart} size={20} color="black" />  Utilizza l'icona di cuore da FontAwesome */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="white" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" className="icon-effect-heart" viewBox="0 0 24 24" width="20" height="20" fill="white" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <path  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
                 </div>
               </div>
@@ -180,8 +206,55 @@ function ShopDetail(){
                 )
                 })}
                 </Row>
-                
-                </Container>
+                <Row className="d-flex flex-column pt-4 mt-5 mb-4 border-top border-2">
+                    <Row>
+                    <Col><h5 className="">Recensioni:</h5></Col>
+                    <Col><p>Media recensioni:</p></Col>
+                    <Col className="d-flex justify-content-end">
+                    <Dropdown onSelect={handleSelectReview}>
+                            <Dropdown.Toggle id="dropdown-basic" className=' icon-effect rounded-pill px-5 fs-5' >
+                             Ordina: {selectedOptionReview}
+                            </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                <Dropdown.Item eventKey="Suggeriti">Suggeriti</Dropdown.Item>
+                                <Dropdown.Item eventKey="Più recenti">Più recenti</Dropdown.Item>
+                                </Dropdown.Menu>
+                        </Dropdown>
+                    </Col>
+                    </Row>
+  {/* ------------------------------------------------------------    MAP delle recensioni      -------------------------------------------------------------------------*/}
+                    <Row className="mt-3" >
+                            <Col></Col>
+                            <Col md={8}>
+                                <Row className="d-flex flex-column">
+                                {reviewShop && reviewShop.map((reviews)=>{
+                                    return(
+                                        <Row key={reviews.reviewId}>
+                                    <Col xs={1}  className="m-0 p-0">
+                                    <img src={reviews.buyerReview.avatar} alt="review" style={{                   
+                                        width: "50px",   // Assicura che l'immagine occupi l'intero spazio del contenitore
+                                        height: "50px",  // Assicura che l'immagine occupi l'intero spazio del contenitore
+                                        objectFit: "cover", // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
+                                        aspectRatio: '1 / 1', // Imposta un rapporto d'aspetto 1:1
+                                        overflow: 'hidden', // Nasconde le parti dell'immagine che eccedono il contenitore
+                                        borderRadius: '50%', // Imposta i bordi arrotondati al massimo
+                                        padding:"0"
+                                    }}/>
+                                    </Col>
+                                    <Col>
+                                    <p><span className="orange-on-hover">{reviews.buyerReview.name} {reviews.buyerReview.surname}</span> il {reviews.dateReview}</p>
+                                    <p></p>
+                                    </Col>
+                                    </Row>
+                                            )
+                                        })}
+                                     </Row>                               
+                            </Col>
+                            <Col></Col>
+                        </Row>
+ {/* --------------------------------------------------------    fine MAP delle recensioni      ------------------------------------------------------------------------*/}
+            </Row>
+            </Container>
         </>
     )
 }
