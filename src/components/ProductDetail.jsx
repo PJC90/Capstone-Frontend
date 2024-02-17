@@ -67,7 +67,6 @@ function ProductDetail(){
   
     return(
     <>
-    <CustomNavbar/>
     <Container className="mt-5">
               <Row>
 {/* ---------------------------------------------     LEFT PAGE -----------------------------------------------------------------------*/}

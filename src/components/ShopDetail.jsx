@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import CustomNavbar from "./CustomNavbar";
 import { Button, Col, Container, Dropdown, Form, InputGroup, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faMessage } from '@fortawesome/free-solid-svg-icons';
-import { List } from "react-bootstrap-icons";
 import StarRating from "./StarRating";
-{/*  <FontAwesomeIcon icon={faHeart} size={20} color="black" />  Utilizza l'icona di cuore da FontAwesome */}
 
 function ShopDetail(){
     const {shopId} = useParams(); // Ottieni l'ID del prodotto dall'URL
@@ -84,14 +79,27 @@ const getShopReview = (shopId)=>{
     })
 }
 
+const calculateAverageRating = () => {
+    if (reviewShop.length === 0) {
+      return ("Non ci sono ancora recensioni");
+    }
+    const totalRating = reviewShop.reduce((acc, curr) => acc + curr.rating, 0);
+    const averageRating = totalRating / reviewShop.length;
+    // Arrotonda la media delle recensioni a due decimali
+    return averageRating.toFixed(2);
+  };
+  // Utilizza la funzione calculateAverageRating per ottenere la media delle recensioni
+  const averageRating = calculateAverageRating();
+
+
     useEffect(()=>{
         getShop(shopId)
         getShopProducts(shopId)
         getShopReview(shopId)
     },[shopId])
+
     return(
         <>
-        <CustomNavbar/>
         {shopDetail ? (
             <Container>
                   <img src={shopDetail.coverImageShop} alt={shopDetail.shopName} className="img-fluid w-100" style={{height:"300px", objectFit: 'cover'}}/>
@@ -209,8 +217,12 @@ const getShopReview = (shopId)=>{
                 </Row>
                 <Row className="d-flex flex-column pt-4 mt-5 mb-4 border-top border-2">
                     <Row>
-                    <Col><h5 className="">Recensioni:</h5></Col>
-                    <Col><p>Media recensioni:</p></Col>
+                    <Col className="d-flex align-items-center"><h5>Recensioni:</h5></Col>
+                    <Col className="d-flex flex-row align-items-center">
+                        <p className="m-0 me-2">Media recensioni: </p>
+                        <StarRating rating={averageRating}/>
+                        <p className="m-0 ms-2">({reviewShop.length})</p>
+                    </Col>
                     <Col className="d-flex justify-content-end">
                     <Dropdown onSelect={handleSelectReview}>
                             <Dropdown.Toggle id="dropdown-basic" className=' icon-effect rounded-pill px-5 fs-5' >
@@ -246,8 +258,12 @@ const getShopReview = (shopId)=>{
                                         <p><span className="orange-on-hover">{reviews.buyerReview.name} {reviews.buyerReview.surname}</span> il {reviews.dateReview}</p>
                                         <StarRating rating={reviews.rating}/>
                                         <p className="mt-2 mb-0">{reviews.description}</p>
-                                        <Button className='my-3 fs-6 icon-effect rounded-pill px-3'>
-                                            Contatta acquirente<FontAwesomeIcon icon={faMessage} className="ms-3"/></Button>
+                                        <Button className='my-3 fs-6 icon-effect rounded-pill px-3 d-flex align-items-center'>
+                                            Contatta acquirente
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="ms-2" viewBox="0 0 16 16">
+  <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"/>
+                                            </svg>             
+                                            </Button>
                                             <div className="d-flex align-items-center">
                                                 <div><img src={reviews.photoReview} alt="reviews" style={{
                                                     width: "120px",   // Assicura che l'immagine occupi l'intero spazio del contenitore

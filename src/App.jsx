@@ -5,6 +5,7 @@ import Homepage from './components/Homapage'
 import ProductDetail from './components/ProductDetail'
 import Shop from './components/Shop'
 import ShopDetail from './components/ShopDetail'
+import CustomNavbar from './components/CustomNavbar'
 
 
 
@@ -14,6 +15,7 @@ function App() {
   return (
     <>
     <BrowserRouter>
+    <CustomNavbar/>
     <Routes>
       <Route path='/registrazione' element={<Registrazione/>}/>
       <Route path='/' element={<Homepage/>}/>
@@ -26,3 +28,9 @@ function App() {
 }
 
 export default App
+
+// Le impostazioni della privacy di Etsy
+// Per offrirti la migliore esperienza, utilizziamo i cookie e altre tecnologie simili per le prestazioni, i dati statistici, 
+// la personalizzazione, la pubblicità e per coadiuvare la funzione del sito. 
+// Desideri maggiori informazioni? Leggi il nostro Regolamento sui cookie. 
+// Puoi modificare le tue preferenze in qualsiasi momento nelle Impostazioni della privacy.

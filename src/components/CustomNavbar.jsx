@@ -12,15 +12,29 @@ function CustomNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn === "true") {
+      setIsLoggedIn(true);
+    }
+    //  viene eseguito solo al montaggio iniziale(componentDidMount) 
+    //  legge lo storage per vedere se sei loggato cosi compare l'icona di quanto sei loggato
+  }, []);
+
   const handleLoginSuccess = () => {
+    localStorage.setItem("isLoggedIn", "true");
     setModalShow(false); // Chiudi il modale solo se l'autenticazione ha avuto successo
     setIsLoggedIn(true); // Imposta lo stato di accesso su true dopo il login
+    window.location.reload();
+
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false); // Imposta lo stato di accesso su false dopo il logout
     localStorage.removeItem("tokenAdmin");
     navigate("/")
+    window.location.reload();
   };
 
   return (
