@@ -33,7 +33,7 @@ const Registrazione = (props) => {
         if (res.ok) {
           return res.json();
         } else {
-          throw new Error("errore nel login");
+          throw new Error("errore nella registrazione");
         }
       })
       .then((data) => {

@@ -28,7 +28,7 @@ function Header(){
     },[]);
     return(
         <div className="bg-header">
-            <h1 className="d-flex justify-content-center fs-3 p-3">Festeggia la primavera con i prodotti più cool dei piccoli negozi</h1>
+            <h1 className="d-flex justify-content-center fs-3 p-3">Qui trovi solo prodotti unici, sostieni i maker indipendenti!</h1>
         <Container className="py-2">
       <Row className="justify-content-center">
  

@@ -43,8 +43,10 @@ function CustomNavbar() {
       <Container className='mt-2 mb-2'>
       <Row className='w-100 d-flex flex-nowrap align-items-center'>
 {/*--------------------------------------------- LOGO ARTESUM ----------------------------------------------------*/}
-        <Col >
-             <Navbar.Brand href="#home" onClick={()=>{navigate('/')}}>artesum</Navbar.Brand>
+        <Col>
+             <Navbar.Brand href="/" onClick={()=>{navigate('/')}}>
+              <img src='/artesum-orange.png' alt="logo-artesum" width="130"/>
+              </Navbar.Brand>
        </Col>
 {/*------------------------------------------------ CATEGORIE ----------------------------------------------------*/}
        <Col >

@@ -1,16 +1,15 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes} from 'react-router-dom'
 import './App.css'
 import Registrazione from './components/Registrazione'
 import Homepage from './components/Homapage'
 import ProductDetail from './components/ProductDetail'
-import Shop from './components/Shop'
 import ShopDetail from './components/ShopDetail'
 import CustomNavbar from './components/CustomNavbar'
+import BecomeSeller from './components/BecomeSeller'
 
 
 
 function App() {
-  
 
   return (
     <>
@@ -21,6 +20,7 @@ function App() {
       <Route path='/' element={<Homepage/>}/>
       <Route path='/product/:productId' element={<ProductDetail/>}/>
       <Route path="/shop/:shopId" element={<ShopDetail/>}/>
+      <Route path="/becomeseller" element={<BecomeSeller/>}/>
     </Routes>
     </BrowserRouter>
     </>
