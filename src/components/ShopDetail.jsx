@@ -108,10 +108,11 @@ const calculateAverageRating = () => {
                     <img src={shopDetail.logoShop} alt={shopDetail.shopName} className="img-fluid w-100"/>
                     </Col>
                     <Col>
-                    <h1>{shopDetail.shopName}</h1>
-                    <h3>Descrizione negozio</h3>
-                    <h4>{shopDetail.numberOfSales} Vendite</h4>
-                    <h4>Media recensioni</h4>
+                    <p className="fs-2 fw-bold m-0">{shopDetail.shopName}</p>
+                    <p className="fs-4 m-0">{shopDetail.description}</p>
+                    <p className="fs-5 m-0">Nazione: {shopDetail.nation} </p>
+                    <p className="fs-5 m-0">Località: {shopDetail.locality} </p>
+                    <p className="fs-5 mt-2">{shopDetail.numberOfSales} Vendite</p>
                     </Col>
                     <Col></Col>
                     <Col xs={2} className="">

@@ -6,6 +6,9 @@ import ProductDetail from './components/ProductDetail'
 import ShopDetail from './components/ShopDetail'
 import CustomNavbar from './components/CustomNavbar'
 import BecomeSeller from './components/BecomeSeller'
+import Cart from './components/Cart'
+import ShopUpdate from './components/ShopUpdate'
+import ShopUpdateDetail from './components/ShopUpdateDetail'
 
 
 
@@ -21,6 +24,8 @@ function App() {
       <Route path='/product/:productId' element={<ProductDetail/>}/>
       <Route path="/shop/:shopId" element={<ShopDetail/>}/>
       <Route path="/becomeseller" element={<BecomeSeller/>}/>
+      <Route path="/updateshop" element={<ShopUpdate/>}/>
+      <Route path="/cart" element={<Cart/>}/>
     </Routes>
     </BrowserRouter>
     </>

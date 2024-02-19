@@ -69,10 +69,10 @@ function BecomeSeller(){
             <Row className="d-flex justify-content-center">
                 <Col xs={6} >
                     <h3 className="my-5">Benvenuto su Artesum SELLER</h3>
-                    <h5 className="my-3">Il nome del tuo negozio è la base del tuo marchio</h5>
+                    <p className="my-4 fs-3">Il nome del tuo negozio è la base del tuo marchio</p>
                     {!isShopCreated && (
                         <>
-                    <h6 className="my-2">Confermi di voler aprire un Negozio?</h6>
+                    <p className="my-2">Confermi di voler aprire un Negozio?</p>
                     <Button className="px-5 py-2 my-4 rounded-pill border-0" style={{backgroundColor:"rgb(146, 97, 6)"}}
                     onClick={()=>{setisChecked(true);handleCheched();}}>Apri Negozio</Button>
                     </>
@@ -83,7 +83,7 @@ function BecomeSeller(){
                             placeholder="Inserisci il nome del negozio"
                             value={shopName}
                             onChange={handleShopName}
-                            className="rounded-pill px-5 py-3 border-3 text-info fs-4 fw-bold"
+                            className="rounded-pill px-5 py-3 border-3 text-info"
                             style={{borderColor:"rgb(0, 140, 255)"}}
                         />
                     )}

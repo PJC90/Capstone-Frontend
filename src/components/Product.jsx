@@ -18,8 +18,8 @@ function Product(){
             }
         })
         .then((data)=>{
+            console.log("Prodotti:")
             console.log(data.content);
-            console.log("ciao")
             setProduct(data.content);
         })
         .catch((err)=>{
