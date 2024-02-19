@@ -19,7 +19,7 @@ function Shop(){
         .then((data)=>{
             setShop(data.content)
             console.log("Shop:")
-            console.log(data.content)
+            console.log(data)
         })
         .catch((err)=>{
             console.log(err)

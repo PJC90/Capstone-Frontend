@@ -1,11 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Form, Spinner } from "react-bootstrap";
+import 'animate.css/animate.min.css';
+
+
+// per installare le animazioni https://animate.style/
+// $ npm install animate.css --save
 
 function BecomeSeller(){
     const [shopName, setShopName] = useState("");
     const [isChecked, setisChecked] = useState(false);
     const [isShopCreated, setIsShopCreated] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [show, setShow] = useState(false);
+
+    useEffect(() => {
+        // Imposta lo stato per mostrare il componente dopo un breve ritardo
+        const timeout = setTimeout(() => setShow(true), 3000); // Ritardo di 500ms
+        return () => clearTimeout(timeout);
+    }, []);
+
 
     const handleShopName = (e) => {
         setShopName(e.target.value);
@@ -47,10 +60,10 @@ function BecomeSeller(){
         .then(()=>{
             setTimeout(()=>{
                 setIsLoading(false)
-            },4000)
-        })
-        
+            },3000)
+        })       
     }
+    
     return(
         <Container className="text-center">
             <Row className="d-flex justify-content-center">
@@ -60,11 +73,8 @@ function BecomeSeller(){
                     {!isShopCreated && (
                         <>
                     <h6 className="my-2">Confermi di voler aprire un Negozio?</h6>
-                    <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={handleCheched}
-                    />
+                    <Button className="px-5 py-2 my-4 rounded-pill border-0" style={{backgroundColor:"rgb(146, 97, 6)"}}
+                    onClick={()=>{setisChecked(true);handleCheched();}}>Apri Negozio</Button>
                     </>
                     )}
                     {isChecked && (
@@ -73,25 +83,31 @@ function BecomeSeller(){
                             placeholder="Inserisci il nome del negozio"
                             value={shopName}
                             onChange={handleShopName}
+                            className="rounded-pill px-5 py-3 border-3 text-info fs-4 fw-bold"
+                            style={{borderColor:"rgb(0, 140, 255)"}}
                         />
                     )}
                 </Col>
             </Row>
-            {isChecked && (
+          
                 <Row>
                     <Col>
-                        <Button variant="primary" onClick={becomeSeller}>
-                        {isLoading ? <Spinner animation="border" size="sm" /> : "Conferma"}
-                        </Button>
-                        {isLoading && <p className="mt-2">Stiamo creando il tuo negozio...</p>}
-
+                    {isLoading && (
+                        <>
+                        <iframe src="https://giphy.com/embed/Mah9dFWo1WZX0WM62Q" style={{width:"300px", height:"300px"}}></iframe>
+                        <p className="mt-3 fs-3">Stiamo creando il tuo negozio...</p>
+                        </>
+                        )}
+                    {(isChecked && !isLoading) && (
+                        <Button className="px-5 py-3 my-5 bg-warning rounded-pill border-0 fs-3 fw-bold" onClick={becomeSeller}>
+                         Costruisci il mio Negozio
+                        </Button>)}
                     </Col>
                 </Row>
-                
-            )}
-            {isShopCreated && (
+             
+            {show && (isShopCreated && !isLoading)&& (
                 <Row className="mt-3 d-flex justify-content-center ">
-                    <Col  className="bg-warning py-4 rounded-5" xs={8}>
+                    <Col  className="bg-warning py-4 rounded-5 animate__animated animate__zoomInDown" xs={8}>
                         <h2>Congratulazioni!</h2>
                         <p className="fs-4">Hai appena creato questo negozio:</p>
                         <h1 className="text-white py-4">{shopName}</h1>
