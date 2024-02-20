@@ -8,7 +8,6 @@ import CustomNavbar from './components/CustomNavbar'
 import BecomeSeller from './components/BecomeSeller'
 import Cart from './components/Cart'
 import ShopUpdate from './components/ShopUpdate'
-import ShopUpdateDetail from './components/ShopUpdateDetail'
 
 
 

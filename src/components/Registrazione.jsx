@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Col, Container, Row, Form, Button, Modal, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Col, Row, Form, Button, Modal, Alert } from "react-bootstrap";
+
 
 const Registrazione = (props) => {
   const [registerSuccess, setRegisterSuccess] = useState(false);
