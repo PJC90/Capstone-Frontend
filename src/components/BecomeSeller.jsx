@@ -94,7 +94,8 @@ function BecomeSeller(){
                     <Col>
                     {isLoading && (
                         <>
-                        <iframe src="https://giphy.com/embed/Mah9dFWo1WZX0WM62Q" style={{width:"300px", height:"300px"}}></iframe>
+                        <img src="/Gear-gif.svg" alt="gear-spinner"/>
+                        {/* <iframe src="https://giphy.com/embed/Mah9dFWo1WZX0WM62Q" style={{width:"300px", height:"300px"}}></iframe> */}
                         <p className="mt-3 fs-3">Stiamo creando il tuo negozio...</p>
                         </>
                         )}

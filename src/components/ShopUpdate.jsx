@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { ArchiveFill, BarChartFill, BoxSeamFill, ChatRightFill, PencilFill } from "react-bootstrap-icons";
+import { ArchiveFill, BarChartFill, BoxSeamFill, ChatRightFill, PencilFill, XCircleFill } from "react-bootstrap-icons";
 import {  useNavigate } from "react-router-dom";
 import ShopUpdateDetail from "./ShopUpdateDetail";
+import ShopDelete from "./ShopDelete";
 
 
 function ShopUpdate(){
  const navigate = useNavigate();
+ const [formDelete, setFormDelete] = useState(false)
+ const [idFormDelete, setIdFormDelete] = useState(false)
  const [updateMyShop, setUpdateMyShop] = useState([]);
  const [selectedShop, setSelectedShop] = useState(null);
+ const [viewEditShop, setViewEditShop] = useState(false);
 
 
     const getMyShop = ()=>{
@@ -40,6 +44,19 @@ function ShopUpdate(){
     const handleEditShop = (shopId) => {
         setSelectedShop(shopId);
     };
+    const handleDeleteShop = (shopId) => {
+        setIdFormDelete(shopId);
+    };
+    const handleFormeDelete = () => {
+      if(viewEditShop){
+        setViewEditShop(!viewEditShop)
+      }
+    }
+    const handleViewEditShop = () => {
+      if(formDelete){
+        setFormDelete(!formDelete)
+      }
+    }
 
 
     return(
@@ -54,13 +71,15 @@ function ShopUpdate(){
                     <Row key={myshop.shopId} className="mt-5">
                         <Col className="d-flex flex-column align-items-start"> 
                         <p className="my-1 ">{myshop.shopName}</p>
-                        <Button className="my-3 rounded-pill icon-effect" onClick={() => handleEditShop(myshop.shopId)}>
+                        <Button className="my-3 rounded-pill icon-effect" onClick={() => {handleViewEditShop(); setViewEditShop(!viewEditShop); handleEditShop(myshop.shopId)}}>
                         <PencilFill/> Modifica negozio 
                         </Button>
                         <Button className="my-3 rounded-pill icon-effect"><BoxSeamFill/> Inserzioni</Button>
                         <Button className="my-3 rounded-pill icon-effect"><ArchiveFill/> Ordini</Button>
                         <Button className="my-3 rounded-pill icon-effect"><BarChartFill/> Statistiche</Button>
                         <Button className="my-3 rounded-pill icon-effect"><ChatRightFill/> Messaggi</Button>
+                        <Button className="my-3 rounded-pill icon-effect" onClick={()=>{handleFormeDelete();setFormDelete(!formDelete); handleDeleteShop(myshop.shopId)}}>
+                          <XCircleFill/> Elimina Negozio</Button>
                         </Col>
                     </Row>
         ))
@@ -77,8 +96,11 @@ function ShopUpdate(){
  {/*-------------------------------------------------------------------- CONTENT-----------------------------------------------------------                */}
                
                 <Col>
-                {selectedShop &&
+                {viewEditShop &&
                     <ShopUpdateDetail shopId={selectedShop}/>
+                }
+                {formDelete && 
+                    <ShopDelete shopId={idFormDelete}/>                
                 }
                 </Col>
                
