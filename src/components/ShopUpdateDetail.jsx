@@ -164,7 +164,7 @@ function ShopUpdateDetail({ shopId }){
                                 >
                                 <div className="d-flex align-items-center">
                                     <Button type="submit" className="bg-white text-black border border-1  me-2 py-1">{imageUploading ? (<Spinner/>) : ("Upload")}</Button>
-                                    <Form.Control
+                                    <Form.Control 
                                     type="file"
                                     size="sm"
                                     required
@@ -179,12 +179,12 @@ function ShopUpdateDetail({ shopId }){
                     <Row className="d-flex justify-content-start">
                     <Col xs={3}>
                     <img src={myShop.logoShop} alt={myShop.shopName} className="img-fluid w-100 mt-3" style={{height:"320px", objectFit: 'cover'}}/>
-                    <Form className="mt-0 d-inline-block" onSubmit={(e) => {
+                    <Form className="mt-0 d-flex justify-content-between" onSubmit={(e) => {
                         e.preventDefault();
                         uploadPhoto(shopId);
                         setImageUploading2(true);}}>
-                            <Button type="submit" className="bg-white text-black border border-1 mt-2 py-1 d-inline-block">{imageUploading2 ? (<Spinner/>) : ("Upload")}</Button>
-                                   <Form.Control
+                            <Button type="submit" className="bg-white text-black border border-1 mt-3">{imageUploading2 ? (<Spinner/>) : ("Upload")}</Button>
+                                   <Form.Control style={{width:"280px"}} className="mt-4 " 
                                   type="file"
                                   size="sm"
                                   required

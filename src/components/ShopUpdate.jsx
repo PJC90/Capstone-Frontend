@@ -4,15 +4,16 @@ import { ArchiveFill, BarChartFill, BoxSeamFill, ChatRightFill, PencilFill, XCir
 import {  useNavigate } from "react-router-dom";
 import ShopUpdateDetail from "./ShopUpdateDetail";
 import ShopDelete from "./ShopDelete";
+import ShopUpdateProduct from "./ShopUpdateProduct";
 
 
 function ShopUpdate(){
  const navigate = useNavigate();
  const [formDelete, setFormDelete] = useState(false)
- const [idFormDelete, setIdFormDelete] = useState(false)
  const [updateMyShop, setUpdateMyShop] = useState([]);
  const [selectedShop, setSelectedShop] = useState(null);
  const [viewEditShop, setViewEditShop] = useState(false);
+ const [viewProductShop, setViewProductShop] = useState(false)
 
 
     const getMyShop = ()=>{
@@ -44,16 +45,25 @@ function ShopUpdate(){
     const handleEditShop = (shopId) => {
         setSelectedShop(shopId);
     };
-    const handleDeleteShop = (shopId) => {
-        setIdFormDelete(shopId);
-    };
+    
     const handleFormeDelete = () => {
       if(viewEditShop){
         setViewEditShop(!viewEditShop)
+      } else if(viewProductShop){
+        setViewProductShop(!viewProductShop)
       }
     }
     const handleViewEditShop = () => {
       if(formDelete){
+        setFormDelete(!formDelete)
+      }else if(viewProductShop){
+        setViewProductShop(!viewProductShop)
+      }
+    }
+    const handleViewProductShop = () =>{
+      if(viewEditShop){
+        setViewEditShop(!viewEditShop)
+      } else if(formDelete){
         setFormDelete(!formDelete)
       }
     }
@@ -63,7 +73,7 @@ function ShopUpdate(){
         
         <Container fluid  style={{height:"100vh"}}>
             <Row className="d-flex justify-content-start h-100" >
- {/*-------------------------------------------------------------------- SIDEBAR ------------------------------------------------------------------------------               */}
+ {/*-------------------------------------------------------------------- LEFT SIDEBAR ------------------------------------------------------------------------------               */}
                 <Col xs={2} className="border-2 border-end d-flex flex-column" >
  {/* Se non hai negozi compare una schermata per aprire un nuovo negozio */}
          {updateMyShop.length > 0 ? (
@@ -74,11 +84,12 @@ function ShopUpdate(){
                         <Button className="my-3 rounded-pill icon-effect" onClick={() => {handleViewEditShop(); setViewEditShop(!viewEditShop); handleEditShop(myshop.shopId)}}>
                         <PencilFill/> Modifica negozio 
                         </Button>
-                        <Button className="my-3 rounded-pill icon-effect"><BoxSeamFill/> Inserzioni</Button>
+                        <Button className="my-3 rounded-pill icon-effect" onClick={()=>{handleViewProductShop(); setViewProductShop(!viewProductShop); handleEditShop(myshop.shopId)}}>
+                          <BoxSeamFill/> Inserzioni</Button>
                         <Button className="my-3 rounded-pill icon-effect"><ArchiveFill/> Ordini</Button>
                         <Button className="my-3 rounded-pill icon-effect"><BarChartFill/> Statistiche</Button>
                         <Button className="my-3 rounded-pill icon-effect"><ChatRightFill/> Messaggi</Button>
-                        <Button className="my-3 rounded-pill icon-effect" onClick={()=>{handleFormeDelete();setFormDelete(!formDelete); handleDeleteShop(myshop.shopId)}}>
+                        <Button className="my-3 rounded-pill icon-effect" onClick={()=>{handleFormeDelete();setFormDelete(!formDelete); handleEditShop(myshop.shopId)}}>
                           <XCircleFill/> Elimina Negozio</Button>
                         </Col>
                     </Row>
@@ -93,14 +104,17 @@ function ShopUpdate(){
         </Row>
     )}
                 </Col>
- {/*-------------------------------------------------------------------- CONTENT-----------------------------------------------------------                */}
+ {/*-------------------------------------------------------------------- CONTENT (Right Page)    -----------------------------------------------------------                */}
                
-                <Col>
+                <Col className="p-0">
                 {viewEditShop &&
                     <ShopUpdateDetail shopId={selectedShop}/>
                 }
                 {formDelete && 
-                    <ShopDelete shopId={idFormDelete}/>                
+                    <ShopDelete shopId={selectedShop}/>                
+                }
+                {viewProductShop &&
+                  <ShopUpdateProduct shopId={selectedShop}/>
                 }
                 </Col>
                

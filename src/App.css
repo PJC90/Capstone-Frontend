@@ -80,3 +80,8 @@
   transform: scale(1.06);
   z-index: 1;
  }
+ .scegli-file-aes::file-selector-button {
+  background-color: orange !important; /* Cambia il colore di sfondo */
+  color: white !important; /* Cambia il colore del testo */
+  border-radius: 5px !important; /* Arrotonda i bordi */
+}
