@@ -92,17 +92,18 @@ useEffect(()=>{
             <Plus className="fs-1"/>Aggiungi  inserzione
         </Button>
         </div>
-        <Row className="m-5 justify-content-center">
+        <Row className="m-5 d-flex justify-content-center">
+            <Row>
+            <Col className="d-flex flex-wrap">
             {myProduct &&
             myProduct.map((product)=>{
                 return(
-           <Col key={product.productId} >
-           <Card style={{ width: '18rem' }}>
+           
+           <Card style={{ width: '15rem' }} key={product.productId} className="mx-4 mb-4">
             <Card.Img variant="top" src={product.photo1} />
             <Card.Body className="p-0">
                 <div className="p-3">
                 <Card.Title>{product.title}</Card.Title>
-                <Card.Text>{product.description}</Card.Text>
                 <Card.Text>€ {product.price}</Card.Text>
                 <Card.Text>{product.quantity} disponibili</Card.Text>
                 <Card.Text>Creato il {product.dateCreation}</Card.Text>
@@ -113,9 +114,11 @@ useEffect(()=>{
                 </Card.Text>
             </Card.Body>
             </Card>
-           </Col>
+          
             )})
             }
+            </Col>
+            </Row>
             {createProduct &&
             <Col xs={8} >
             <Form
