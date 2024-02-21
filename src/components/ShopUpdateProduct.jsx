@@ -1,21 +1,28 @@
 import { useEffect, useState } from "react"
-import { Alert, Button, Card, Col, Container, Dropdown, Form, Row } from "react-bootstrap"
-import { GearFill, Plus, Trash2Fill, Trash3Fill, TrashFill } from "react-bootstrap-icons"
+import { Alert, Button, Card, Col, Container, Dropdown, Form, Row, Spinner } from "react-bootstrap"
+import { GearFill, PencilSquare, Plus, Trash2Fill, Trash3Fill, TrashFill } from "react-bootstrap-icons"
 
 function ShopUpdateProduct({ shopId }){
+const [viewAggiungiInserzione, setViewAggiungiInserzione] = useState(true)    
 const [myProduct, setMyProduct] = useState(null)
 const [createProduct, setCreateProduct] = useState(false)
 const [createProductSuccess, setCreateProductSuccess] = useState(false)
 const [singleProduct, setSingleProduct] = useState(false)
-const [title, setTitle] = useState("")
-const [category, setCategory] = useState("")
-const [description, setDescription] = useState("")
-const [price, setPrice] = useState("")
-const [tipoProdotto, setTipoProdotto] = useState("")
-const [quantity, setQuantity] = useState("")
+const [title, setTitle] = useState(null)
+const [category, setCategory] = useState(null)
+const [description, setDescription] = useState(null)
+const [price, setPrice] = useState(null)
+const [tipoProdotto, setTipoProdotto] = useState(null)
+const [quantity, setQuantity] = useState(null)
 const [categoryArtesum, setCategoryArtsem] = useState([])
 const [animation, setAnimation] = useState(null)
 const [selectCategory, setSelectCategory] = useState("Seleziona categoria")
+const [photo1, setPhoto1] = useState(null)
+const [photo1Uploading, setPhoto1Uploading] = useState(false)
+const [photo2, setPhoto2] = useState(null)
+const [photo2Uploading, setPhoto2Uploading] = useState(false)
+const [photo3, setPhoto3] = useState(null)
+const [photo3Uploading, setPhoto3Uploading] = useState(false)
 
 const handleSelectCategory = (eventKey) => {
     setSelectCategory(eventKey)
@@ -105,13 +112,16 @@ const saveProduct = () =>{
     })
 }
 const deleteProduct = (productId)=>{
+
+    const confirmDelete = window.confirm("Sicuro di voler eliminare il prodotto?");
+    if (!confirmDelete) return;
+
     fetch(`http://localhost:3010/product/${productId}`,{
         method: "DELETE",
         headers: {Authorization: localStorage.getItem("tokenAdmin")}
     })
     .then((res)=>{
         if(res.ok){
-            confirm("Sicuro di voler eliminare il prodotto?")
             console.log("Prodotto eliminato")
             setAnimation(productId)
         }else{
@@ -154,7 +164,7 @@ const editProduct = (productId) => {
     .then((res)=>{
         if(res.ok){
             console.log(res)
-            console.log(editMyProduct)
+            setTitle(null)
         }else{
             throw new Error("Errore nel modificare il prodotto")
         }
@@ -164,13 +174,93 @@ const editProduct = (productId) => {
     })
 }
 
+const data = new FormData();
+if (photo1) {
+    data.append("photo1", photo1[0]);
+}
+
+const uploadPhoto1 = (productId)=>{
+    fetch(`http://localhost:3010/product/${productId}/upload1`,{
+        method: "PATCH",
+        headers:{
+            Authorization: localStorage.getItem("tokenAdmin"),
+            Accept: "application/json",
+        },
+        body: data,
+    })
+    .then((res)=>{
+        if(res.ok){
+            console.log("immagine caricata con successo") 
+            setPhoto1Uploading(false)           
+        }else{
+            throw new Error("Errore nel caricare la foto del negozio: " + res.statusText)
+        }
+    })
+    .catch((err)=>{
+        console.log("Errore " + err)
+    })
+}
+const data2 = new FormData();
+if (photo2) {
+    data2.append("photo2", photo2[0]);
+}
+
+const uploadPhoto2 = (productId)=>{
+    fetch(`http://localhost:3010/product/${productId}/upload2`,{
+        method: "PATCH",
+        headers:{
+            Authorization: localStorage.getItem("tokenAdmin"),
+            Accept: "application/json",
+        },
+        body: data2,
+    })
+    .then((res)=>{
+        if(res.ok){
+            console.log("immagine caricata con successo") 
+            setPhoto2Uploading(false)           
+        }else{
+            throw new Error("Errore nel caricare la foto del negozio: " + res.statusText)
+        }
+    })
+    .catch((err)=>{
+        console.log("Errore " + err)
+    })
+}
+const data3 = new FormData();
+if (photo3) {
+    data3.append("photo3", photo3[0]);
+}
+
+const uploadPhoto3 = (productId)=>{
+    fetch(`http://localhost:3010/product/${productId}/upload3`,{
+        method: "PATCH",
+        headers:{
+            Authorization: localStorage.getItem("tokenAdmin"),
+            Accept: "application/json",
+        },
+        body: data3,
+    })
+    .then((res)=>{
+        if(res.ok){
+            console.log("immagine caricata con successo") 
+            setPhoto3Uploading(false)           
+        }else{
+            throw new Error("Errore nel caricare la foto del negozio: " + res.statusText)
+        }
+    })
+    .catch((err)=>{
+        console.log("Errore " + err)
+    })
+}
+
 
 useEffect(()=>{
     getMyProductInMyShop(shopId)
-},[shopId])
+},[shopId, photo1Uploading])
 
     return(
         <>
+        {viewAggiungiInserzione && 
         <div className="d-flex justify-content-center mt-4 pb-4 border-bottom">
         <Button className="d-flex align-items-center px-5 bg-dark" 
         onClick={()=>{
@@ -180,14 +270,15 @@ useEffect(()=>{
             <Plus className="fs-1"/>Aggiungi  inserzione
         </Button>
         </div>
+        }
         <Row className="m-5 d-flex justify-content-center">
             <Row>
             <Col className="d-flex flex-wrap">
             {myProduct &&
             myProduct.map((product)=>{
                 return(
-                    <Card style={{ width: '15rem' }} key={product.productId} className={`mx-4 mb-4 ${animation === product.productId ? `animate__animated animate__backOutDown`:``}`}>
-                        <Card.Img variant="top" src={product.photo1} />
+                    <Card  key={product.productId} className={`mx-4 mb-4 ${animation === product.productId ? `animate__animated animate__backOutDown`:``}`}>
+                        <Card.Img variant="top" src={product.photo1} style={{ width: "237px", height:"237px", objectFit:"cover" }}/>
                         <Card.Body className="p-0">
                             <div className="p-3">
                             <Card.Title>{product.title}</Card.Title>
@@ -200,7 +291,12 @@ useEffect(()=>{
                                 <TrashFill className="fs-4 text-secondary "  onClick={()=>{deleteProduct(product.productId)}}/>
                                 </div>
                                 <div style={{width:"40px", height:"40px", cursor:"pointer"}} className="d-flex justify-content-center align-items-center icon-effect rounded-pill">
-                                <GearFill className="fs-4 text-secondary" onClick={()=>{getSingleProduct(product.productId); setMyProduct(!myProduct)}}/>
+                                <GearFill className="fs-4 text-secondary" 
+                                onClick={()=>{
+                                    getSingleProduct(product.productId); 
+                                    setMyProduct(!myProduct);
+                                    setViewAggiungiInserzione(!viewAggiungiInserzione)
+                                    }}/>
                                 </div>
                             </Card.Text>
                         </Card.Body>
@@ -279,22 +375,137 @@ useEffect(()=>{
             }
             {singleProduct && 
             <>
-                <Row>
-                    <Col></Col>
-                    <Col><img src={singleProduct.photo1} alt={singleProduct.title} className="w-100"/></Col>
-                    <Col><img src={singleProduct.photo2} alt={singleProduct.title} className="w-100"/></Col>
-                    <Col><img src={singleProduct.photo3} alt={singleProduct.title} className="w-100"/></Col>
-                    <Col></Col>
+                <Row >
+                    <Col>
+                        <img src={singleProduct.photo1} alt={singleProduct.title} style={{ width: "280px", height:"280px", objectFit:"cover" }}/>
+                        <Form className="" 
+                        onSubmit={(e) => {
+                        e.preventDefault();
+                        uploadPhoto1(singleProduct.productId);
+                        setPhoto1Uploading(true);}}>
+                                   <Form.Control style={{width:"280px"}} className="mt-3" 
+                                  type="file"
+                                  size="sm"
+                                  required
+                                 onChange={(e)=>{setPhoto1(e.target.files)}} />
+                            <Button type="submit" className="bg-white text-black border border-1 mt-3">{photo1Uploading ? (<Spinner/>) : ("Upload")}</Button>
+                            </Form>
+                    </Col>
+                    <Col>
+                        <img src={singleProduct.photo2} alt={singleProduct.title} style={{ width: "280px", height:"280px", objectFit:"cover" }}/>
+                        <Form className="" 
+                        onSubmit={(e) => {
+                        e.preventDefault();
+                        uploadPhoto2(singleProduct.productId);
+                        setPhoto2Uploading(true);}}>
+                                   <Form.Control style={{width:"280px"}} className="mt-3" 
+                                  type="file"
+                                  size="sm"
+                                  required
+                                 onChange={(e)=>{setPhoto2(e.target.files)}} />
+                            <Button type="submit" className="bg-white text-black border border-1 mt-3">{photo2Uploading ? (<Spinner/>) : ("Upload")}</Button>
+                            </Form>
+                    </Col>
+                    <Col>
+                        <img src={singleProduct.photo3} alt={singleProduct.title} style={{ width: "280px", height:"280px", objectFit:"cover" }}/>
+                        <Form className="" 
+                        onSubmit={(e) => {
+                        e.preventDefault();
+                        uploadPhoto3(singleProduct.productId);
+                        setPhoto3Uploading(true);}}>
+                                   <Form.Control style={{width:"280px"}} className="mt-3" 
+                                  type="file"
+                                  size="sm"
+                                  required
+                                 onChange={(e)=>{setPhoto3(e.target.files)}} />
+                            <Button type="submit" className="bg-white text-black border border-1 mt-3">{photo3Uploading ? (<Spinner/>) : ("Upload")}</Button>
+                            </Form>
+                    </Col>
+                    
                 </Row>
                 <Row>
-                    <Col>
-                    <p>{singleProduct.title}</p>
-                    <p>{singleProduct.description}</p>
-                    <p>{singleProduct.price}</p>
-                    <p>{singleProduct.category.categoryId}</p>
-                    <p>{singleProduct.productType}</p>
-                    <p>{singleProduct.quantity}</p>
+                    <Form className="d-flex" 
+                         onSubmit={(e)=>{
+                        e.preventDefault(); 
+                        editProduct(singleProduct.productId)}}>
+                    <Col xs={6}>
+                        <Form.Group className="mt-3">
+                            <Form.Label>Titolo: <span className="fw-bold">{singleProduct.title} </span></Form.Label>
+                            <Form.Control placeholder="Modifica il titolo del prodotto"
+                            type="text"
+                            value={title}
+                            onChange={(e)=>{setTitle(e.target.value)}}
+                            />
+                        </Form.Group>
+                        <Form.Group className="mt-3">
+                            <Form.Label>Descrizione: <span className="fw-bold">{singleProduct.description} </span></Form.Label>
+                            <Form.Control placeholder="Modifica la descrizione del prodotto"
+                            type="text"
+                            value={description}
+                            onChange={(e)=>{setDescription(e.target.value)}}
+                            />
+                        </Form.Group>
+                        
+                        <Form.Group className="mt-3">
+                            <Form.Label>Prezzo: € <span className="fw-bold">{singleProduct.price}</span></Form.Label>
+                            <Form.Control placeholder="Modifica il prezzo del prodotto"
+                            type="number"
+                            value={price}
+                            onChange={(e)=>{setPrice(e.target.value)}}
+                            />
+                        </Form.Group>
+                        <Form.Group className="mt-3">
+                            <Form.Label>Quantità: <span className="fw-bold">{singleProduct.quantity}</span></Form.Label>
+                            <Form.Control placeholder="Modifica la quantità disponibile del prodotto"
+                            type="number"
+                            value={quantity}
+                            onChange={(e)=>{setQuantity(e.target.value)}}
+                            />
+                        </Form.Group>
+                
+                        <Form.Group className="mb-3">
+                            <Dropdown onClick={()=>{getCategory()}}  onSelect={handleSelectCategory}>
+                            <p className="my-3">Modifica la categoria del prodotto:</p>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic" className="bg-white text-secondary border border-secondary px-4">
+                                {selectCategory}
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                {categoryArtesum && categoryArtesum.map((category)=>{
+                                    return(
+                                    <Dropdown.Item eventKey={category.nameCategory} key={category.categoryId} onClick={()=>{setCategory(category.categoryId)}}>
+                                        {category.nameCategory}
+                                    </Dropdown.Item>
+                                    )
+                                })
+                                }
+                            </Dropdown.Menu>
+                            </Dropdown>
+                        </Form.Group>
+                        <Form.Group className="mb-3" >
+                                <Form.Label>Modifica il tipo di prodotto:</Form.Label>
+                                <div>
+                                    <Form.Check
+                                        inline
+                                        label="PHYSICAL"
+                                        type="checkbox"
+                                        id="physical"
+                                        checked={tipoProdotto === "PHYSICAL"}
+                                        onChange={() => setTipoProdotto("PHYSICAL")}
+                                    />
+                                    <Form.Check
+                                        inline
+                                        label="DIGITAL"
+                                        type="checkbox"
+                                        id="digital"
+                                        checked={tipoProdotto === "DIGITAL"}
+                                        onChange={() => setTipoProdotto("DIGITAL")}
+                                    />
+                                </div>
+                            </Form.Group>
+                    <Button type="submit">Conferma Modifica</Button>
                     </Col>
+                    </Form>
                 </Row>
             </>
             }
