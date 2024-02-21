@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Form, Spinner } from "react-bootstrap";
-import 'animate.css/animate.min.css';
 
 
 // per installare le animazioni https://animate.style/
