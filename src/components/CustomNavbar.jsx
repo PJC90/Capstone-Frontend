@@ -85,7 +85,7 @@ function CustomNavbar() {
             </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item >Action</Dropdown.Item>
-                  <Dropdown.Item >Modifica Profilo</Dropdown.Item>
+                  <Dropdown.Item onClick={()=>{navigate("/updateuser")}}>Gestione Profilo</Dropdown.Item>
                   <Dropdown.Item onClick={()=>{navigate("/updateshop")}}>Gestione Negozio</Dropdown.Item>
                   <Dropdown.Item onClick={handleLogout}>Log out</Dropdown.Item>
                 </Dropdown.Menu>

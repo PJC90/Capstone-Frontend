@@ -8,6 +8,7 @@ import CustomNavbar from './components/CustomNavbar'
 import BecomeSeller from './components/BecomeSeller'
 import Cart from './components/Cart'
 import ShopUpdate from './components/ShopUpdate'
+import UserUpdate from './components/UserUpdate'
 
 
 
@@ -24,6 +25,7 @@ function App() {
       <Route path="/shop/:shopId" element={<ShopDetail/>}/>
       <Route path="/becomeseller" element={<BecomeSeller/>}/>
       <Route path="/updateshop" element={<ShopUpdate/>}/>
+      <Route path="/updateuser" element={<UserUpdate/>}/>
       <Route path="/cart" element={<Cart/>}/>
     </Routes>
     </BrowserRouter>

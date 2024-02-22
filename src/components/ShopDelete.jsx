@@ -28,6 +28,9 @@ function ShopDelete({ shopId }){
       }    
 
 const deleteMySingleShop = (shopId)=>{
+        const confirmDelete = window.confirm("Sei sicuro di voler eliminare il tuo negozio?");
+        if(!confirmDelete) return;
+
         fetch(`http://localhost:3010/shop/${shopId}`,{
             method: "DELETE",
             headers:{
@@ -38,7 +41,6 @@ const deleteMySingleShop = (shopId)=>{
             if(res.ok){
                 console.log("Negozio eliminato" + res);  
                 setShowDeleteMessage(true)
-                confirm("Sei sicuro di voler eliminare il tuo negozio?")
                 setTimeout(()=>{
                     window.location.reload()
                     setShowDeleteMessage(false);
