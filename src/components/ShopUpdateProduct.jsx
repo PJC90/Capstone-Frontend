@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { Alert, Button, Card, Col, Container, Dropdown, Form, Row, Spinner } from "react-bootstrap"
-import { GearFill, PencilSquare, Plus, Trash2Fill, Trash3Fill, TrashFill } from "react-bootstrap-icons"
+import { Alert, Button, Card, Col, Dropdown, Form, Row, Spinner } from "react-bootstrap"
+import { GearFill, Plus, TrashFill } from "react-bootstrap-icons"
 
 function ShopUpdateProduct({ shopId }){
 const [viewAggiungiInserzione, setViewAggiungiInserzione] = useState(true)    
@@ -23,6 +23,7 @@ const [photo2, setPhoto2] = useState(null)
 const [photo2Uploading, setPhoto2Uploading] = useState(false)
 const [photo3, setPhoto3] = useState(null)
 const [photo3Uploading, setPhoto3Uploading] = useState(false)
+const [dontViewCard, setDontViewCard] = useState(false)
 
 const handleSelectCategory = (eventKey) => {
     setSelectCategory(eventKey)
@@ -191,7 +192,8 @@ const uploadPhoto1 = (productId)=>{
     .then((res)=>{
         if(res.ok){
             console.log("immagine caricata con successo") 
-            setPhoto1Uploading(false)           
+            setPhoto1Uploading(false)   
+            setDontViewCard(true)      
         }else{
             throw new Error("Errore nel caricare la foto del negozio: " + res.statusText)
         }
@@ -256,11 +258,15 @@ const uploadPhoto3 = (productId)=>{
 
 useEffect(()=>{
     getMyProductInMyShop(shopId)
-},[shopId, photo1Uploading])
+    getSingleProduct(singleProduct.productId)
+},[shopId, photo1Uploading, photo2Uploading, photo3Uploading])
+
+
+
 
     return(
         <>
-        {viewAggiungiInserzione && 
+        {(viewAggiungiInserzione && !dontViewCard) &&
         <div className="d-flex justify-content-center mt-4 pb-4 border-bottom">
         <Button className="d-flex align-items-center px-5 bg-dark" 
         onClick={()=>{
@@ -272,6 +278,9 @@ useEffect(()=>{
         </div>
         }
         <Row className="m-5 d-flex justify-content-center">
+        {!photo1Uploading &&
+        <>
+        {!dontViewCard && 
             <Row>
             <Col className="d-flex flex-wrap">
             {myProduct &&
@@ -305,6 +314,9 @@ useEffect(()=>{
                     }
             </Col>
             </Row>
+            }
+            </>
+             }
             {createProduct &&
             <Col xs={8} >
             <Form
@@ -382,7 +394,8 @@ useEffect(()=>{
                         onSubmit={(e) => {
                         e.preventDefault();
                         uploadPhoto1(singleProduct.productId);
-                        setPhoto1Uploading(true);}}>
+                        setPhoto1Uploading(true);
+                        }}>
                                    <Form.Control style={{width:"280px"}} className="mt-3" 
                                   type="file"
                                   size="sm"
