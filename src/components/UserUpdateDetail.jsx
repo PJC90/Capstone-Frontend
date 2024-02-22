@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
-import { PencilSquare } from "react-bootstrap-icons";
+import { PencilSquare, XCircleFill } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
 
 function UserUpdateDetail(props){
 // Utilizzo destructuring per estrarre il valore di user dalle props
 const { user, refresh} = props;
+
+const navigate = useNavigate()
 
 const [image, setImage] = useState(null)
 const [imageIsUploading, setImageIsUploading] = useState(false)
 const [imageUploaded, setImageUploaded] = useState(false)
 const [finishEdit, setFinishEdit] = useState(false)
 const [showAlert, setShowAlert] = useState(false)
+const [deleteSuccess, setDeleteSuccess] = useState(false)
 
 // CHIUDE GLI INPUT PER LA MODIFICA DEI CAMPI (Modifica Profilo)
 const [edit1, setEdit1] = useState(false)
@@ -74,6 +78,35 @@ const editProfile = () =>{
     })
 }
 
+const deleteUser = () =>{
+    const confirmDelete = window.confirm("Sicuro di voler eliminare il tuo profilo utente?");
+    if(!confirmDelete) return;
+
+    fetch("http://localhost:3010/users/me",{
+        method:"DELETE",
+        headers:{Authorization:localStorage.getItem("tokenAdmin")}
+    })
+    .then((res)=>{
+        if(res.ok){
+            console.log("Profilo Utente Eliminato")
+            console.log(res)
+            setDeleteSuccess(true)
+             // Cancello LO STORAGE PER DISATTIVARE L'ICONA utente LOGGATO
+            localStorage.clear()
+            setTimeout(()=>{
+                navigate("/")
+                window.location.reload()
+            },2000)
+        }else{
+            confirm("Non è stato possile eliminare il tuo profilo, magari ci sono ancora ordini in corso, oppure hai ancora negozi aperti!")
+            throw new Error("Non è stato possibile cancellare")
+        }
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+}
+
 const data = new FormData()
 if (image){
     data.append("image", image[0])
@@ -104,7 +137,7 @@ const uploadImage = () =>{
 }
 
 useEffect(() => {
-    if(imageUploaded || finishEdit){
+    if(imageUploaded || finishEdit ){
         refresh()
     }
     
@@ -112,7 +145,9 @@ useEffect(() => {
 
     return(
         <Container>
-            <Row>
+            <Row className="d-flex justify-content-center">
+{/*-------------------------------------------------------COL1---------------------------------------------------------------------------------------------------- */}
+
                 <Col xs={4}>
                 <img src={user.avatar} alt="image-profile" className="w-100 h-100 img-fluid" style={{maxHeight:"400px",objectFit:"cover"}}/>
                     <Form  
@@ -132,8 +167,21 @@ useEffect(() => {
                             </Col>
                         </Row>
                      </Form>
+{/*------------------------------------------------- ELIMINA PROFILO----------------------------------------------------------------------------------------- */}
+                     <Row className="d-flex flex-column" style={{height:"300px"}}>
+                        <Col className="m-0 d-flex align-items-center">
+                            <Button className="bg-dark d-flex align-items-center border border-0" onClick={()=>{deleteUser()}}>
+                                <XCircleFill className="me-3"/> 
+                                Elimina profilo
+                            </Button>
+                        </Col>
+                        <Col>
+                            {deleteSuccess && <Alert>Profilo Eliminato</Alert>}
+                        </Col>
+                     </Row>
                 </Col>
-                <Col>
+{/*-------------------------------------------------------COL2---------------------------------------------------------------------------------------------------- */}
+                <Col xs={4}>
                 <Form onSubmit={(e)=>{e.preventDefault(); editProfile()}}>
                     <Form.Group  className="mb-3" >
                         <Form.Label column >
