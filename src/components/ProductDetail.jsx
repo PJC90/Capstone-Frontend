@@ -76,6 +76,7 @@ function ProductDetail(){
       .then((data)=>{
         console.log("Carrello: ")
           console.log(data)
+          window.location.reload()
       })
       .catch((err)=>{
         console.log(err)

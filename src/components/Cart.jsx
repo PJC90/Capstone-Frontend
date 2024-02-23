@@ -64,38 +64,34 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
     return acc;
   }, {});
   
-  // Mappa i risultati raggruppati
-  const groupedProductCards = Object.values(groupedProducts).map((product) => (
-    <Col key={product.productId} className="">
-      <Row className="border-black border-bottom">
-        <Col xs={2} md={6} className="">
-          <img src={product.photo1} alt="image-product" className="img-fluid border rounded-5 my-3" />
-        </Col>
-        <Col className="d-flex flex-column justify-content-center justify-content-evenly my-5">
-          <p>Prodotto: <span className="fw-bold text-capitalize fs-5 ms-2"> {product.title}</span></p>
-          <p>{product.productType === "PHYSICAL" ? "Consegna in 7 giorni" :
-            (product.productType === "DIGITAL") ? "Download istantaneo" : ""}</p>
-          <p>Prezzo: <span className="fw-bold text-capitalize fs-3 ms-2"> {product.price} €</span></p>
-          <p>Quantità: <span className="fw-bold text-capitalize fs-3 ms-2">{product.quantity}</span></p>
-          <Button className="bg-black d-block w-50" onClick={() => { deleteProductInCart(product.productId) }}>Rimuovi</Button>
-        </Col>
-      </Row>
-    </Col>
-  ));
-
     return(
         <Container>
-            <Row className="d-flex flex-row mt-5">
+        {Object.values(groupedProducts).map((product) => (
+            <Row className="d-flex flex-row mt-5" key={product.productId}>
                 <Col xs={7}>
                     <Row className="d-flex flex-column border border-black rounded-5">
-                    {groupedProductCards}
-                    </Row>
+                            <Col className="">
+                                <Row className="border-black border-bottom">
+                                    <Col xs={2} md={6} className="">
+                                    <img src={product.photo1} alt="image-product" className="img-fluid border rounded-5 my-3" />
+                                    </Col>
+                                    <Col className="d-flex flex-column justify-content-center justify-content-evenly my-5">
+                                    <p>Prodotto: <span className="fw-bold text-capitalize fs-5 ms-2"> {product.title}</span></p>
+                                    <p>{product.productType === "PHYSICAL" ? "Consegna in 7 giorni" :
+                                        (product.productType === "DIGITAL") ? "Download istantaneo" : ""}</p>
+                                    <p>Prezzo: <span className="fw-bold text-capitalize fs-3 ms-2"> {product.price} €</span></p>
+                                    <p>Quantità: <span className="fw-bold text-capitalize fs-3 ms-2">{product.quantity}</span></p>
+                                    <Button className="bg-black d-block w-50 border-0" onClick={() => { deleteProductInCart(product.productId) }}>Rimuovi</Button>
+                                    </Col>
+                                </Row>
+                                </Col>
+                        </Row>
                     </Col>
                     <Col className="mt-5 mx-5 text-center">
                         <div className="mx-4">
                         <div className="d-flex justify-content-between">
                         <p>Totale articoli:</p>
-                        <p>tot</p>
+                        <p>{product.quantity * product.price} €</p>
                         </div>
                         <div className="d-flex justify-content-between  border-bottom">
                         <p>Sconto del negozio:</p>
@@ -103,19 +99,20 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                         </div>
                         <div className="d-flex justify-content-between border-bottom mt-2">
                         <p>Subtotale</p>
-                        <p>no iva</p>
+                        <p>{product.quantity * product.price} €</p>
                         </div>
                         <div className="d-flex justify-content-between mt-3">
                         <p>Totale Iva Inclusa:</p>
-                        <p> Iva </p>
+                        <p> {(product.quantity * product.price * 1.22).toFixed(2)} €</p>
                         </div>
                         </div>
                         <Button className="bg-dark px-5 rounded-pill border-0 mt-3">Procedi all'acquisto</Button>
                         <p className="mt-4 text-body-tertiary mt-4"> Imposte locali incluse (dove applicabili)</p>
                         <p className="text-body-tertiary"> È possibile che vengano applicati oneri e tasse aggiuntivi</p>
                         {showDelete && <Alert>Prodotto Eliminato</Alert>}  
-                    </Col>              
+                    </Col>        
             </Row>
+            ))}    
         </Container>
     )
 }
