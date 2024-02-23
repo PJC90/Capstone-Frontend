@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button, Col, Dropdown, Form, InputGroup, Row} from 'react-bootstrap';
-import {  List, Person, Search } from 'react-bootstrap-icons';
+import { List, Person, Search } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -10,16 +10,41 @@ import { useNavigate } from 'react-router-dom';
 function CustomNavbar() {
   const [modalShow, setModalShow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [productCart, setProductCart] = useState([]);
+
   const navigate = useNavigate();
 
+  const getProductInMyCart = () =>{
+    fetch("http://localhost:3010/cart/productInCart",{
+      headers:{Authorization:localStorage.getItem("tokenAdmin")},
+    })
+    .then((res)=>{
+      if(res.ok){
+        return res.json()
+      }else{
+        throw new Error("Errore nel recupero del tuo carrello")
+      }
+    })
+    .then((data)=>{
+        setProductCart(data)
+        console.log("Prodotti nel mio carrello:")
+        console.log(data)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+ 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (isLoggedIn === "true") {
-      setIsLoggedIn(true);
-    }
+        setIsLoggedIn(true);
+        getProductInMyCart();
+      }
     //  viene eseguito solo al montaggio iniziale(componentDidMount) 
     //  legge lo storage per vedere se sei loggato cosi compare l'icona di quanto sei loggato
   }, []);
+
 
   const handleLoginSuccess = () => {
     localStorage.setItem("isLoggedIn", "true");
@@ -109,7 +134,8 @@ function CustomNavbar() {
                     height: "50px", // Imposta l'altezza del cerchio
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "center", 
+                    cursor:"pointer"
                   }}
                 >
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
@@ -119,23 +145,29 @@ function CustomNavbar() {
   </Col>
 {/*--------------------------------------------- LOGO CARRELLO ----------------------------------------------------*/}
   <Col >
-  <div className='icon-effect'
-                  style={{
-                    backgroundColor: "rgba(255, 255, 255)",
-                    padding: "5px",
-                    borderRadius: "50%", // Imposta il bordo a metà della larghezza e altezza
-                    width: "50px", // Imposta la larghezza del cerchio
-                    height: "50px", // Imposta l'altezza del cerchio
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center"
-                  }}
-                  onClick={()=>{navigate("/cart")}}
-                >
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"  viewBox="0 0 16 16">
-  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
-</svg>
-      </div>
+      <div className='icon-effect'
+                      style={{
+                        backgroundColor: "rgba(255, 255, 255)",
+                        padding: "5px",
+                        borderRadius: "50%", // Imposta il bordo a metà della larghezza e altezza
+                        width: "50px", // Imposta la larghezza del cerchio
+                        height: "50px", // Imposta l'altezza del cerchio
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        cursor:"pointer",
+                        position:"relative"
+                      }}
+                      onClick={()=>{navigate("/cart");}}
+                    >
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"  viewBox="0 0 16 16">
+      <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+          </svg>
+          <div style={{position:"absolute", bottom:"-3px", right:"-3px", width:"20px", height:"20px"}} 
+          className='bg-danger rounded-pill text-white d-flex justify-content-center align-items-center '>
+            {productCart && productCart.length}</div>
+    </div>
+
   </Col>
 
 </Row>

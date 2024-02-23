@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-import CustomNavbar from "./CustomNavbar"
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -58,6 +57,30 @@ function ProductDetail(){
         console.log(err);
       })
     }
+
+    const addProductToCart = (productId) => {
+      fetch(`http://localhost:3010/cart/${productId}/addproduct`,{
+        method:"POST",
+        headers:{
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("tokenAdmin")
+        },
+      })
+      .then((res)=>{
+        if(res.ok){
+          return res.json()
+        }else{
+          throw new Error("Errore nell'aggiungere il prodotto nel carrello")
+        }
+      })
+      .then((data)=>{
+        console.log("Carrello: ")
+          console.log(data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    }
   
     useEffect(() => {
       // Esegui la fetch dei dettagli del prodotto quando l'ID del prodotto cambia
@@ -114,12 +137,24 @@ function ProductDetail(){
                 <Col>
                 {productDetail ? (
                           <>
-                          <div>{productDetail.title}</div>
-                          <div>{productDetail.description}</div>
-                          <div>Tipo di prodotto: {productDetail.productType}</div>
-                          <div>{productDetail.price}</div>
+                          <div><p className="m-0">Titolo:</p></div>
+                          <div><h3 className="text-capitalize">{productDetail.title}</h3></div>
+                          <div><p className="m-0">Descrizione:</p></div>
+                          <div><h5>{productDetail.description}</h5></div>
+                          <div><p className="m-0">Tipo di prodotto:</p></div>
+                          <div><h5>
+                            {(productDetail.productType === "PHYSICAL") ? "Prodotto Fisico" : 
+                              (productDetail.productType === "DIGITAL") ? "Prodotto Digitale" : ""}
+                          </h5></div>
+                          <div><p className="m-0">Prezzo:</p></div>
+                          <div><span className="fw-bold fs-5">{productDetail.price} €</span></div>
                           <Button className="bg-dark py-2 rounded-pill my-2 d-block w-100">Acquista</Button>
-                          <Button className="bg-white text-dark border-black border-2 py-2 rounded-pill d-block my-2 w-100">Aggiungi al carrello</Button>
+                          <Button className="bg-white text-dark border-black border-2 py-2 rounded-pill d-block my-2 w-100" 
+                          onClick={()=>{
+                            addProductToCart(productDetail.productId);
+                          }}>
+                            Aggiungi al carrello
+                          </Button>
                           <Button className="py-2 rounded-pill icon-effect my-2 w-100"><HeartFill/>  Aggiungi ai preferiti</Button>
                           </>
                       ) : (
