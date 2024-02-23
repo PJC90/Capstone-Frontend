@@ -42,12 +42,11 @@ const handleRefresh = () =>{
             <Row className="d-flex justify-content-start h-100" >
  {/*-------------------------------------------------------------------- LEFT SIDEBAR ------------------------------------------------------------------------------               */}
                 <Col xs={2} className="border-2 border-end d-flex flex-column" style={{width:"250px"}} >
- {/* Se non hai negozi compare una schermata per aprire un nuovo negozio */}
                     <Row className="mt-5 ms-1" >
                         {userMe ? (
                         <Col className="d-flex flex-column align-items-start mt-5" > 
                         <div className=" text-capitalize ms-4 d-flex flex-column align-items-center">
-                        <img src={userMe.avatar} alt="image-profile" className="rounded-pill" style={{width:"80px", height:"80px"}} />
+                        <img src={userMe.avatar} alt="image-profile" className="rounded-pill" style={{width:"80px", height:"80px", objectFit:"cover"}} />
                         <p className="fw-bold fs-6 mb-0">{userMe.name}</p>
                         <p className="fw-bold fs-6 mt-0">{userMe.surname}</p>
                         </div>

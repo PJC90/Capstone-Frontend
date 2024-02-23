@@ -24,6 +24,7 @@ const [photo2Uploading, setPhoto2Uploading] = useState(false)
 const [photo3, setPhoto3] = useState(null)
 const [photo3Uploading, setPhoto3Uploading] = useState(false)
 const [dontViewCard, setDontViewCard] = useState(false)
+const [deleteSuccess, setDeleteSuccess] = useState(false)
 
 const handleSelectCategory = (eventKey) => {
     setSelectCategory(eventKey)
@@ -125,6 +126,9 @@ const deleteProduct = (productId)=>{
         if(res.ok){
             console.log("Prodotto eliminato")
             setAnimation(productId)
+            setTimeout(()=>{
+                setDeleteSuccess(true)
+            }, 1000)
         }else{
             throw new Error("Errore nell'eliminare il prodotto")
         }
@@ -219,7 +223,8 @@ const uploadPhoto2 = (productId)=>{
     .then((res)=>{
         if(res.ok){
             console.log("immagine caricata con successo") 
-            setPhoto2Uploading(false)           
+            setPhoto2Uploading(false) 
+            setDontViewCard(true)           
         }else{
             throw new Error("Errore nel caricare la foto del negozio: " + res.statusText)
         }
@@ -245,7 +250,8 @@ const uploadPhoto3 = (productId)=>{
     .then((res)=>{
         if(res.ok){
             console.log("immagine caricata con successo") 
-            setPhoto3Uploading(false)           
+            setPhoto3Uploading(false)
+            setDontViewCard(true)            
         }else{
             throw new Error("Errore nel caricare la foto del negozio: " + res.statusText)
         }
@@ -258,8 +264,10 @@ const uploadPhoto3 = (productId)=>{
 
 useEffect(()=>{
     getMyProductInMyShop(shopId)
-    getSingleProduct(singleProduct.productId)
-},[shopId, photo1Uploading, photo2Uploading, photo3Uploading])
+    if(singleProduct.productId){
+        getSingleProduct(singleProduct.productId)
+    }
+},[shopId, photo1Uploading, photo2Uploading, photo3Uploading, deleteSuccess])
 
 
 

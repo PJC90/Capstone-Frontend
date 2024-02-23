@@ -107,13 +107,14 @@ function BecomeSeller(){
              
             {show && (isShopCreated && !isLoading)&& (
                 <Row className="mt-3 d-flex justify-content-center ">
-                    <Col  className="bg-warning py-4 rounded-5 animate__animated animate__zoomInDown" xs={8}>
+                    <Col  className="border border-black border-5 bg-warning py-4 rounded-5 animate__animated animate__zoomInDown" xs={8}>
                         <h2>Congratulazioni!</h2>
                         <p className="fs-4">Hai appena creato questo negozio:</p>
                         <h1 className="text-white py-4">{shopName}</h1>
                         <p className="fs-4">Continua così!</p>
                         <p className="fs-4">Il tuo negozio è pronto per decollare.</p>
-                        <p className="fs-4">Vai nella sezione profilo per aggiungere ulteriori dettagli.</p>
+                        <p className="fs-4">Vai nella sezione profilo ⮕ Gestione Negozio</p>
+                        <p className="fs-4">per aggiungere ulteriori dettagli.</p>
                     </Col>
                 </Row>
             )}
