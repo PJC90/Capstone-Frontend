@@ -135,7 +135,7 @@ function ProductDetail(){
 
                 </Col>
  {/* ----------------------------------------------   RIGHT PAGE   ------------------------------------------------------------------------------------- */}
-                <Col>
+                <Col lg={4}>
                 {productDetail ? (
                           <>
                           <div><p className="m-0">Titolo:</p></div>
@@ -165,7 +165,9 @@ function ProductDetail(){
                           <>
                           <Row className="mt-4">
                             <Col xs={2}>
-                            <div><img src={productDetail.shop.logoShop} alt={productDetail.shop.shopName}/></div>
+                            <div >
+                              <img src={productDetail.shop.logoShop} alt={productDetail.shop.shopName} style={{width:"70px", height:"70px", objectFit:"cover"}}/>
+                            </div>
                             </Col>
                             <Col>
                             <div>Ti presentiamo il venditore: </div>

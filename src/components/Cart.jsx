@@ -66,11 +66,12 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
   
     return(
         <Container>
-        {Object.values(groupedProducts).map((product) => (
-            <Row className="d-flex flex-row mt-5" key={product.productId}>
-                <Col xs={7}>
+            <Row className="d-flex flex-row mt-5" >
+          
+                <Col xs={7} >
                     <Row className="d-flex flex-column border border-black rounded-5">
-                            <Col className="">
+        {Object.values(groupedProducts).map((product) => (
+                            <Col className="" key={product.productId}>
                                 <Row className="border-black border-bottom">
                                     <Col xs={2} md={6} className="">
                                     <img src={product.photo1} alt="image-product" className="img-fluid border rounded-5 my-3" />
@@ -85,13 +86,15 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                                     </Col>
                                 </Row>
                                 </Col>
+                                ))}
                         </Row>
                     </Col>
                     <Col className="mt-5 mx-5 text-center">
                         <div className="mx-4">
                         <div className="d-flex justify-content-between">
                         <p>Totale articoli:</p>
-                        <p>{product.quantity * product.price} €</p>
+                        <p>111 €</p>
+                        {/* <p>{product.quantity * product.price} €</p> */}
                         </div>
                         <div className="d-flex justify-content-between  border-bottom">
                         <p>Sconto del negozio:</p>
@@ -99,20 +102,23 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                         </div>
                         <div className="d-flex justify-content-between border-bottom mt-2">
                         <p>Subtotale</p>
-                        <p>{product.quantity * product.price} €</p>
+                        <p>111 €</p>
+                        {/* <p>{product.quantity * product.price} €</p> */}
                         </div>
                         <div className="d-flex justify-content-between mt-3">
                         <p>Totale Iva Inclusa:</p>
-                        <p> {(product.quantity * product.price * 1.22).toFixed(2)} €</p>
+                        <p>111  €</p>
+                        {/* <p> {(product.quantity * product.price * 1.22).toFixed(2)} €</p> */}
                         </div>
                         </div>
                         <Button className="bg-dark px-5 rounded-pill border-0 mt-3">Procedi all'acquisto</Button>
                         <p className="mt-4 text-body-tertiary mt-4"> Imposte locali incluse (dove applicabili)</p>
                         <p className="text-body-tertiary"> È possibile che vengano applicati oneri e tasse aggiuntivi</p>
                         {showDelete && <Alert>Prodotto Eliminato</Alert>}  
-                    </Col>        
+                    </Col> 
+                        
+                
             </Row>
-            ))}    
         </Container>
     )
 }

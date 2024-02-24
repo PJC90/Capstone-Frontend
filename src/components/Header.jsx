@@ -5,7 +5,7 @@ function Header(){
     const [category, setCategory] = useState(null);
 
     const getCategory = () => {
-        fetch("http://localhost:3010/category", {
+        fetch("http://localhost:3010/category?page=0&size=100&order=nameCategory", {
             headers:{ Authorization: localStorage.getItem("tokenAdmin")}
         })
         .then((res)=>{
@@ -17,7 +17,7 @@ function Header(){
         })
         .then((data)=>{
             console.log(data);
-            setCategory(data);
+            setCategory(data.content);
         })
         .catch((err)=>{
             console.log(err);

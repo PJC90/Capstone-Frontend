@@ -17,6 +17,9 @@
     fill: red;
     stroke: red;
   }
+.logo-effect:hover{
+  transform: scale(1.15);
+}
   .artesum-button {
     background-color: transparent !important; /* Rimuove lo sfondo */
     color: black !important; /* Cambia il colore del testo in nero */

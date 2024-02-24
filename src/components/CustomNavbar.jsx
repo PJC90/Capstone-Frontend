@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Col, Dropdown, Form, InputGroup, Row} from 'react-bootstrap';
 import { List, Person, Search } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
@@ -11,6 +11,7 @@ function CustomNavbar() {
   const [modalShow, setModalShow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [productCart, setProductCart] = useState([]);
+  const [categories, setCategories] = useState([])
 
   const navigate = useNavigate();
 
@@ -29,6 +30,27 @@ function CustomNavbar() {
         setProductCart(data)
         console.log("Prodotti nel mio carrello:")
         console.log(data)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
+  const getCategories = () =>{
+    fetch("http://localhost:3010/category?page=0&size=100&order=nameCategory",{
+      headers:{Authorization:localStorage.getItem("tokenAdmin")}
+    })
+    .then((res)=>{
+      if(res.ok){
+        return res.json()
+      }else{
+        throw new Error("Errore nel ricevere categorie")
+      }
+    })
+    .then((data)=>{
+      setCategories(data.content)
+      console.log("Categorie")
+      console.log(data)
     })
     .catch((err)=>{
       console.log(err)
@@ -70,20 +92,21 @@ function CustomNavbar() {
 {/*--------------------------------------------- LOGO ARTESUM ----------------------------------------------------*/}
         <Col>
              <Navbar.Brand href="/" onClick={()=>{navigate('/')}}>
-              <img src='/artesum-orange.png' alt="logo-artesum" width="130"/>
+              <img src='/artesum-orange.png' alt="logo-artesum" width="130" className='logo-effect'/>
               </Navbar.Brand>
        </Col>
 {/*------------------------------------------------ CATEGORIE ----------------------------------------------------*/}
        <Col >
             <Nav >
-              <Dropdown >
+              <Dropdown onClick={()=>{getCategories()}}>
                 <Dropdown.Toggle id="dropdown-basic" className='custom-dropdown-toggle icon-effect rounded-pill' >
                 <List className='me-2'/> Categorie
                 </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    <Dropdown.Menu>{categories && categories.map((category, i)=>{
+                      return(
+                        <Dropdown.Item key={i} onClick={()=>{navigate(`/category/${category.categoryId}`)}}>{category.nameCategory}</Dropdown.Item>
+                      )
+                    })}
                     </Dropdown.Menu>
               </Dropdown>
             </Nav>

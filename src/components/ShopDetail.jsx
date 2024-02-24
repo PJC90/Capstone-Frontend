@@ -118,7 +118,7 @@ const calculateAverageRating = () => {
                     <Col xs={2} className="">
                         <Row className="d-flex flex-column ">
                             <Col className="d-flex flex-column align-items-center">
-                            <img src={shopDetail.seller.avatar} alt={shopDetail.shopName} className="rounded-pill" style={{height:"90px", width: "90px"}}/>
+                            <img src={shopDetail.seller.avatar} alt={shopDetail.shopName} className="rounded-pill" style={{height:"90px", width: "90px", objectFit:"cover"}}/>
                             </Col>
                             <Col className="d-flex flex-column align-items-center">
                             <p className="m-0 mt-3">Proprietario Negozio:</p>

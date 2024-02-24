@@ -31,7 +31,7 @@ const handleSelectCategory = (eventKey) => {
 }
 
 const getCategory = () =>{
-    fetch("http://localhost:3010/category",{
+    fetch("http://localhost:3010/category?page=0&size=100&order=nameCategory",{
         headers: {Authorization:localStorage.getItem("tokenAdmin")}
     })
     .then((res)=>{
@@ -42,7 +42,7 @@ const getCategory = () =>{
         }
     })
     .then((data)=>{
-        setCategoryArtsem(data)
+        setCategoryArtsem(data.content)
         console.log("Categorie:")
         console.log(data)
     })
