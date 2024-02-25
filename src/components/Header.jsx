@@ -27,7 +27,7 @@ function Header(){
         getCategory();
     },[]);
     return(
-        <div className="bg-header">
+        <div>
             <h1 className="d-flex justify-content-center fs-3 p-3">Qui trovi solo prodotti unici, sostieni i maker indipendenti!</h1>
         <Container className="py-2">
       <Row className="justify-content-center">

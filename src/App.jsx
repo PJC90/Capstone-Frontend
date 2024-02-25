@@ -10,6 +10,7 @@ import Cart from './components/Cart'
 import ShopUpdate from './components/ShopUpdate'
 import UserUpdate from './components/UserUpdate'
 import ProductByCategory from './components/ProductByCategory'
+import ProductBySearch from './components/ProductBySearch'
 
 
 
@@ -24,6 +25,7 @@ function App() {
       <Route path='/' element={<Homepage/>}/>
       <Route path='/product/:productId' element={<ProductDetail/>}/>
       <Route path='/category/:categoryId' element={<ProductByCategory/>}/>
+      <Route path='/searchwith' element={<ProductBySearch/>}/>
       <Route path="/shop/:shopId" element={<ShopDetail/>}/>
       <Route path="/becomeseller" element={<BecomeSeller/>}/>
       <Route path="/updateshop" element={<ShopUpdate/>}/>

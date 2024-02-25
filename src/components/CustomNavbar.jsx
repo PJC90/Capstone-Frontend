@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Button, Col, Dropdown, Form, InputGroup, Row} from 'react-bootstrap';
-import { List, Person, Search } from 'react-bootstrap-icons';
+import { Archive, BoxArrowDownLeft, BoxArrowLeft, ChatLeft, Gear, GearWideConnected, List, Person, Search, Star } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Login from './Login';
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 function CustomNavbar() {
   const [modalShow, setModalShow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [productCart, setProductCart] = useState([]);
   const [categories, setCategories] = useState([])
+  const [search, setSearch] = useState(``)
+  const [productBySearch, setProductBySearch] = useState([])
 
   const navigate = useNavigate();
 
@@ -56,7 +58,38 @@ function CustomNavbar() {
       console.log(err)
     })
   }
+
+  const getProductStartWith = () => {
+    fetch(`http://localhost:3010/product/startWith?title=${search}`,{
+      headers:{Authorization:localStorage.getItem("tokenAdmin")}
+    })
+    .then((res)=>{
+      if(res.ok){
+        return res.json()
+      }else{
+        throw new Error("Errore nel ricevere prodotto in base al titolo")
+      }
+    })
+    .then((data)=>{
+      setProductBySearch(data)
+      console.log("Prodotti By Title:")
+      console.log(data)
+      
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
  
+  useEffect(() => {
+    if (productBySearch.length > 0) {
+      navigate('/searchwith', { state: { searchValue: productBySearch } });
+      console.log("productBySearch:")
+      console.log(productBySearch)
+    }
+  }, [productBySearch]);
+
+
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (isLoggedIn === "true") {
@@ -86,7 +119,7 @@ function CustomNavbar() {
 
   return (
     <>
-    <Navbar expand="lg" className="border-2 border-bottom" >
+    <Navbar expand="lg" className="fixed-top sticky-top bg-white" style={{ boxShadow: "0px 10px 20px 0px rgba(0,0,0,0.1), 0px 4px 8px 0px rgba(0,0,0,0.01)" }}>
       <Container className='mt-2 mb-2'>
       <Row className='w-100 d-flex flex-nowrap align-items-center'>
 {/*--------------------------------------------- LOGO ARTESUM ----------------------------------------------------*/}
@@ -113,16 +146,22 @@ function CustomNavbar() {
         </Col>
 {/*------------------------------------------------ INPUT ----------------------------------------------------*/}
         <Col xs={7}>
-          <InputGroup size="md" className="custom-input-group rounded-pill bg-white ">
-            <Form.Control
-                  placeholder='Cerca tutto quello che vuoi'
-                  aria-label="Large"
-                  aria-describedby="inputGroup-sizing-sm"
-                  className="m-1 rounded-pill border border-0"
-                />
-            <InputGroup.Text id="inputGroup-sizing-lg" className="custom-input-group-text rounded-pill" style={{ cursor: 'pointer' }}><Search/></InputGroup.Text>
-            </InputGroup>
-            </Col>
+         <InputGroup >
+            <Form.Control className="bg-body-tertiary "
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+              placeholder='    |    Cerca qui'
+                value={search}
+                onChange={(e)=>{setSearch(e.target.value)}}
+            />
+                <Button onClick={()=>{
+                  getProductStartWith();
+                 
+                  }} className='bg-body-tertiary border border-start-0 pe-2 py-1'>
+                <Search className='fs-1 p-2 rounded-2 fw-bold search-custom' style={{width:"50px"}}/>
+                </Button>
+      </InputGroup>
+        </Col>
 {/*------------------------------------------------ ACCEDI ----------------------------------------------------*/}
     <Col >
             {isLoggedIn ?(
@@ -132,10 +171,14 @@ function CustomNavbar() {
             <Person style={{width:'30px', height:'30px'}}/>
             </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item >Action</Dropdown.Item>
-                  <Dropdown.Item onClick={()=>{navigate("/updateuser")}}>Gestione Profilo</Dropdown.Item>
-                  <Dropdown.Item onClick={()=>{navigate("/updateshop")}}>Gestione Negozio</Dropdown.Item>
-                  <Dropdown.Item onClick={handleLogout}>Log out</Dropdown.Item>
+                  <Dropdown.Item ><Archive className='me-2'/>Aquisti</Dropdown.Item>
+                  <Dropdown.Item ><Star className='me-2'/>Recensioni</Dropdown.Item>
+                  <Dropdown.Item ><ChatLeft className='me-2'/>Messaggi</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={()=>{navigate("/updateuser")}}><Gear className='me-2'/>Gestione Profilo</Dropdown.Item>
+                  <Dropdown.Item onClick={()=>{navigate("/updateshop")}}><GearWideConnected className='me-2'/>Gestione Negozio</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleLogout}><BoxArrowLeft className='me-2'/>Log out</Dropdown.Item>
                 </Dropdown.Menu>
           </Dropdown>
             ):(
