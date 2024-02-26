@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Row } from "react-bootstrap";
+import PayPalCheckOut from "./utils/PayPalCheckout";
 
 function Cart(){
 
     const[productsInCart, setProductsInCart] = useState([])
     const [showDelete, setshowDelete] = useState(false)
+    const [showPayPal, setShowPayPal] = useState(false);
 
     const getAllProductInCart = () => {
         fetch("http://localhost:3010/cart/productInCart",{
@@ -112,7 +114,10 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                         {/* <p> {(product.quantity * product.price * 1.22).toFixed(2)} €</p> */}
                         </div>
                         </div>
-                        <Button className="bg-dark px-5 rounded-pill border-0 mt-3">Procedi all'acquisto</Button>
+                        <Button className="bg-dark px-5 rounded-pill border-0 mt-3" onClick={()=>{setShowPayPal(true)}}>Procedi all'acquisto</Button>
+                        {showPayPal &&
+                        <PayPalCheckOut/>
+                        }
                         <p className="mt-4 text-body-tertiary mt-4"> Imposte locali incluse (dove applicabili)</p>
                         <p className="text-body-tertiary"> È possibile che vengano applicati oneri e tasse aggiuntivi</p>
                         {showDelete && <Alert>Prodotto Eliminato</Alert>}  
