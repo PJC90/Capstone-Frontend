@@ -100,7 +100,7 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                         <div className="mx-4">
                         <div className="d-flex justify-content-between">
                         <p>Totale articoli:</p>
-                        <p>111 €</p>
+                        <p>{calculateTotal()} €</p>
                         {/* <p>{product.quantity * product.price} €</p> */}
                         </div>
                         <div className="d-flex justify-content-between  border-bottom">
@@ -114,7 +114,7 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                         </div>
                         <div className="d-flex justify-content-between mt-3">
                         <p>Totale Iva Inclusa:</p>
-                        <p>{calculateTotal() * 1.22}  €</p>
+                        <p>{(calculateTotal() * 1.22).toFixed(2)}  €</p>
                         {/* <p> {(product.quantity * product.price * 1.22).toFixed(2)} €</p> */}
                         </div>
                         </div>

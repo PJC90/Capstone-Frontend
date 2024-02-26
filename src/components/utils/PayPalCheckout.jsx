@@ -39,12 +39,31 @@ function PayPalCheckOut({ cartItems, total, onClose }){
         console.log('Payment details:', details);
         // Chiudi il componente o esegui altre azioni necessarie
         onClose();
-      })
-    }
+        // Rimuovi i prodotti dal carrello
+        deleteAllProductInCart();
+    })
+  }
     //capture likely error
     const onError = (data, actions) => {
       setErrorMessage('An Error occured with your payment ')
     }
+
+    const deleteAllProductInCart = () =>{
+      fetch(`http://localhost:3010/cart/removeAll`,{
+          method: "DELETE",
+          headers:{Authorization: localStorage.getItem("tokenAdmin")}
+      })
+      .then((res)=>{
+          if(res.ok){
+              console.log("Prodotto Eliminato" + res)
+          }else{
+              throw new Error("Errore nell'eliminare il prodotto nel carrello")
+          }
+      })
+      .catch((err)=>{
+          console.log(err)
+      })
+  }
   
   
     console.log(1, orderID)
