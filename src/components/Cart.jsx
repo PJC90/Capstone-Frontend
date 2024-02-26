@@ -65,6 +65,10 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
     }
     return acc;
   }, {});
+
+  const calculateTotal = () => {
+    return productsInCart.reduce((total, item) => total + item.price, 0);
+  };
   
     return(
         <Container>
@@ -105,18 +109,22 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                         </div>
                         <div className="d-flex justify-content-between border-bottom mt-2">
                         <p>Subtotale</p>
-                        <p>111 €</p>
+                        <p>{calculateTotal()} €</p>
                         {/* <p>{product.quantity * product.price} €</p> */}
                         </div>
                         <div className="d-flex justify-content-between mt-3">
                         <p>Totale Iva Inclusa:</p>
-                        <p>111  €</p>
+                        <p>{calculateTotal() * 1.22}  €</p>
                         {/* <p> {(product.quantity * product.price * 1.22).toFixed(2)} €</p> */}
                         </div>
                         </div>
                         <Button className="bg-dark px-5 rounded-pill border-0 mt-3" onClick={()=>{setShowPayPal(true)}}>Procedi all'acquisto</Button>
                         {showPayPal &&
-                        <PayPalCheckOut/>
+                        <PayPalCheckOut
+                            cartItems={productsInCart}
+                            total={calculateTotal()}
+                            onClose={() => setShowPayPal(false)}
+                        />
                         }
                         <p className="mt-4 text-body-tertiary mt-4"> Imposte locali incluse (dove applicabili)</p>
                         <p className="text-body-tertiary"> È possibile che vengano applicati oneri e tasse aggiuntivi</p>
