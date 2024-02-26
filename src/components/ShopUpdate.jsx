@@ -74,7 +74,7 @@ function ShopUpdate(){
         <Container fluid  style={{height:"100vh"}}>
             <Row className="d-flex justify-content-start h-100" >
  {/*-------------------------------------------------------------------- LEFT SIDEBAR ------------------------------------------------------------------------------               */}
-                <Col xs={2} className="border-2 border-end d-flex flex-column" >
+                <Col xs={2} className="d-flex flex-column" style={{boxShadow:"25px 0px 20px -20px rgba(0,0,0,0.1)"}}>
  {/* Se non hai negozi compare una schermata per aprire un nuovo negozio */}
          {updateMyShop.length > 0 ? (
              updateMyShop.map((myshop) => (

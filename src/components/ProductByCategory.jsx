@@ -38,7 +38,7 @@ useEffect(()=>{
     return(
         <Container>
             <Row >
-                <Col className="mt-4 d-flex justify-content-between">
+                <Col className="mt-5 d-flex justify-content-between">
                 <Button className="icon-effect rounded-pill px-4 d-flex align-items-center border border-black"><ListCheck className="me-2"/> Filtri</Button>
                 <Button className="icon-effect rounded-pill px-5 border border-black">Ordina per</Button>
                 </Col>

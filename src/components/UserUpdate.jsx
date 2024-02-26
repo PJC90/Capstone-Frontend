@@ -41,7 +41,7 @@ const handleRefresh = () =>{
         <Container fluid  style={{height:"100vh"}}>
             <Row className="d-flex justify-content-start h-100" >
  {/*-------------------------------------------------------------------- LEFT SIDEBAR ------------------------------------------------------------------------------               */}
-                <Col xs={2} className="border-2 border-end d-flex flex-column" style={{width:"250px"}} >
+                <Col xs={2} className="d-flex flex-column" style={{width:"250px", boxShadow:"25px 0px 20px -20px rgba(0,0,0,0.1)"}}  >
                     <Row className="mt-5 ms-1" >
                         {userMe ? (
                         <Col className="d-flex flex-column align-items-start mt-5" > 

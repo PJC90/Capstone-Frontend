@@ -66,8 +66,9 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
   
     return(
         <Container>
-            <Row className="d-flex flex-row mt-5" >
-          
+            <Row className="d-flex flex-row mt-5" 
+            // style={{height:"100vh"}} //per il footer
+            >
                 <Col xs={7} >
                     <Row className="d-flex flex-column border border-black rounded-5">
         {Object.values(groupedProducts).map((product) => (

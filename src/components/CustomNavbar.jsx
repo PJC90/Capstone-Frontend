@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Col, Dropdown, Form, InputGroup, Row} from 'react-bootstrap';
-import { Archive, BoxArrowDownLeft, BoxArrowLeft, ChatLeft, Gear, GearWideConnected, List, Person, Search, Star } from 'react-bootstrap-icons';
+import { Alarm, Archive, BoxArrowDownLeft, BoxArrowLeft, ChatLeft, Gear, GearWideConnected, List, Person, Search, Star } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -14,8 +14,28 @@ function CustomNavbar() {
   const [categories, setCategories] = useState([])
   const [search, setSearch] = useState(``)
   const [productBySearch, setProductBySearch] = useState([])
+  const [myProfile, setMyProfile] = useState(null)
 
   const navigate = useNavigate();
+
+  const getUser = () => {
+    fetch("http://localhost:3010/users/me",{
+      headers:{Authorization:localStorage.getItem("tokenAdmin")},
+    })
+    .then((res)=>{
+      if(res.ok){
+        return res.json()
+      }else{
+        throw new Error("Errore nel recupero del tuo profilo")
+      }
+    })
+    .then((data)=>{
+      setMyProfile(data)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
 
   const getProductInMyCart = () =>{
     fetch("http://localhost:3010/cart/productInCart",{
@@ -95,6 +115,7 @@ function CustomNavbar() {
     if (isLoggedIn === "true") {
         setIsLoggedIn(true);
         getProductInMyCart();
+        getUser();
       }
     //  viene eseguito solo al montaggio iniziale(componentDidMount) 
     //  legge lo storage per vedere se sei loggato cosi compare l'icona di quanto sei loggato
@@ -120,10 +141,12 @@ function CustomNavbar() {
   return (
     <>
     <Navbar expand="lg" className="fixed-top sticky-top bg-white" style={{ boxShadow: "0px 10px 20px 0px rgba(0,0,0,0.1), 0px 4px 8px 0px rgba(0,0,0,0.01)" }}>
-      <Container className='mt-2 mb-2'>
+      <Container fluid className='mt-2 mb-2'>
       <Row className='w-100 d-flex flex-nowrap align-items-center'>
+       <Col xs={3}>
+       <Row>
 {/*--------------------------------------------- LOGO ARTESUM ----------------------------------------------------*/}
-        <Col>
+        <Col className='ms-5'>
              <Navbar.Brand href="/" onClick={()=>{navigate('/')}}>
               <img src='/artesum-orange.png' alt="logo-artesum" width="130" className='logo-effect'/>
               </Navbar.Brand>
@@ -132,8 +155,8 @@ function CustomNavbar() {
        <Col >
             <Nav >
               <Dropdown onClick={()=>{getCategories()}}>
-                <Dropdown.Toggle id="dropdown-basic" className='custom-dropdown-toggle icon-effect rounded-pill' >
-                <List className='me-2'/> Categorie
+                <Dropdown.Toggle id="dropdown-basic" className='custom-dropdown-toggle icon-effect rounded-pill text-dark d-flex align-items-center' >
+                <img src='/categories.svg' alt="logo-category" width="15" className='me-2'/> Categorie 
                 </Dropdown.Toggle>
                     <Dropdown.Menu>{categories && categories.map((category, i)=>{
                       return(
@@ -144,8 +167,12 @@ function CustomNavbar() {
               </Dropdown>
             </Nav>
         </Col>
+                
+       </Row>
+       </Col> 
 {/*------------------------------------------------ INPUT ----------------------------------------------------*/}
-        <Col xs={7}>
+
+        <Col >
          <InputGroup >
             <Form.Control className="bg-body-tertiary "
               aria-label="Recipient's username"
@@ -162,35 +189,12 @@ function CustomNavbar() {
                 </Button>
       </InputGroup>
         </Col>
-{/*------------------------------------------------ ACCEDI ----------------------------------------------------*/}
-    <Col >
-            {isLoggedIn ?(
-              // Se l'utente è loggato, mostra l'icona "Person" per il logout
-            <Dropdown >
-            <Dropdown.Toggle id="dropdown-basic" className='custom-dropdown-toggle icon-effect rounded-pill' >
-            <Person style={{width:'30px', height:'30px'}}/>
-            </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item ><Archive className='me-2'/>Aquisti</Dropdown.Item>
-                  <Dropdown.Item ><Star className='me-2'/>Recensioni</Dropdown.Item>
-                  <Dropdown.Item ><ChatLeft className='me-2'/>Messaggi</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={()=>{navigate("/updateuser")}}><Gear className='me-2'/>Gestione Profilo</Dropdown.Item>
-                  <Dropdown.Item onClick={()=>{navigate("/updateshop")}}><GearWideConnected className='me-2'/>Gestione Negozio</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={handleLogout}><BoxArrowLeft className='me-2'/>Log out</Dropdown.Item>
-                </Dropdown.Menu>
-          </Dropdown>
-            ):(
-            // Se l'utente non è loggato, mostra il pulsante "Accedi" per il login
-              <Button className='icon-effect rounded-pill' onClick={()=> setModalShow(true)}>
-                    Accedi
-                  </Button>
-            )}
-   <Login show={modalShow} onHide={()=> setModalShow(false)} onLoginSuccess={handleLoginSuccess} />
-    </Col>
-{/*---------------------------------------------- LOGO HEART ----------------------------------------------------*/}
-  <Col >
+{/* ------------------------------Col che racchiude le icone di destra -----------------------------------------*/}
+
+<Col xs={2} className='ms-5'>
+<Row className='d-flex align-items-center'>
+  {/*---------------------------------------------- LOGO HEART ----------------------------------------------------*/}
+  <Col className='d-flex justify-content-center align-items-center'>
                <div className='icon-effect'
                   style={{
                     backgroundColor: "rgba(255, 255, 255)",
@@ -210,7 +214,7 @@ function CustomNavbar() {
          </div>
   </Col>
 {/*--------------------------------------------- LOGO CARRELLO ----------------------------------------------------*/}
-  <Col >
+  <Col className='d-flex justify-content-center align-items-center'>
       <div className='icon-effect'
                       style={{
                         backgroundColor: "rgba(255, 255, 255)",
@@ -235,22 +239,59 @@ function CustomNavbar() {
             {productCart && productCart.length}</div>
           ) : ("")}
     </div>
-
+{/*------------------------------------------------ Notifiche ----------------------------------------------------*/}
   </Col>
+  <Col className='d-flex justify-content-center align-items-center h-100'>
+  <div className='icon-effect'
+                  style={{
+                    backgroundColor: "rgba(255, 255, 255)",
+                    padding: "5px",
+                    borderRadius: "50%", // Imposta il bordo a metà della larghezza e altezza
+                    width: "50px", // Imposta la larghezza del cerchio
+                    height: "50px", // Imposta l'altezza del cerchio
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center", 
+                    cursor:"pointer"
+                  }}
+                >
+        <img src="/bell.svg" alt="icom-notification" width={27} height={27}/>
+        </div>
+  </Col>
+{/*------------------------------------------------ ACCEDI ----------------------------------------------------*/}
+    <Col className='d-flex justify-content-center align-items-center' >
+            {isLoggedIn ?(
+              // Se l'utente è loggato, mostra l'icona "Person" per il logout
+            <Dropdown >
+            <Dropdown.Toggle id="dropdown-basic" className='custom-dropdown-toggle icon-effect rounded-pill' style={{width:'50px', height:'50px',padding: "5px"}}>
+            {myProfile && <img src={myProfile.avatar} alt={myProfile.name} style={{width:'40px', height:'40px', objectFit:"cover"}} className='rounded-pill'/>}
+            </Dropdown.Toggle >
+                <Dropdown.Menu className="dropdown-menu-end"> 
+                  <Dropdown.Item ><Archive className='me-2'/>Aquisti</Dropdown.Item>
+                  <Dropdown.Item ><Star className='me-2'/>Recensioni</Dropdown.Item>
+                  <Dropdown.Item ><ChatLeft className='me-2'/>Messaggi</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={()=>{navigate("/updateuser")}}><Gear className='me-2'/>Gestione Profilo</Dropdown.Item>
+                  <Dropdown.Item onClick={()=>{navigate("/updateshop")}}><GearWideConnected className='me-2'/>Gestione Negozio</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleLogout}><BoxArrowLeft className='me-2'/>Log out</Dropdown.Item>
+                </Dropdown.Menu>
+          </Dropdown>
+            ):(
+            // Se l'utente non è loggato, mostra il pulsante "Accedi" per il login
+              <Button className='icon-effect rounded-pill' onClick={()=> setModalShow(true)}>
+                    <Person style={{width:'30px', height:'30px'}}/>
+                  </Button>
+            )}
+   <Login show={modalShow} onHide={()=> setModalShow(false)} onLoginSuccess={handleLoginSuccess} />
+    </Col>
 
+
+  </Row>
+</Col>
 </Row>
      </Container>
     </Navbar>
-    {/* <Container>
-    <Row className='d-flex flex-nowrap'>
-    <Col className='bg-success'>hola</Col>
-    <Col className='bg-dark'>hola</Col>
-    <Col className='bg-info' xs={7}>hola</Col>
-    <Col className='bg-dark' xs={2}>hola</Col>
-    <Col className='bg-success' xs={1}>hola</Col>
-    <Col className='bg-dark' xs={1}>hola</Col>
-  </Row>
-  </Container> */}
   </>
   );
 }

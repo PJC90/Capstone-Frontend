@@ -11,15 +11,18 @@ import ShopUpdate from './components/ShopUpdate'
 import UserUpdate from './components/UserUpdate'
 import ProductByCategory from './components/ProductByCategory'
 import ProductBySearch from './components/ProductBySearch'
+import FooterArtesum from './components/FooterArtesum'
 
 
 
 function App() {
 
   return (
-    <>
+    
     <BrowserRouter>
+    <div className="d-flex h-100 flex-column">
     <CustomNavbar/>
+    <div className="flex-grow-1">
     <Routes>
       <Route path='/registrazione' element={<Registrazione/>}/>
       <Route path='/' element={<Homepage/>}/>
@@ -32,8 +35,11 @@ function App() {
       <Route path="/updateuser" element={<UserUpdate/>}/>
       <Route path="/cart" element={<Cart/>}/>
     </Routes>
+    </div>
+    {/* <FooterArtesum/> */}
+    </div>
     </BrowserRouter>
-    </>
+    
   )
 }
 

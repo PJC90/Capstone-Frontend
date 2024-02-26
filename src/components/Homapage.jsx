@@ -1,3 +1,4 @@
+import FooterArtesum from "./FooterArtesum"
 import Header from "./Header"
 import HeaderContent from "./HeaderContent"
 import Product from "./Product"
