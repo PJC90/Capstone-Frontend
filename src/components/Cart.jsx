@@ -52,18 +52,18 @@ function Cart(){
             console.log(err)
         })
     }
+    const handleOrderId = (orderId) => {
+        // Gestisci l'orderId ricevuto dal componente figlio qui nel componente genitore
+        console.log("Order ID ricevuto nel genitore:", orderId);
+        // Passo l'orderId nel componente di Ordine Completato
+        setTimeout(()=>{
+            navigate(`/order/${orderId}`)
+        },1900)
+    };
 
     useEffect(()=>{
         getAllProductInCart()
     }, [])
-
-    useEffect(()=>{
-        if(showSuccessMessage){
-            setTimeout(()=>{
-                navigate("/")
-            },1000)
-        }
-    },[showSuccessMessage])
 
 
     // Raggruppa i prodotti per productId e conta le quantità
@@ -135,6 +135,7 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                             total={calculateTotal()}
                             onClose={() => setShowPayPal(false)}
                             onSuccess={() => setShowSuccessMessage(true)} // Passa la funzione di callback
+                            onOrderIdChange={handleOrderId} // Passa la funzione di callback come prop al componente PayPalCheckOut
                         />
                         }
                         <p className="mt-4 text-body-tertiary mt-4"> Imposte locali incluse (dove applicabili)</p>

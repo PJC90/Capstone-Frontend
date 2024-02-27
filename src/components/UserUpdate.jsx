@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap"
 import { ArchiveFill, BarChartFill, ChatRightFill, HeartFill, PencilFill, XCircleFill } from "react-bootstrap-icons";
 import UserUpdateDetail from "./UserUpdateDetail";
+import UserOrder from "./UserOrder";
 
 function UserUpdate(){
 
     const [userMe, setUserMe] = useState(null)
     const [viewModifica, setViewModifica] = useState(false)
+    const [viewOrdini, setViewOrdini] = useState(false)
     const [refresh, setRefresh] = useState(false)
 
     const getMyProfile = () =>{
@@ -32,6 +34,16 @@ function UserUpdate(){
 const handleRefresh = () =>{
     setRefresh(!refresh)
 }
+const handleViewOrdini = () => {
+    if(viewModifica){
+        setViewModifica(!viewModifica)
+    }
+}
+const handleViewModifica = () => {
+    if(viewOrdini){
+        setViewOrdini(!viewOrdini)
+    }
+}
    
     useEffect(()=>{   
         getMyProfile()
@@ -50,12 +62,14 @@ const handleRefresh = () =>{
                         <p className="fw-bold fs-6 mb-0">{userMe.name}</p>
                         <p className="fw-bold fs-6 mt-0">{userMe.surname}</p>
                         </div>
-                        <Button className="my-3 rounded-pill icon-effect" onClick={()=>{setViewModifica(!viewModifica)}}>
+                        <Button className="my-3 rounded-pill icon-effect" onClick={()=>{handleViewModifica(); setViewModifica(!viewModifica)}}>
                         <PencilFill/> Modifica Profilo 
                         </Button>
                         <Button className="my-3 rounded-pill icon-effect" >
                           <HeartFill/> Preferiti</Button>
-                        <Button className="my-3 rounded-pill icon-effect"><ArchiveFill/> Ordini</Button>
+                        <Button className="my-3 rounded-pill icon-effect" onClick={()=>{handleViewOrdini(); setViewOrdini(!viewOrdini)}}>
+                            <ArchiveFill/> Ordini
+                        </Button>
                         <Button className="my-3 rounded-pill icon-effect"><BarChartFill/> Statistiche</Button>
                         <Button className="my-3 rounded-pill icon-effect"><ChatRightFill/> Messaggi</Button>
                         </Col>
@@ -71,6 +85,9 @@ const handleRefresh = () =>{
                 <Col className="p-0 mt-5">
                 {viewModifica &&
                 <UserUpdateDetail user={userMe} refresh={handleRefresh}/>
+                }
+                {viewOrdini &&
+                <UserOrder/>
                 }
                 </Col>
                

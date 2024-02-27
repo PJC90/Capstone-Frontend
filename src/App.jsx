@@ -12,6 +12,7 @@ import UserUpdate from './components/UserUpdate'
 import ProductByCategory from './components/ProductByCategory'
 import ProductBySearch from './components/ProductBySearch'
 import FooterArtesum from './components/FooterArtesum'
+import OrderCompleted from './components/OrderCompleted'
 
 
 
@@ -28,6 +29,7 @@ function App() {
       <Route path='/' element={<Homepage/>}/>
       <Route path='/product/:productId' element={<ProductDetail/>}/>
       <Route path='/category/:categoryId' element={<ProductByCategory/>}/>
+      <Route path='/order/:orderId' element={<OrderCompleted/>}/>
       <Route path='/searchwith' element={<ProductBySearch/>}/>
       <Route path="/shop/:shopId" element={<ShopDetail/>}/>
       <Route path="/becomeseller" element={<BecomeSeller/>}/>

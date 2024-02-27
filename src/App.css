@@ -50,7 +50,13 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5) !important; /* Aggiunge un'ombra al passaggio del mouse */
     transform: scale(1.05); /* Ingrossa leggermente il bottone al passaggio del mouse */
   }
-  
+  .a-b-o {
+    /* Artesum-Button-Orange*/ 
+    background-color: #E38F38 !important; /* Rimuove lo sfondo */
+    color: white !important; /* Cambia il colore del testo in nero */
+    border: none !important; /* Rimuove il bordo */
+    transition: box-shadow 0.3s, transform 0.3s; /* Aggiunge transizioni per ombra e trasformazione */
+  }
   .bg-header-content-rx{
     background: linear-gradient(to right, #ffc400, rgba(255, 251, 0, 0.479) );
   }

@@ -1,7 +1,7 @@
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
 import { useState } from "react"
 
-function PayPalCheckOut({ cartItems, total, onClose, onSuccess  }){
+function PayPalCheckOut({ cartItems, total, onClose, onSuccess, onOrderIdChange  }){
     const [ErrorMessage, setErrorMessage] = useState('')
     const [orderID, setOrderID] = useState(false)
   
@@ -102,18 +102,24 @@ function PayPalCheckOut({ cartItems, total, onClose, onSuccess  }){
     .then((data)=>{
       console.log("Ordine salvato:")
       console.log(data)
+      // Passa l'orderId al genitore utilizzando la funzione di callback
+      // controllo che onOrderIdChange sia una funzione prima di chiamarla per evitare errori.
+      if (typeof onOrderIdChange  === 'function') {
+        onOrderIdChange(data.orderId);
+    }
     })
     .catch((err)=>{
       console.log(err)
     })
   }
 
-  
+  const paypalClientId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
+
     console.log(1, orderID)
     console.log(3, ErrorMessage)
     return(
       
-        <PayPalScriptProvider options={{ 'client-id':'AU2xJD1zO-siaOvBf6yjgrCJtQDK4K38FFyiP9Y-46i26SsQuLh0clivJlMt6T6RsALLctweOvA5RsY-', }}>
+        <PayPalScriptProvider options={{ 'client-id': paypalClientId, }}>
             <PayPalButtons className="mt-4"
               style={{ layout: 'vertical' }} createOrder={createOrder} onApprove={onApprove} onError={onError}/> 
       </PayPalScriptProvider>
