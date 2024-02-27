@@ -1,8 +1,7 @@
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
-import { useEffect } from "react"
 import { useState } from "react"
 
-function PayPalCheckOut({ cartItems, total, onClose }){
+function PayPalCheckOut({ cartItems, total, onClose, onSuccess  }){
     const [ErrorMessage, setErrorMessage] = useState('')
     const [orderID, setOrderID] = useState(false)
   
@@ -26,6 +25,7 @@ function PayPalCheckOut({ cartItems, total, onClose }){
         })
         .then((orderID) => {
           setOrderID(orderID)
+          console.log("orderID paypal:")
           console.log(orderID)
           return orderID
         })
@@ -39,8 +39,10 @@ function PayPalCheckOut({ cartItems, total, onClose }){
         console.log('Payment details:', details);
         // Chiudi il componente o esegui altre azioni necessarie
         onClose();
-        // Rimuovi i prodotti dal carrello
-        deleteAllProductInCart();
+         // Salva Il pagamento solo dopo che il pagamento è stato confermato con successo
+         savePayment(data.orderID);
+         // Chiamare la funzione di callback per indicare che il pagamento è andato a buon fine
+         onSuccess();
     })
   }
     //capture likely error
@@ -48,28 +50,69 @@ function PayPalCheckOut({ cartItems, total, onClose }){
       setErrorMessage('An Error occured with your payment ')
     }
 
-    const deleteAllProductInCart = () =>{
-      fetch(`http://localhost:3010/cart/removeAll`,{
-          method: "DELETE",
-          headers:{Authorization: localStorage.getItem("tokenAdmin")}
-      })
-      .then((res)=>{
-          if(res.ok){
-              console.log("Prodotto Eliminato" + res)
-          }else{
-              throw new Error("Errore nell'eliminare il prodotto nel carrello")
-          }
-      })
-      .catch((err)=>{
-          console.log(err)
-      })
+    // il Backend si occupa di eliminare i prodotti nel carrello e di trasferire la lista dei prodotti acquistati nell'ordine
+
+  const PaymentDTO = {
+    // transactionCode lo passo nella funzione per assicurarmi che non sia false
+    paymentType: "PAYPAL"
   }
-  
+
+  const savePayment = (orderID) => {
+    PaymentDTO.transactionCode = orderID
+    fetch("http://localhost:3010/payment", {
+      method:"POST",
+      headers: {
+      Authorization: localStorage.getItem("tokenAdmin"), 
+      "Content-Type": "application/json"
+      },
+      body: JSON.stringify(PaymentDTO)
+    })
+    .then((res)=>{
+      if(res.ok){
+        return res.json()
+      }else{
+        throw new Error("Errore nel salvare il pagamento")
+      }
+    })
+    .then((data)=>{
+      console.log("Pagamento Salvato:")
+      console.log(data)
+      saveOrder(data.paymentId)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
+  const saveOrder = (paymentId) => {
+    fetch(`http://localhost:3010/order/${paymentId}`,{
+      method:"POST",
+      headers:{
+        Authorization:localStorage.getItem("tokenAdmin"),
+        "Content-Type": "application/json"
+      }
+    })
+    .then((res)=>{
+      if(res.ok){
+        return res.json()
+      }else{
+        throw new Error("Errore nel salvare l'ordine")
+      }
+    })
+    .then((data)=>{
+      console.log("Ordine salvato:")
+      console.log(data)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
   
     console.log(1, orderID)
     console.log(3, ErrorMessage)
     return(
-
+      
         <PayPalScriptProvider options={{ 'client-id':'AU2xJD1zO-siaOvBf6yjgrCJtQDK4K38FFyiP9Y-46i26SsQuLh0clivJlMt6T6RsALLctweOvA5RsY-', }}>
             <PayPalButtons className="mt-4"
               style={{ layout: 'vertical' }} createOrder={createOrder} onApprove={onApprove} onError={onError}/> 

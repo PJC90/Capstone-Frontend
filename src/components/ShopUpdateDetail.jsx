@@ -63,13 +63,13 @@ function ShopUpdateDetail({ shopId }){
             if(res.ok){
                 console.log("dati modificati" + res);
                 setFinishUpdate(true)
-                setShopName("")
+                setShopName(null)
                 setUpdate(false)
-                setDescription("")
+                setDescription(null)
                 setUpdate2(false)
-                setNation("")
+                setNation(null)
                 setUpdate3(false)
-                setLocality("")
+                setLocality(null)
                 setUpdate4(false)
                 setTimeout(()=>{
                     setFinishUpdate(false)

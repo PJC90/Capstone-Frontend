@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import PayPalCheckOut from "./utils/PayPalCheckout";
+import { useNavigate } from "react-router-dom";
 
 function Cart(){
-
+    const navigate = useNavigate();
     const[productsInCart, setProductsInCart] = useState([])
     const [showDelete, setshowDelete] = useState(false)
     const [showPayPal, setShowPayPal] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     const getAllProductInCart = () => {
         fetch("http://localhost:3010/cart/productInCart",{
@@ -54,6 +56,14 @@ function Cart(){
     useEffect(()=>{
         getAllProductInCart()
     }, [])
+
+    useEffect(()=>{
+        if(showSuccessMessage){
+            setTimeout(()=>{
+                navigate("/")
+            },1000)
+        }
+    },[showSuccessMessage])
 
 
     // Raggruppa i prodotti per productId e conta le quantità
@@ -124,11 +134,15 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                             cartItems={productsInCart}
                             total={calculateTotal()}
                             onClose={() => setShowPayPal(false)}
+                            onSuccess={() => setShowSuccessMessage(true)} // Passa la funzione di callback
                         />
                         }
                         <p className="mt-4 text-body-tertiary mt-4"> Imposte locali incluse (dove applicabili)</p>
                         <p className="text-body-tertiary"> È possibile che vengano applicati oneri e tasse aggiuntivi</p>
                         {showDelete && <Alert>Prodotto Eliminato</Alert>}  
+                        {showSuccessMessage && (
+                                <Alert variant="success">Pagamento completato con successo!</Alert>
+                            )}
                     </Col> 
                         
                 
