@@ -56,11 +56,14 @@ function UserOrder(){
                                         <Row key={i} className="mt-4">
                                             <Col >
                                                 <Row>
-                                                    <Col xs={4} className="text-center">
+                                                    <Col xs={2} className="text-center">
                                                     <img src={product.photo1} alt={product.title} style={{width:"50px", height:"50px", objectFit:"cover"}}/>
                                                     </Col>
                                                     <Col className="d-flex align-items-center">
                                                     <p>{product.title}</p>
+                                                    </Col>
+                                                    <Col className="d-flex align-items-center" xs={4}>
+                                                    <p className="icon-effect rounded-pill px-2">Lascia una Recensione</p>
                                                     </Col>
                                                     <Col className="d-flex align-items-center justify-content-end">
                                                     <p>xxx €</p>
@@ -73,8 +76,7 @@ function UserOrder(){
                             </Col>
                             <Col xs={3} className="d-flex flex-column align-items-center justify-content-center">
                             <h5>{(order.statusOrder == "IN_PROGRESS") ? "In consegna" : "Consegnato"}</h5>
-                            <p>{(order.statusOrder == "DELIVERED") ? (<Button className="a-b-o px-5">Recensisci</Button>) : (<Button className="a-b-o px-5">Spedizione</Button>)}</p>
-                            <Button className="bg-dark border-0 px-4">Visualizza Ricevuta</Button>
+                            <Button className="a-b-o px-4">Visualizza Ricevuta</Button>
                             </Col>
                         </Row>
                         )

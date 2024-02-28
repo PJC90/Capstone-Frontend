@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { CheckCircle } from "react-bootstrap-icons";
 import { useParams } from "react-router-dom";
 
@@ -35,8 +35,8 @@ useEffect(()=>{
         <Container>
             <Row className="d-flex flex-column align-items-center">
                 <Col md={7} className="mt-5">
-                    <h3 className="my-5 p-5 text-white search-custom d-flex align-items-center justify-content-center">
-                        <CheckCircle className="me-3"/>Ordine completato con successo!</h3>
+                    <h2 className="my-5 p-5 text-white artesum-color d-flex align-items-center justify-content-center rounded-3">
+                        <CheckCircle className="me-3"/>Ordine completato con successo!</h2>
                     {order && 
                     <>
                     <div className="d-flex justify-content-between">
@@ -57,6 +57,9 @@ useEffect(()=>{
                         ))}
                     </>
                     }
+                    <div className="d-flex justify-content-center">
+                        <Button variant="dark" className="px-5 mt-5">Visualizza tutti gli ordini</Button>
+                        </div>
                 </Col>
            </Row>
         </Container>

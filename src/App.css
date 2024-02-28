@@ -63,6 +63,10 @@
   .bg-header-content-sx{
     background: linear-gradient(to right, rgba(255, 251, 0, 0.479) , #ffc400);
   }
+  .bg-header{
+    background: linear-gradient(to bottom, #E38F38 75%, transparent 50%); /* sfondo metà arancione e metà trasparente */
+  }
+  
   .text-content{
     color:rgb(146, 97, 6) !important;
   }
@@ -91,4 +95,18 @@
 .placeholder::placeholder {
     color: #777777 !important;
 }
-
+.artesum-color{
+  background-color: #E38F38 !important; /* Cambia il colore di sfondo */
+}
+.artesum-color-button{
+  background-color: #E38F38 !important; /* Cambia il colore di sfondo */
+}
+.artesum-color-button:hover{
+  background-color: #e39038be !important; /* Cambia il colore di sfondo */
+}
+.header-card{
+  box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.19), 0px 6px 6px 0px rgba(0,0,0,0.23);
+}
+.header-card:hover{
+  transform: scale(1.01);
+}

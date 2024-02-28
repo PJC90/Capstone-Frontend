@@ -32,8 +32,19 @@ useEffect(()=>{
 },[])
     
     return(
-        <Container className="mt-5">
-        <h1 className="fs-4">Prodotti</h1>
+        <Container >
+          <Row>
+            <Col className="mt-5"></Col>
+          </Row>
+          <Row>
+            <Col className="mt-5"></Col>
+          </Row>
+          <Row>
+            {/* PER CREARE MARGINI */}
+            <Col className="mt-5">
+                <h1 className="fs-4 mt-5">Prodotti</h1>
+            </Col>
+          </Row>
         <Row xs={1} md={5} className="g-4">
           {product && product.map((product) => (
             <Col key={product.productId} className="hoover-card py-2 px-2">
