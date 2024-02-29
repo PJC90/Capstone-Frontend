@@ -15,6 +15,15 @@ function CustomNavbar() {
   const [search, setSearch] = useState(``)
   const [productBySearch, setProductBySearch] = useState([])
   const [myProfile, setMyProfile] = useState(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenLogin, setIsOpenLogin] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+  const toggleDropdownLogin = () => {
+    setIsOpenLogin(!isOpenLogin);
+  };
 
   const navigate = useNavigate();
 
@@ -154,7 +163,7 @@ function CustomNavbar() {
 {/*------------------------------------------------ CATEGORIE ----------------------------------------------------*/}
        <Col >
             <Nav >
-              <Dropdown onClick={()=>{getCategories()}}>
+              <Dropdown onClick={()=>{getCategories()}} show={isOpen} onToggle={toggleDropdown}>
                 <Dropdown.Toggle id="dropdown-basic" className='custom-dropdown-toggle icon-effect rounded-pill text-dark d-flex align-items-center' >
                 <img src='/categories.svg' alt="logo-category" width="15" className='me-2'/> Categorie 
                 </Dropdown.Toggle>
@@ -165,6 +174,8 @@ function CustomNavbar() {
                     })}
                     </Dropdown.Menu>
               </Dropdown>
+            {/* Gestisce l'oscuramento della pagina sotto il dropdown */}
+            {isOpen && <div className="overlay" onClick={toggleDropdown}></div>}
             </Nav>
         </Col>
                 
@@ -262,7 +273,7 @@ function CustomNavbar() {
     <Col className='d-flex justify-content-center align-items-center' >
             {isLoggedIn ?(
               // Se l'utente è loggato, mostra l'icona "Person" per il logout
-            <Dropdown >
+            <Dropdown show={isOpenLogin} onToggle={toggleDropdownLogin}>
             <Dropdown.Toggle id="dropdown-basic" className='custom-dropdown-toggle icon-effect rounded-pill' style={{width:'50px', height:'50px',padding: "5px"}}>
             {myProfile && <img src={myProfile.avatar} alt={myProfile.name} style={{width:'40px', height:'40px', objectFit:"cover"}} className='rounded-pill'/>}
             </Dropdown.Toggle >
@@ -283,6 +294,8 @@ function CustomNavbar() {
                     <Person style={{width:'30px', height:'30px'}}/>
                   </Button>
             )}
+          {isOpenLogin && <div className="overlay" onClick={toggleDropdownLogin}></div>}
+            
    <Login show={modalShow} onHide={()=> setModalShow(false)} onLoginSuccess={handleLoginSuccess} />
     </Col>
 
