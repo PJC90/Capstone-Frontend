@@ -5,7 +5,7 @@ const StarRating = ({ rating }) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
         if (i < rating) {
-            stars.push(<FontAwesomeIcon key={i} icon={faStar} style={{ color: 'black' }} />);
+            stars.push(<FontAwesomeIcon key={i} icon={faStar} style={{ color: 'E38F38' }} />);
         } else {
             stars.push(<FontAwesomeIcon key={i} icon={faStar} style={{ color: 'rgb(228, 228, 228)' }} />);
         }

@@ -27,6 +27,14 @@ function CustomNavbar() {
 
   const navigate = useNavigate();
 
+  const handleNavigation = (path) => {
+    try {
+      navigate(path);
+    } catch (error) {
+      console.error('Si è verificato un errore durante la navigazione:', error);
+    }
+  };
+
   const getUser = () => {
     fetch("http://localhost:3010/users/me",{
       headers:{Authorization:localStorage.getItem("tokenAdmin")},
@@ -156,7 +164,7 @@ function CustomNavbar() {
        <Row>
 {/*--------------------------------------------- LOGO ARTESUM ----------------------------------------------------*/}
         <Col className='ms-5'>
-             <Navbar.Brand href="/" onClick={()=>{navigate('/')}}>
+             <Navbar.Brand href="/" onClick={()=>{handleNavigation('/')}}>
               <img src='/artesum-orange.png' alt="logo-artesum" width="130" className='logo-effect'/>
               </Navbar.Brand>
        </Col>
