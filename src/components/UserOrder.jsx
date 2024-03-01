@@ -3,7 +3,6 @@ import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import StarRating from "./StarRating";
 import Review from "./Review";
-import { PcHorizontal, PostcardHeart } from "react-bootstrap-icons";
 
 function UserOrder(){
     const [myOrder, setMyOrder] = useState([])
@@ -95,7 +94,7 @@ function UserOrder(){
                 });
             });
         }
-    }, [myOrder]);
+    }, [myOrder, showModalReview]);
 
 
     function formatDate(dateString) {
@@ -132,15 +131,11 @@ function UserOrder(){
                                                     <Col className="d-flex align-items-center justify-content-center" xs={4}>
                                                     <p>
                                                     {review[`${product.productId}-${order.orderId}`] ? 
-                                                    <div >
-                                                        <div className="d-flex align-items-center">
+                                                    <div>
                                                         <div onClick={() => handleShow(`${product.productId}-${order.orderId}`)} style={{cursor:"pointer"}} className="me-3">
                                                         <StarRating rating={review[`${product.productId}-${order.orderId}`].rating} />
-                                                        </div>
-                                                        <div style={{cursor:"pointer", width:"30px", height:"30px"}} className="rounded-pill icon-effect d-flex justify-content-center align-items-center" >
-                                                        <PostcardHeart onClick={{}} />
-                                                        </div>
-                                                        </div>
+                                                     </div>
+                                                       
                                                         <Modal centered show={showModal[`${product.productId}-${order.orderId}`]} onHide={() => handleClose(`${product.productId}-${order.orderId}`)}>
                                                             <Modal.Header closeButton>
                                                             <Modal.Title>
@@ -173,7 +168,7 @@ function UserOrder(){
                                                     </div>    
                                                         : 
                                                     <div className="icon-effect px-2 rounded-pill" style={{cursor:"pointer"}}>
-                                                        <p onClick={() => handleToggleModal(product.productId)}>Lascia una recensione</p>
+                                                        <p onClick={() => handleToggleModal(product.productId)} className="m-0 p-0">Scrivi una recensione</p>
                                                         {showModalReview[product.productId] &&
                                                          <Review orderId={order.orderId} productId={product.productId} shopId={product.shop.shopId} onClose={() => handleToggleModal(product.productId)}/>
                                                         }
