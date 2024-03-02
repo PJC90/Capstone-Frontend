@@ -53,9 +53,13 @@
   .a-b-o {
     /* Artesum-Button-Orange*/ 
     background-color: #E38F38 !important; /* Rimuove lo sfondo */
-    color: white !important; /* Cambia il colore del testo in nero */
+    color: white !important; /* Cambia il colore del testo in bianco */
     border: none !important; /* Rimuove il bordo */
     transition: box-shadow 0.3s, transform 0.3s; /* Aggiunge transizioni per ombra e trasformazione */
+  }
+  .text-art {
+    /* Text-Color-OrangeArtesum*/ 
+    color: #E38F38 !important; /* Cambia il colore del testo in bianco */
   }
   .bg-header-content-rx{
     background: linear-gradient(to right, #ffc400, rgba(255, 251, 0, 0.479) );
@@ -108,6 +112,12 @@
   box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.19), 0px 6px 6px 0px rgba(0,0,0,0.23);
 }
 .header-card:hover{
+  transform: scale(1.01);
+}
+.order-card{
+  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.12), 0px 1px 2px 0px rgba(0,0,0,0.24);
+}
+.order-card:hover{
   transform: scale(1.01);
 }
 .overlay {

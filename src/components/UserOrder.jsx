@@ -3,6 +3,7 @@ import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import StarRating from "./StarRating";
 import Review from "./Review";
+import { EyeFill } from "react-bootstrap-icons";
 
 function UserOrder(){
     const [myOrder, setMyOrder] = useState([])
@@ -107,10 +108,14 @@ function UserOrder(){
         <Container>
                 <Row className="d-flex justify-content-center">
                     <Col md={8} className="mt-3">
-                    {myOrder && myOrder.map((order, i)=>{
+                    {myOrder && 
+                            myOrder
+                            .slice() // Crea una copia dell'array degli ordini
+                            .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate)) // Ordina in base alla data dell'ordine
+                            .map((order, i)=>{
                         return(
                         <Row key={i} className="mb-4">
-                            <Col className="border p-4 rounded-4">
+                            <Col className=" px-4 pt-4  order-card">
                                 <div className="d-flex justify-content-between border-bottom pb-2">
                                 <p>Acquistato il: {formatDate(order.orderDate)} </p>
                                 <p onClick={()=>{navigate(`/shop/${order.products[0].shop.shopId}`)}} className=" ms-2" style={{cursor:"pointer"}} > 
@@ -132,15 +137,17 @@ function UserOrder(){
                                                     <p>
                                                     {review[`${product.productId}-${order.orderId}`] ? 
                                                     <div>
-                                                        <div onClick={() => handleShow(`${product.productId}-${order.orderId}`)} style={{cursor:"pointer"}} className="me-3">
+                                                        <div className="d-flex align-items-center">
                                                         <StarRating rating={review[`${product.productId}-${order.orderId}`].rating} />
-                                                     </div>
-                                                       
+                                                        <div onClick={() => handleShow(`${product.productId}-${order.orderId}`)} style={{cursor:"pointer"}} className="me-3 text-center">
+                                                        <EyeFill className="ms-2 fs-5" style={{color:"#e39038b4"}}/>    
+                                                        </div>
+                                                        </div>
                                                         <Modal centered show={showModal[`${product.productId}-${order.orderId}`]} onHide={() => handleClose(`${product.productId}-${order.orderId}`)}>
                                                             <Modal.Header closeButton>
                                                             <Modal.Title>
                                                                 <p className="fs-6 mb-0">
-                                                                Recensito il {review[`${product.productId}-${order.orderId}`].dateReview}
+                                                                Recensito il {formatDate(review[`${product.productId}-${order.orderId}`].dateReview)}
                                                                 </p>
                                                             </Modal.Title>
                                                             </Modal.Header>
@@ -176,14 +183,16 @@ function UserOrder(){
                                                     }                                               
                                                     </p>
                                                     </Col>
-                                                    <Col className="d-flex align-items-center justify-content-end">
-                                                    <p>xxx €</p>
-                                                    </Col>
                                                 </Row>
                                             </Col>
                                         </Row>
                                         )
-                                    })}                                               
+                                    })} 
+                                    <Row>
+                                        <Col className="d-flex justify-content-end border-top mt-4">
+                                            <p className="mt-3">Totale dell'ordine: <span className="fw-bold">{order.payment.total}€</span></p>                                              
+                                        </Col>
+                                    </Row>
                             </Col>
                             <Col xs={3} className="d-flex flex-column align-items-center justify-content-center">
                             <h5>{(order.statusOrder == "IN_PROGRESS") ? "In consegna" : "Consegnato"}</h5>

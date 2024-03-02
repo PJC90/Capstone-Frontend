@@ -54,7 +54,8 @@ function PayPalCheckOut({ cartItems, total, onClose, onSuccess, onOrderIdChange 
 
   const PaymentDTO = {
     // transactionCode lo passo nella funzione per assicurarmi che non sia false
-    paymentType: "PAYPAL"
+    paymentType: "PAYPAL",
+    total: total
   }
 
   const savePayment = (orderID) => {

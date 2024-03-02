@@ -3,9 +3,10 @@ import { Button, Col, Container, Row } from "react-bootstrap"
 import { ArchiveFill, BarChartFill, ChatRightFill, HeartFill, PencilFill, XCircleFill } from "react-bootstrap-icons";
 import UserUpdateDetail from "./UserUpdateDetail";
 import UserOrder from "./UserOrder";
+import { useLocation } from "react-router-dom";
 
 function UserUpdate(){
-
+    const location = useLocation()
     const [userMe, setUserMe] = useState(null)
     const [viewModifica, setViewModifica] = useState(false)
     const [viewOrdini, setViewOrdini] = useState(false)
@@ -48,6 +49,16 @@ const handleViewModifica = () => {
     useEffect(()=>{   
         getMyProfile()
     },[refresh])
+
+    useEffect(()=>{
+        // dal componente OrderCompleted vengo trasferito qui se l'utente clicca visualizza tutti gli ordini
+        // passo uno stato fittizio su TRUE e quindi poi setto setViewOrdini su true
+        const searchParams = new URLSearchParams(location.search);
+        const statoViewOrdini = searchParams.get("viewOrdini")
+        if(statoViewOrdini === "true"){
+            setViewOrdini(true)
+        }
+    },[location.search])
 
     return(
         <Container fluid  style={{height:"100vh"}}>

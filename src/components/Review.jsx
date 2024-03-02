@@ -143,13 +143,13 @@ if(photo){
                 <Button className="a-b-o px-4 mt-4" type="submit">
                     Invia recensione
                 </Button>}
-            {showReviewSuccess && <Alert className="mt-4" variant="warning">Recensione Salvata!</Alert>}
+            {showReviewSuccess && <Alert className="mt-4 mb-0" variant="warning">Recensione Salvata!</Alert>}
                 </Form>
                 </Modal.Body>   
 
                 {reviewByID && 
                 <>
-                <p className="my-3 d-flex justify-content-center">Carica una foto del prodotto</p>
+                <p className="my-3 mx-3 py-3 rounded-2 d-flex justify-content-center a-b-o ">Carica una foto del prodotto</p>
                 <div className="d-flex justify-content-center">
                 <img src={reviewByID.photoReview} alt="image-review" style={{width:"200px", height:"200px", objectFit:"cover"}}/>
                 </div>
