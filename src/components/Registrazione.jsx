@@ -59,20 +59,14 @@ const Registrazione = (props) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-            <Row className="w-100 d-flex justify-content-between">
-                <Col>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Crea un account
-                    </Modal.Title>
-                </Col>
-                <Col className=" d-flex justify-content-end">
-                     
-                </Col>
-            </Row>
-          
-        </Modal.Header>
         <Modal.Body>
+        <Row className="d-flex flex-column justify-content-center align-items-center">
+            <Col xs={7} className="mt-3">
+
+              <div className="mt-3 mb-3 d-flex justify-content-center flex-column align-items-center">
+                <h3>Registra un <span className="a-b-o p-2 rounded-pill">Account</span></h3>
+                <p className="mt-4 text-body-tertiary">Compila i seguenti dettagli</p>
+              </div>
           <Form
             onSubmit={(e) => {
               e.preventDefault();
@@ -85,7 +79,7 @@ const Registrazione = (props) => {
                 setEmail(e.target.value);
               }}
             >
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Indirizzo email</Form.Label>
               <Form.Control type="email" placeholder="sample@mail.it" />
             </Form.Group>
 
@@ -95,8 +89,8 @@ const Registrazione = (props) => {
                 setName(e.target.value);
               }}
             >
-              <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="Inserisci il tuo nome" />
+              <Form.Label>Nome</Form.Label>
+              <Form.Control type="text" placeholder="Mario" />
             </Form.Group>
 
             <Form.Group
@@ -105,8 +99,8 @@ const Registrazione = (props) => {
                 setSurname(e.target.value);
               }}
             >
-              <Form.Label>Surname</Form.Label>
-              <Form.Control type="text" placeholder="Inserisci il tuo cognome" />
+              <Form.Label>Cognome</Form.Label>
+              <Form.Control type="text" placeholder="Rossi" />
             </Form.Group>
 
             <Form.Group
@@ -116,7 +110,7 @@ const Registrazione = (props) => {
               }}
             >
               <Form.Label>Username</Form.Label>
-              <Form.Control type="text" placeholder="Inserisci un nickname" />
+              <Form.Control type="text" placeholder="Mario77" />
             </Form.Group>
 
             <Form.Group
@@ -135,17 +129,21 @@ const Registrazione = (props) => {
               }}
             >
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control type="password" placeholder="*****" />
             </Form.Group>
             
-              <Button type="submit" className="rounded-pill artesum-button-black px-4">Submit</Button>
+            <div className="d-flex mb-4">
+                    <Button className='a-b-o flex-grow-1 mt-4 py-2' type="submit" >
+                    Registrati
+                    </Button>
+            </div>
+
               {registerSuccess && (<Alert variant="success" className="mt-3 p-2">Utente registrato correttamente!</Alert>)}
                                                
           </Form>
+          </Col>
+          </Row>
           </Modal.Body>
-        <div className="mt-3 border-top d-flex justify-content-center">
-        <p className="mx-5 mt-3">ART Ergo SUM</p>
-          </div>
       </Modal>
   );
 };

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { Cart, Heart } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 
 function Product(){
-    const [product, setProduct] = useState(null);
+    const [product, setProduct] = useState([]);
+    const [visibleProducts, setVisibleProducts] = useState(8);
     const navigate = useNavigate();
 
     const getProduct = ()=>{
@@ -27,12 +29,17 @@ function Product(){
 
         })
     }
+
+    const showMoreProducts = () => {
+      setVisibleProducts(prevVisibleProducts => prevVisibleProducts + 8);
+  };
+
 useEffect(()=>{
     getProduct();
 },[])
     
     return(
-        <Container >
+        <div style={{width:"82%", margin:"0 auto"}}>
           <Row>
             <Col className="mt-5"></Col>
           </Row>
@@ -41,19 +48,22 @@ useEffect(()=>{
           </Row>
           <Row>
             {/* PER CREARE MARGINI */}
-            <Col className="mt-5">
-                <h1 className="fs-4 mt-5">Prodotti</h1>
+            <Col className="mt-5 mb-4">
+                <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">Prodotti più venduti</span></h1>
             </Col>
           </Row>
-        <Row xs={1} md={5} className="g-4">
-          {product && product.map((product) => (
-            <Col key={product.productId} className="hoover-card py-2 px-2">
+        <Row xs={1} md={2} lg={3} xl={4} className="g-4">
+          {product && product.slice(0, visibleProducts).map((product) => (
+            <Col key={product.productId} className=" py-2 px-2">
+              <div className="shodow-p p-3 rounded-3" onClick={() => {navigate(`/product/${product.productId}`);}} style={{cursor:"pointer"}}>
+                {/* Immagine Prodotto */}
               <div
                 style={{
                   position: "relative",
                   width: "100%",   // Imposta la larghezza del contenitore all'immagine
-                  paddingBottom: "100%",  // Imposta l'altezza del contenitore come rapporto 1:1 rispetto alla larghezza
-                  overflow: "hidden"  // Assicura che l'immagine non vada al di fuori del contenitore
+                  paddingBottom: "65%",  // Rapporto d'aspetto 16:9 (9 / 16 * 100)
+                  overflow: "hidden",  // Assicura che l'immagine non vada al di fuori del contenitore
+                  borderRadius:"7px"
                 }}
               >
                 <img
@@ -64,29 +74,36 @@ useEffect(()=>{
                     width: "100%",   // Assicura che l'immagine occupi l'intero spazio del contenitore
                     height: "100%",  // Assicura che l'immagine occupi l'intero spazio del contenitore
                     objectFit: "cover" , // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
-                    cursor: 'pointer' 
                   }}
-                  onClick={() => {
-                    navigate(`/product/${product.productId}`); // Reindirizza all'URL del dettaglio del prodotto con l'ID dinamico
-                  }}
+                  
                 />
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: "10px",
-                    left: "10px",
-                    backgroundColor: "rgba(255, 255, 255)",
-                    padding: "5px",
-                    borderRadius: "5px"
-                  }}
-                >
-                  € {product.price}
-                </div>
+                
+              </div>
+              {/* Contenuto */}
+              <div>
+                  <Row className="mt-3">
+                    <Col xs={8}>
+                        <p className="text-capitalize fs-5">{product.title}</p>
+                        <h3>{product.price} €</h3>
+                    </Col>
+                    <Col className="d-flex justify-content-end align-items-center">
+                      <div className="a-b-o d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}>
+                        <img src="/Cart-Stramb.svg" alt="cart-icon"/>
+                      </div>
+                    </Col>
+                  </Row>
+              </div>
               </div>
             </Col>
           ))}
         </Row>
-      </Container>
+        {/* Pulsante "Mostra altri" */}
+        {visibleProducts < product.length && (
+                <div className="text-center mt-4">
+                    <Button variant="outline-dark" onClick={showMoreProducts} className="px-5 py-2">Mostra altro</Button>
+                </div>
+            )}
+      </div>
       
     )
 }

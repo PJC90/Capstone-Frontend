@@ -14,8 +14,8 @@ function HeaderContent(){
             <Container>
                     <Row className="pt-5 mt-3 mb-5" >
                         <div className="mb-4">
-                    <h1 className="d-flex justify-content-center fs-2  text-white">Qui trovi solo prodotti unici sostieni</h1>
-                    <h1 className="d-flex justify-content-center fs-2 mb-5 text-white"> i maker indipendenti!</h1>
+                    <h1 className="d-flex justify-content-center fs-2  text-white">Qui trovi solo prodotti unici, sostieni</h1>
+                    <h1 className="d-flex justify-content-center fs-2 mb-5 text-white"> i Maker indipendenti!</h1>
                         </div>
                         <Col className="mt-5 mb-5" style={{position:"relative"}} >
                             <div style={{position:"absolute", bottom:"-320px"}}>

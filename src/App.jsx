@@ -21,9 +21,9 @@ function App() {
   return (
     
     <BrowserRouter>
-    <div className="d-flex h-100 flex-column">
+    <div className="d-flex flex-column " style={{minHeight:"100vh"}}>
     <CustomNavbar/>
-    <div className="flex-grow-1">
+    <div className="flex-grow-1 mb-5">
     <Routes>
       <Route path='/registrazione' element={<Registrazione/>}/>
       <Route path='/' element={<Homepage/>}/>
@@ -38,7 +38,7 @@ function App() {
       <Route path="/cart" element={<Cart/>}/>
     </Routes>
     </div>
-    {/* <FooterArtesum/> */}
+    <FooterArtesum/>
     </div>
     </BrowserRouter>
     

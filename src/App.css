@@ -68,7 +68,7 @@
     background: linear-gradient(to right, rgba(255, 251, 0, 0.479) , #ffc400);
   }
   .bg-header{
-    background: linear-gradient(to bottom, #E38F38 75%, transparent 50%); /* sfondo metà arancione e metà trasparente */
+    background: linear-gradient(to bottom, #E38F38 0%, #FFFFFF 100%);
   }
   
   .text-content{
@@ -112,13 +112,19 @@
   box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.19), 0px 6px 6px 0px rgba(0,0,0,0.23);
 }
 .header-card:hover{
-  transform: scale(1.01);
+  box-shadow: 0px 15px 28px 0px rgba(0,0,0,0.19), 0px 12px 12px 0px rgba(0,0,0,0.23);
 }
 .order-card{
   box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.12), 0px 1px 2px 0px rgba(0,0,0,0.24);
 }
 .order-card:hover{
   transform: scale(1.01);
+}
+.shodow-p{
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.shodow-p:hover{
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 .overlay {
   position: absolute;
@@ -129,4 +135,10 @@
   background-color: rgba(0, 0, 0, 0.5) !important;/* Opacità 50% */
   z-index: 999; /* Assicura che l'overlay sia sopra a tutti gli altri elementi */
 }
+.border-art{
+  border-bottom-color: #E38F38 !important;
+  border-bottom-width: 6px !important;
+  border-bottom-style: solid !important;
+}
+
 

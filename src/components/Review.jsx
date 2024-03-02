@@ -131,10 +131,11 @@ if(photo){
                                 </span>
                             ))}
                         </div>
-                    <Form.Group>
+                    <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Descrizione:</Form.Label>
                         <Form.Control 
-                        type="text"
+                        as="textarea"
+                        type="textarea"
                         value={description}
                         onChange={(e)=>{setDescription(e.target.value)}}
                         />

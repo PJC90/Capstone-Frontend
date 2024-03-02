@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Registrazione from "./Registrazione";
+import { Facebook, Google } from "react-bootstrap-icons";
 
 
 function Login(props) {
@@ -80,32 +81,26 @@ function Login(props) {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-            <Row className="w-100 d-flex justify-content-between">
-                <Col>
-                    <Modal.Title id="contained-modal-title-vcenter">Accesso</Modal.Title>
-                </Col>
-                <Col className=" d-flex justify-content-end">
-                     <Button className='w-50 me-3 rounded-pill artesum-button' onClick={()=>setModalShow(true)}>
-                    Registrati
-                    </Button>
-                    <Registrazione show={modalShow} onHide={()=> setModalShow(false)}/>
-                </Col>
-            </Row>
-          
-        </Modal.Header>
-        <Modal.Body>
+  
+        <Modal.Body className="py-5">
+          <Row className="d-flex flex-column justify-content-center align-items-center">
+            <Col xs={7} >
+
+              <div className="mt-4 mb-5 d-flex justify-content-center flex-column align-items-center">
+                <h3>Accedi al tuo <span className="a-b-o p-2 rounded-pill">Account</span></h3>
+                <p className="mt-4 text-body-tertiary">Ritorna nel tuo account</p>
+              </div>
+
           {error && <div className="alert alert-danger">{error}</div>}
-        <Form className="mx-4" onSubmit={handleSubmit}>
+        <Form  onSubmit={handleSubmit}>
               <Form.Group
-                className="mb-3"
+                className="mb-4 "
                 controlId="formBasicEmail"
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
               >
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Control type="email" placeholder="Indirizzo email" />
               </Form.Group>
 
               <Form.Group
@@ -115,18 +110,37 @@ function Login(props) {
                   setPassword(e.target.value);
                 }}
               >
-                <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" />
               </Form.Group>
-            <Button className='ms-5 mt-3 px-4 rounded-pill artesum-button-black' type="submit" >
-            Accesso
-            </Button>
-              
+              <div className="d-flex justify-content-end mt-4">
+                <p className="text-body-tertiary" style={{cursor:"pointer"}}>Password dimenticata?</p>
+              </div>
+                <div className="d-flex">
+                    <Button className='a-b-o flex-grow-1 mt-2 py-2' type="submit" >
+                    Login
+                    </Button>
+                </div>
             </Form>
-        </Modal.Body>
-        <div className="mt-3 border-top d-flex justify-content-center">
-        <p className="mx-5 mt-3">ART Ergo SUM</p>
+          <div className="mt-4 text-center">
+            <p>Sei nuovo? 
+              <span onClick={()=>setModalShow(true)} style={{cursor:"pointer"}} className='fw-bold ms-2 ' 
+              onMouseEnter={(e) => e.target.style.textDecoration = 'underline'} onMouseLeave={(e) => e.target.style.textDecoration = 'none'} > 
+              Registrati</span>
+            </p>
+            <Registrazione show={modalShow} onHide={()=> setModalShow(false)}/>
           </div>
+          <div className="d-flex align-items-center justify-content-center mt-5">
+                <hr className="flex-grow-1 mr-3" />
+                <p className="m-0 mx-4">Oppure</p>
+                <hr className="flex-grow-1 ml-3" />
+          </div>
+          <div className="text-center my-2 mt-4">
+            <Facebook className="text-art m-2 fs-3"/>
+            <Google className="text-art m-2 fs-3"/>
+          </div>
+        </Col>
+          </Row>
+        </Modal.Body>
       </Modal>
     );
   }

@@ -61,10 +61,10 @@ const handleViewModifica = () => {
     },[location.search])
 
     return(
-        <Container fluid  style={{height:"100vh"}}>
-            <Row className="d-flex justify-content-start h-100" >
+        <Container fluid  >
+            <Row className="d-flex justify-content-start " >
  {/*-------------------------------------------------------------------- LEFT SIDEBAR ------------------------------------------------------------------------------               */}
-                <Col xs={2} className="d-flex flex-column" style={{width:"250px", boxShadow:"25px 0px 20px -20px rgba(0,0,0,0.1)"}}  >
+                <Col xs={2} className="d-flex flex-column" style={{width:"250px",height:"100vh", boxShadow:"25px 0px 20px -20px rgba(0,0,0,0.1)"}}  >
                     <Row className="mt-5 ms-1" >
                         {userMe ? (
                         <Col className="d-flex flex-column align-items-start mt-5" > 
