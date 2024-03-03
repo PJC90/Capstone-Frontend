@@ -12,6 +12,10 @@
     background-color: rgb(228, 228, 228) !important; /* Cambia il colore dello sfondo al passaggio del mouse */
     transform: scale(1.03); /* Ingrossa leggermente il bottone al passaggio del mouse */
   }
+.icon-effect-active {
+    background-color: rgb(228, 228, 228) !important; /* Cambia il colore dello sfondo al passaggio del mouse */
+    transform: scale(1.03); /* Ingrossa leggermente il bottone al passaggio del mouse */
+  }
 .icon-effect-heart:hover {
     transform: scale(1.2); /* Ingrossa leggermente il bottone al passaggio del mouse */
     fill: red;
@@ -125,6 +129,9 @@
 }
 .shodow-p:hover{
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+.shodow-p-nh{
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .overlay {
   position: absolute;

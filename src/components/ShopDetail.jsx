@@ -101,33 +101,40 @@ const calculateAverageRating = () => {
     return(
         <>
         {shopDetail ? (
-            <Container>
-                  <img src={shopDetail.coverImageShop} alt={shopDetail.shopName} className="img-fluid w-100" style={{height:"300px", objectFit: 'cover'}}/>
-                  <Row className="mt-5">
-                    <Col xs={2}>
-                    <img src={shopDetail.logoShop} alt={shopDetail.shopName} className="img-fluid w-100"/>
-                    </Col>
-                    <Col>
-                    <p className="fs-2 fw-bold m-0">{shopDetail.shopName}</p>
-                    <p className="fs-4 m-0">{shopDetail.description}</p>
-                    <p className="fs-5 m-0">Nazione: {shopDetail.nation} </p>
-                    <p className="fs-5 m-0">Località: {shopDetail.locality} </p>
-                    <p className="fs-5 mt-2">{shopDetail.numberOfSales} Vendite</p>
-                    </Col>
+            <div className="mt-5" style={{width:"82%", margin:"0 auto"}}>
+                <div style={{position:"relative"}}>
+                  <img src={shopDetail.coverImageShop} alt={shopDetail.shopName} className="img-fluid w-100 rounded-3" style={{height:"300px", objectFit: 'cover'}}/>
+                  <div style={{position:"absolute", left:"100px", bottom:"-40px"}}>
+                    <div className="p-1 bg-white rounded-3">
+                    <img src={shopDetail.logoShop} alt={shopDetail.shopName}  style={{width:"150px"}} className="rounded-3"/>
+                    </div>
+                  </div>
+                </div>
+                <Row className="mt-4">
                     <Col></Col>
-                    <Col xs={2} className="">
-                        <Row className="d-flex flex-column ">
-                            <Col className="d-flex flex-column align-items-center">
+                </Row>
+                  <Row className="mt-5 border rounded-3 shodow-p-nh mx-1">           
+                    <Col className="ms-5 ps-5 my-3 d-flex flex-column justify-content-center">
+                    <p className="fs-2 fw-bold m-0 text-art">{shopDetail.shopName}</p>
+                    <p className="fs-4 m-0">{shopDetail.description ? shopDetail.description : "Inserisci descrizione negozio"}</p>
+                    
+                    <p className="fs-5 mt-2">Totale Vendite: {shopDetail.numberOfSales}</p>
+                    </Col>
+                    
+                    <Col className="me-5 pe-5 my-4 pt-2 border-2 border-start">
+                        <Row className="d-flex align-items-center">
+                            <Col className="d-flex flex-column align-items-end">
                             <img src={shopDetail.seller.avatar} alt={shopDetail.shopName} className="rounded-pill" style={{height:"90px", width: "90px", objectFit:"cover"}}/>
                             </Col>
-                            <Col className="d-flex flex-column align-items-center">
-                            <p className="m-0 mt-3">Proprietario Negozio:</p>
-                            <h3>{shopDetail.seller.name} {shopDetail.seller.surname}</h3>
+                            <Col className="d-flex flex-column align-items-start">
+                            <h3 className="text-capitalize">{shopDetail.seller.name} {shopDetail.seller.surname}</h3>
+                            <p className="m-0 text-capitalize">{shopDetail.locality} ( {shopDetail.nation} )</p>
+                            <p className="m-0 mt-1">Proprietario di {shopDetail.shopName}</p>
                             </Col>
                         </Row>
                     </Col>
                   </Row>
-                  </Container>
+                  </div>
                 ) : (
                   <p>Loading...</p>
                 )}

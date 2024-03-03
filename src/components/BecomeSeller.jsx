@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Form, Spinner } from "react-bootstrap";
+import { Airplane } from "react-bootstrap-icons";
 
 
 // per installare le animazioni https://animate.style/
@@ -64,16 +65,19 @@ function BecomeSeller(){
     }
     
     return(
-        <Container className="text-center">
-            <Row className="d-flex justify-content-center">
-                <Col xs={6} >
-                    <h3 className="my-5">Benvenuto su Artesum SELLER</h3>
-                    <p className="my-4 fs-3">Il nome del tuo negozio è la base del tuo marchio</p>
+        <Container className="mt-5">
+            <Row className="d-flex mt-5 ">
+                <Col className="mt-5 mb-5 pt-5" xs={5}>
+                <img src="/BecomeSeller.png" alt="image-become-seller" className="img-fluid" />
+                </Col>
+                <Col className="mt-5 mb-5 ms-5 pt-5" >
+                    <h2 className="my-5 fw-bold">Benvenuto su Artesum <span className="artesum-color rounded-pill pb-1 px-3 text-white">SELLER</span></h2>
                     {!isShopCreated && (
                         <>
-                    <p className="my-2">Confermi di voler aprire un Negozio?</p>
-                    <Button className="px-5 py-2 my-4 rounded-pill border-0" style={{backgroundColor:"rgb(146, 97, 6)"}}
-                    onClick={()=>{setisChecked(true);handleCheched();}}>Apri Negozio</Button>
+                    <p className="my-4 fs-5">Il nome del tuo negozio è la base del tuo marchio</p>
+                    <p className="my-2 mt-4">Confermi di voler aprire un Negozio?</p>
+                    <Button variant="dark" className="mt-4 px-5"
+                    onClick={()=>{setisChecked(true);handleCheched();}}><img src="/send-fill.svg" alt=""/> Apri Negozio</Button>
                     </>
                     )}
                     {isChecked && (
@@ -82,42 +86,33 @@ function BecomeSeller(){
                             placeholder="Inserisci il nome del negozio"
                             value={shopName}
                             onChange={handleShopName}
-                            className="rounded-pill px-5 py-3 border-3 text-info"
-                            style={{borderColor:"rgb(0, 140, 255)"}}
+                            className=" px-5 py-3  mt-5"
                         />
                     )}
-                </Col>
-            </Row>
-          
-                <Row>
-                    <Col>
                     {isLoading && (
-                        <>
-                        <img src="/Gear-gif.svg" alt="gear-spinner"/>
+                        <div className="d-flex mt-5">
+                            <Button variant="dark" className="px-5">
+                        <img src="/Gear-gif.svg" alt="gear-spinner" style={{width:"50px", height:"50px"}} />
                         {/* <iframe src="https://giphy.com/embed/Mah9dFWo1WZX0WM62Q" style={{width:"300px", height:"300px"}}></iframe> */}
-                        <p className="mt-3 fs-3">Stiamo creando il tuo negozio...</p>
-                        </>
+                        Stiamo creando il tuo negozio...</Button>
+                        </div>
                         )}
                     {(isChecked && !isLoading) && (
-                        <Button className="px-5 py-3 my-5 bg-warning rounded-pill border-0 fs-3 fw-bold" onClick={becomeSeller}>
-                         Costruisci il mio Negozio
-                        </Button>)}
-                    </Col>
-                </Row>
+                        <Button className="a-b-o mt-5 px-5 fs-5 pt-2" onClick={becomeSeller}>
+                         <img src="/store.svg" alt="" /> Costruisci il mio Negozio
+                        </Button>
+                        )}
+                    {show && (isShopCreated && !isLoading)&& (  
+                        <div  className="text-center a-b-o  py-4 rounded-2 animate__animated animate__zoomInDown" xs={8}>
+                            <p className="fs-4"><span className="fw-bold fs-3 ">{shopName}</span> è pronto per decollare.</p>
+                            <p className="fs-6">Vai nella sezione profilo ⮕ Gestione Negozio</p>
+                            <p className="fs-6">per aggiungere ulteriori dettagli.</p>
+                        </div>  
+                        )}    
+                </Col>
+            </Row>
              
-            {show && (isShopCreated && !isLoading)&& (
-                <Row className="mt-3 d-flex justify-content-center ">
-                    <Col  className="border border-black border-5 bg-warning py-4 rounded-5 animate__animated animate__zoomInDown" xs={8}>
-                        <h2>Congratulazioni!</h2>
-                        <p className="fs-4">Hai appena creato questo negozio:</p>
-                        <h1 className="text-white py-4">{shopName}</h1>
-                        <p className="fs-4">Continua così!</p>
-                        <p className="fs-4">Il tuo negozio è pronto per decollare.</p>
-                        <p className="fs-4">Vai nella sezione profilo ⮕ Gestione Negozio</p>
-                        <p className="fs-4">per aggiungere ulteriori dettagli.</p>
-                    </Col>
-                </Row>
-            )}
+            
         </Container>
     )
 }

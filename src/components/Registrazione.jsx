@@ -55,13 +55,13 @@ const Registrazione = (props) => {
         onHide={()=>{
           setRegisterSuccess(false); 
           props.onHide();}}
-        size="lg"
+        size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Body>
         <Row className="d-flex flex-column justify-content-center align-items-center">
-            <Col xs={7} className="mt-3">
+            <Col xs={6} className="mt-3">
 
               <div className="mt-3 mb-3 d-flex justify-content-center flex-column align-items-center">
                 <h3>Registra un <span className="a-b-o p-2 rounded-pill">Account</span></h3>
@@ -133,7 +133,7 @@ const Registrazione = (props) => {
             </Form.Group>
             
             <div className="d-flex mb-4">
-                    <Button className='a-b-o flex-grow-1 mt-4 py-2' type="submit" >
+                    <Button className='a-b-o flex-grow-1 mt-5 py-2 mb-5' type="submit" >
                     Registrati
                     </Button>
             </div>

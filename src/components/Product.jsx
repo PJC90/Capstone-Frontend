@@ -4,12 +4,13 @@ import { Cart, Heart } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 
 function Product(){
-    const [product, setProduct] = useState([]);
-    const [visibleProducts, setVisibleProducts] = useState(8);
+    const [visibleProducts, setVisibleProducts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0); // Pagina corrente
+    const [totalPages, setTotalPages] = useState(0); // Numero totale di pagine
     const navigate = useNavigate();
 
-    const getProduct = ()=>{
-        fetch("http://localhost:3010/product",{
+    const getProduct = (page = 0, size = 8, order = 'dateCreation')=>{
+        fetch(`http://localhost:3010/product?page=${page}&size=${size}&order=${order}`,{
             headers:{Authorization: localStorage.getItem("tokenAdmin")}
         })
         .then((res)=>{
@@ -21,8 +22,9 @@ function Product(){
         })
         .then((data)=>{
             console.log("Prodotti:")
-            console.log(data.content);
-            setProduct(data.content);
+            console.log(data);
+            setVisibleProducts(data.content);
+            setTotalPages(data.totalPages)
         })
         .catch((err)=>{
             console.log(err);
@@ -30,12 +32,25 @@ function Product(){
         })
     }
 
-    const showMoreProducts = () => {
-      setVisibleProducts(prevVisibleProducts => prevVisibleProducts + 8);
-  };
+    const goToPage = (page) => {
+      setCurrentPage(page);
+      getProduct(page); // Recupera i dati per la pagina selezionata
+  }
+
+  // Genera i pulsanti della paginazione
+  const paginationButtons = [];
+  for (let i = 0; i < totalPages; i++) {
+      paginationButtons.push(
+          <Button key={i} onClick={() => goToPage(i)} className={`mx-1 icon-effect rounded-pill ${currentPage === i ? "icon-effect-active" : ""}`}>
+              {i + 1}
+          </Button>
+      );
+  }
+
+
 
 useEffect(()=>{
-    getProduct();
+    getProduct(0);
 },[])
     
     return(
@@ -53,7 +68,7 @@ useEffect(()=>{
             </Col>
           </Row>
         <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-          {product && product.slice(0, visibleProducts).map((product) => (
+          {visibleProducts && visibleProducts.map((product) => (
             <Col key={product.productId} className=" py-2 px-2">
               <div className="shodow-p p-3 rounded-3" onClick={() => {navigate(`/product/${product.productId}`);}} style={{cursor:"pointer"}}>
                 {/* Immagine Prodotto */}
@@ -97,12 +112,12 @@ useEffect(()=>{
             </Col>
           ))}
         </Row>
-        {/* Pulsante "Mostra altri" */}
-        {visibleProducts < product.length && (
-                <div className="text-center mt-4">
-                    <Button variant="outline-dark" onClick={showMoreProducts} className="px-5 py-2">Mostra altro</Button>
-                </div>
-            )}
+        {/* Mostra i pulsanti della paginazione */}
+        <Row>
+          <Col className="d-flex justify-content-end mt-4">
+            {paginationButtons}
+          </Col>
+        </Row>
       </div>
       
     )
