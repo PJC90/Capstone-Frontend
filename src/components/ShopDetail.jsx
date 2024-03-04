@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import { Button, Col, Container, Dropdown, Form, InputGroup, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import StarRating from "./StarRating";
 
 function ShopDetail(){
@@ -8,6 +8,7 @@ function ShopDetail(){
     const [shopDetail, setShopDetail] = useState(null);
     const [shopProducts, setShopProducts] = useState([]);
     const [reviewShop, setReviewShop] = useState([]);
+    const [isHovered, setIsHovered] = useState(null)
 
 
     const navigate = useNavigate();
@@ -139,16 +140,18 @@ const calculateAverageRating = () => {
                         </Col>
                     </Row>
                   
-                <Row xs={1} md={5} >
-             {shopProducts && shopProducts.map((product)=>{
+                <Row xs={1} md={2} lg={3} xl={4} className="g-4 ">
+             {shopProducts && shopProducts.map((product, index)=>{
                 return(
-                    <Col key={product.productId} className="hoover-card pt-3" >
-                        <div
+                    <Col key={product.productId}  >
+                        <div className="shodow-p p-3 rounded-3"   onClick={() => {navigate(`/product/${product.productId}`);}} style={{cursor: 'pointer'}}>
+                        <div 
                 style={{
                   position: "relative",
-                  width: "100%",   // Imposta la larghezza del contenitore all'immagine
-                  paddingBottom: "100%",  // Imposta l'altezza del contenitore come rapporto 1:1 rispetto alla larghezza
-                  overflow: "hidden"  // Assicura che l'immagine non vada al di fuori del contenitore
+                  width: "100%",   
+                  paddingBottom: "65%",  
+                  overflow: "hidden",
+                  borderRadius:"7px"
                 }}
               >
                 <img
@@ -156,38 +159,51 @@ const calculateAverageRating = () => {
                   alt={product.title}
                   style={{
                     position: "absolute",
-                    width: "100%",   // Assicura che l'immagine occupi l'intero spazio del contenitore
-                    height: "100%",  // Assicura che l'immagine occupi l'intero spazio del contenitore
-                    objectFit: "cover",  // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
-                    cursor: 'pointer' 
+                    width: "100%",   
+                    height: "100%",  
+                    objectFit: "cover"  
                   }}
-                  onClick={() => {
-                    navigate(`/product/${product.productId}`); // Reindirizza all'URL del dettaglio del prodotto con l'ID dinamico
-                  }}
+                  onMouseEnter={()=>{setIsHovered(index)}}
+                  onMouseLeave={()=>{setIsHovered(null)}}
                 />
+                {isHovered === index && (
                 <div
                   style={{
                     position: "absolute",
-                    bottom: "10px",
+                    top: "10px",
                     left: "10px",
-                    backgroundColor: "rgba(255, 255, 255)",
+                    backgroundColor: "#E38F38",
                     padding: "5px",
-                    borderRadius: "50%", // Imposta il bordo a metà della larghezza e altezza
-                    width: "40px", // Imposta la larghezza del cerchio
-                    height: "40px", // Imposta l'altezza del cerchio
+                    borderRadius: "50%", 
+                    width: "40px", 
+                    height: "40px", 
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center"
                   }}
                 >
              {/*  <FontAwesomeIcon icon={faHeart} size={20} color="black" />  Utilizza l'icona di cuore da FontAwesome */}
-                <svg xmlns="http://www.w3.org/2000/svg" className="icon-effect-heart" viewBox="0 0 24 24" width="20" height="20" fill="white" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-  <path  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
+                 <svg xmlns="http://www.w3.org/2000/svg" className="icon-effect-heart" viewBox="0 0 24 24" width="20" height="20" fill="#E38F38" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
                 </div>
+                )}
               </div>
-                        <div>{product.title}</div>
-                        <div>€ {product.price}</div>
+                        {/* Contenuto */}
+                            <div>
+                                <Row className="mt-3">
+                                    <Col xs={8} className="ms-1">
+                                        <p className="text-capitalize fs-5">{product.title}</p>
+                                        <h3>{product.price} €</h3>
+                                    </Col>
+                                    <Col className="d-flex justify-content-end align-items-center">
+                                    <div className="me-2 a-b-o d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}>
+                                        <img src="/Cart-Stramb.svg" alt="cart-icon"/>
+                                    </div>
+                                    </Col>
+                                </Row>
+                            </div>
+             </div>            
                     </Col>
                 )
                 })}
@@ -231,7 +247,7 @@ const calculateAverageRating = () => {
                                                     </Col>
                                                 </Row>
                                             </Col>
-                                            <Col className="d-flex align-items-center justify-content-center p-0">
+                                            <Col className="d-flex align-items-center justify-content-end p-0">
                                            
                                                 <img src={reviews.photoReview} alt="reviews" style={{
                                                     width: "200px",   // Assicura che l'immagine occupi l'intero spazio del contenitore
@@ -257,19 +273,58 @@ const calculateAverageRating = () => {
                         <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">Informazioni del Negozio</span></h1>
                      </Col>  
                 </Row>
-            <Row className="d-flex flex-row justify-content-center align-items-center">
-                <Col xs={6}>
-                <p>
-                    Benvenuti nel nostro negozio di artigianato, un luogo dove la creatività e l'abilità artigianale si fondono per offrire pezzi unici e distintivi. 
-                    Siamo orgogliosi di presentare una vasta selezione di creazioni artigianali, realizzate con passione e cura dai nostri artigiani locali. 
-                    Dalle opere d'arte alle creazioni in ceramica, gioielli fatti a mano, tessuti artigianali e molto altro ancora, ogni articolo nel nostro negozio 
-                    porta con sé il carattere e l'individualità che solo l'artigianato può offrire. Ogni pezzo è frutto di ore di lavoro artigianale, con un'attenzione scrupolosa 
-                    ai dettagli e un rispetto per le tradizioni artigianali. Sia che tu stia cercando un regalo unico o desideri arricchire la tua casa con opere d'arte originali, 
-                    siamo qui per soddisfare le tue esigenze con la nostra collezione eclettica e autentica. 
-                    Esplora il nostro negozio e lasciati ispirare dalla bellezza dell'artigianato fatto a mano.
-                </p>
-                </Col>
-            </Row>
+           
+                {shopDetail ? (
+                    <>
+                     <Row className="d-flex flex-row justify-content-center align-items-start">
+                        <Col xs={6}>
+                        <p className="fw-bold">Informazioni su {shopDetail.shopName}:</p>
+                        <p>
+                            Benvenuti nel nostro negozio di artigianato, un luogo dove la creatività e l'abilità artigianale si fondono per offrire pezzi unici e distintivi. 
+                            Siamo orgogliosi di presentare una vasta selezione di creazioni artigianali, realizzate con passione e cura dai nostri artigiani locali. 
+                            Dalle opere d'arte alle creazioni in ceramica, gioielli fatti a mano, tessuti artigianali e molto altro ancora, ogni articolo nel nostro negozio 
+                            porta con sé il carattere e l'individualità che solo l'artigianato può offrire. Ogni pezzo è frutto di ore di lavoro artigianale, con un'attenzione scrupolosa 
+                            ai dettagli e un rispetto per le tradizioni artigianali. Sia che tu stia cercando un regalo unico o desideri arricchire la tua casa con opere d'arte originali, 
+                            siamo qui per soddisfare le tue esigenze con la nostra collezione eclettica e autentica. 
+                            Esplora il nostro negozio e lasciati ispirare dalla bellezza dell'artigianato fatto a mano.
+                        </p>
+                        </Col> 
+                    </Row>
+                     <Row className="mt-5 d-flex flex-row justify-content-center align-items-start">
+                        <Col xs={6}>
+                        <p className="fw-bold">Download digitali</p>
+                        <p>
+                        Download istantanei, i tuoi file saranno disponibili per il download una volta confermato il pagamento
+                        </p>
+                        </Col> 
+                    </Row>
+                     <Row className="mt-5 d-flex flex-row justify-content-center align-items-start">
+                        <Col xs={6}>
+                        <p className="fw-bold">Informazioni sulla spedizione</p>
+                        <p>
+                        Le mie creazioni sono spedite in tutto il mondo.
+                        Per conoscere il costo di spedizione di un dato paese dai un'occhiata alle informazioni che trovi in ciascuna inserzione.
+                        Farò sempre del mio meglio perché il tuo ordine arrivi in tempo, ma ti prego di considerare che eventuali ritardi imprevisti sono fuori dal mio controllo e dipendono dal servizio postale.
+                        </p>
+                        </Col> 
+                    </Row>
+                     <Row className="mt-5 d-flex flex-row justify-content-center align-items-start">
+                        <Col xs={6}>
+                        <p className="fw-bold">Cambi e restituzioni</p>
+                        <p>
+                        Nel caso tu non sia soddisfatto del tuo acquisto, puoi effettuarne il reso entro 14 giorni dalla ricezione del pacco.
+                        Il prodotto deve essere restituito in perfette condizioni, con eventuali etichette e nella scatola originale. Una volta ricevuto il tuo reso e verificatene le condizioni, sarai rimborsato per l'intero costo iniziale eccetto le spese di spedizione.
+                        Il rimborso ti sarà restituito sullo stesso metodo di pagamento che hai utilizzato per l'acquisto.
+                        Nel caso tu voglia effettuare un cambio con un'altra delle mie creazioni (o con un ordine personalizzato), potrai rendere il prodotto acquistato seguendo la procedura di reso ed effettuare un altro ordine.
+                        I costi di spedizione per resi e cambi sono a carico del cliente.
+                        </p>
+                        </Col> 
+                    </Row>
+                    </>
+                ) : (
+                <p>Loading...</p>
+                    )}
+            
             </div>
         </>
     )
