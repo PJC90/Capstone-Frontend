@@ -126,6 +126,7 @@
 }
 .artesum-color-button{
   background-color: #E38F38 !important; /* Cambia il colore di sfondo */
+  border: none !important; /* Rimuove il bordo */
 }
 .artesum-color-button:hover{
   background-color: #e39038be !important; /* Cambia il colore di sfondo */

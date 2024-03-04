@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 function Cart(){
     const navigate = useNavigate();
     const[productsInCart, setProductsInCart] = useState([])
-    const [showDelete, setshowDelete] = useState(false)
     const [showPayPal, setShowPayPal] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -39,11 +38,7 @@ function Cart(){
         .then((res)=>{
             if(res.ok){
                 console.log("Prodotto Eliminato" + res)
-                setshowDelete(true)
-                setTimeout(()=>{
-                    setshowDelete(false)
                     window.location.reload()
-                },1000)
             }else{
                 throw new Error("Errore nell'eliminare il prodotto nel carrello")
             }
@@ -52,6 +47,32 @@ function Cart(){
             console.log(err)
         })
     }
+
+    const addProductToCart = (productId) => {
+        fetch(`http://localhost:3010/cart/${productId}/addproduct`,{
+          method:"POST",
+          headers:{
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("tokenAdmin")
+          },
+        })
+        .then((res)=>{
+          if(res.ok){
+            return res.json()
+          }else{
+            throw new Error("Errore nell'aggiungere il prodotto nel carrello")
+          }
+        })
+        .then((data)=>{
+          console.log("Carrello: ")
+            console.log(data)
+            window.location.reload()
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
+      }
+
     const handleOrderId = (orderId) => {
         // Gestisci l'orderId ricevuto dal componente figlio qui nel componente genitore
         console.log("Order ID ricevuto nel genitore:", orderId);
@@ -82,30 +103,49 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
   
     return(
         <Container>
-            <Row className="d-flex flex-row mt-5" 
-            // style={{height:"100vh"}} //per il footer
-            >
-                <Col xs={7} >
-                    <Row className="d-flex flex-column border border-black rounded-5">
+            <Row className="d-flex flex-column flex-lg-row mt-5" >
+{/* ----------------------------------------------------------------------------Prodotti carrello------------------------------------------------------------------ */}
+
+                <Col  >
+                    <Row className="d-flex flex-column ">
         {Object.values(groupedProducts).map((product) => (
-                            <Col className="" key={product.productId}>
-                                <Row className="border-black border-bottom">
-                                    <Col xs={2} md={6} className="">
-                                    <img src={product.photo1} alt="image-product" className="img-fluid border rounded-5 my-3" />
+                            <Col className="p-3" key={product.productId}>
+                                <Row className="shodow-p p-3 rounded-3">
+                                    <Col  className="">
+                                    <img src={product.photo1} alt="image-product" className="img-fluid rounded-2 my-3" style={{width:"250px", height:"250px", objectFit:"cover"}}/>
                                     </Col>
-                                    <Col className="d-flex flex-column justify-content-center justify-content-evenly my-5">
-                                    <p>Prodotto: <span className="fw-bold text-capitalize fs-5 ms-2"> {product.title}</span></p>
-                                    <p>{product.productType === "PHYSICAL" ? "Consegna in 7 giorni" :
-                                        (product.productType === "DIGITAL") ? "Download istantaneo" : ""}</p>
-                                    <p>Prezzo: <span className="fw-bold text-capitalize fs-3 ms-2"> {product.price} €</span></p>
-                                    <p>Quantità: <span className="fw-bold text-capitalize fs-3 ms-2">{product.quantity}</span></p>
-                                    <Button className="bg-black d-block w-50 border-0" onClick={() => { deleteProductInCart(product.productId) }}>Rimuovi</Button>
+                                    <Col className="d-flex flex-column justify-content-center justify-content-between my-4">
+                                        <div>
+                                                <p className="fw-bold text-capitalize fs-5 m-0">{product.title}</p>
+                                                <p className="fw-bold text-capitalize fs-2 text-art m-0"> {product.price} €</p>
+                                                <p>{product.productType === "PHYSICAL" ? "Consegna in 7 giorni" :
+                                                    (product.productType === "DIGITAL") ? "Download istantaneo" : ""}</p>
+                                        </div>
+                                        <Row className="">
+                                            <Col className="ms-3">
+                                                    <Row>
+                                                            <Col className="d-flex justify-content-center align-items-center p-0">
+                                                                <Button variant="dark" className="rounded-circle p-0" style={{width:"40px", height:"40px"}}
+                                                                onClick={() => { deleteProductInCart(product.productId) }}>-</Button>
+                                                            </Col>
+                                                            <Col className="d-flex justify-content-center align-items-center p-0">
+                                                                <p className="fw-bold text-capitalize fs-3 m-2 p-0">{product.quantity}</p>
+                                                            </Col>
+                                                            <Col className="d-flex justify-content-center align-items-center p-0">
+                                                                <Button className="artesum-color-button rounded-circle" style={{width:"40px", height:"40px"}}
+                                                                onClick={() => { addProductToCart(product.productId) }}>+</Button>
+                                                            </Col>
+                                                    </Row>
+                                            </Col>
+                                            <Col></Col>
+                                        </Row>
                                     </Col>
                                 </Row>
                                 </Col>
                                 ))}
                         </Row>
                     </Col>
+{/* ----------------------------------------------------------------------------DETTAGLI PAGAMENTO------------------------------------------------------------------ */}
                     <Col className="mt-5 mx-5 text-center">
                         <div className="mx-4">
                         <div className="d-flex justify-content-between">
@@ -140,7 +180,6 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                         }
                         <p className="mt-4 text-body-tertiary mt-4"> Imposte locali incluse (dove applicabili)</p>
                         <p className="text-body-tertiary"> È possibile che vengano applicati oneri e tasse aggiuntivi</p>
-                        {showDelete && <Alert>Prodotto Eliminato</Alert>}  
                         {showSuccessMessage && (
                                 <Alert variant="success">Pagamento completato con successo!</Alert>
                             )}

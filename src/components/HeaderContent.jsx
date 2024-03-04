@@ -48,7 +48,7 @@ function HeaderContent(){
                                 entra a far parte nella nostra comunity. 
                                 Hai a disposizione una piattaforma per caricare e vendere i tuoi prodotti senza costi!
                                 </Card.Text>
-                                <Button className="w-50 artesum-color-button border-0 py-2" onClick={()=>{navigate("/becomeseller")}}>Inizia a vendere</Button>
+                                <Button className="w-50 artesum-color-button py-2" onClick={()=>{navigate("/becomeseller")}}>Inizia a vendere</Button>
                             </Card.Body>
                             </Card>
                             </div>

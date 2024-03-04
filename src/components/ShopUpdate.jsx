@@ -71,7 +71,7 @@ function ShopUpdate(){
 
     return(
         
-        <Container fluid  style={{height:"100vh"}}>
+        <Container fluid  style={{height:"100%"}}>
             <Row className="d-flex justify-content-start h-100" >
  {/*-------------------------------------------------------------------- LEFT SIDEBAR ------------------------------------------------------------------------------               */}
                 <Col xs={2} className="d-flex flex-column" style={{boxShadow:"25px 0px 20px -20px rgba(0,0,0,0.1)"}}>

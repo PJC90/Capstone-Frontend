@@ -103,8 +103,10 @@ function BecomeSeller(){
                         </Button>
                         )}
                     {show && (isShopCreated && !isLoading)&& (  
-                        <div  className="text-center a-b-o  py-4 rounded-2 animate__animated animate__zoomInDown" xs={8}>
-                            <p className="fs-4"><span className="fw-bold fs-3 ">{shopName}</span> è pronto per decollare.</p>
+                        <div  className="text-center shodow-p-nh p-3 rounded-3  py-4 rounded-2 animate__animated animate__zoomInDown w-75" >
+                            <img src="/store.svg" alt="" className="artesum-color rounded-3" style={{width:"80px"}}/>
+                            <p className="fw-bold fs-3 mb-0"><span className="border-art">{shopName}</span></p>
+                            <p className="fs-4">è pronto per decollare.</p>
                             <p className="fs-6">Vai nella sezione profilo ⮕ Gestione Negozio</p>
                             <p className="fs-6">per aggiungere ulteriori dettagli.</p>
                         </div>  

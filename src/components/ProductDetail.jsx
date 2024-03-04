@@ -95,7 +95,7 @@ function ProductDetail(){
     const ArrowLeft = ({ onClick }) => (
       <div className="d-flex justify-content-center align-items-center"
         style={{  
-          color:"#E38F38",
+          // color:"#E38F38",
           position: 'absolute',
           top: '50%',
           left: '-10px',
@@ -112,7 +112,7 @@ function ProductDetail(){
     const ArrowRight = ({ onClick }) => (
       <div className="d-flex justify-content-center align-items-center"
         style={{  
-          color:"#E38F38",
+          // color:"#E38F38",
           position: 'absolute',
           top: '50%',
           right: '-44px',
@@ -130,11 +130,13 @@ function ProductDetail(){
     const MyDot = ({ isActive }) => (
       <span
         style={{
-          marginTop:"20px", borderRadius:"100%",
+          marginTop:"30px", 
+          borderRadius:"100%",
           display: 'inline-block',
           height: isActive ? '22px' : '15px',
           width: isActive ? '22px' : '15px',
-          background: '#E38F38',
+          background: "white",
+          border: `3px solid ${isActive ? "black" : '#E38F38'}`
         }}
       ></span>
     )
@@ -157,7 +159,7 @@ function ProductDetail(){
                       {/* Margine solo in dimensione XS, margine nascosto in MD */}
                     </Col>
                   <Col xs={10}>
-                <Carousel gap={10}  loop showDots={true} arrowLeft={<ArrowLeft />} arrowRight={<ArrowRight/>} dot={MyDot} mobileBreakpoint={200}>
+                <Carousel gap={10}  loop showDots={true} arrowLeft={<ArrowLeft />} arrowRight={<ArrowRight/>} dot={MyDot} mobileBreakpoint={200} autoplay={4000}>
                       <Carousel.Item >
                         <img width="100%" height="100%" src={productDetail.photo1} style={{objectFit:"cover", borderRadius:"20px"}}  />
                       </Carousel.Item>
@@ -193,7 +195,7 @@ function ProductDetail(){
                           <div><span className="fw-bold fs-1 text-art">{productDetail.price} €</span></div>
                           <Row>
                                     <Col className="d-flex">
-                                          <Button variant="outline-dark" className=" py-2 my-2 d-block w-100">Acquista</Button>
+                                          <Button variant="dark" className=" py-2 my-2 d-block w-100">Acquista</Button>
                                   </Col>
                                   <Col className="d-flex">
                                           <Button className="a-b-o-h pb-2 d-block my-2 w-100" 
@@ -242,7 +244,7 @@ function ProductDetail(){
                                                       </div>
                                                     </Col>
                                             <Col className="d-flex justify-content-end p-0">
-                                                  <Button  className="bg-white text-art border-art-b d-block my-2">
+                                                  <Button variant="outline-dark" className=" d-block my-2">
                                                       <Heart/> <span className="ms-2">Segui Negozio</span>
                                                       </Button>
                                             </Col>
