@@ -61,6 +61,9 @@
     border: none !important; /* Rimuove il bordo */
     transition: box-shadow 0.3s, transform 0.3s; /* Aggiunge transizioni per ombra e trasformazione */
   }
+  .a-b-22{
+    background-color: #e3903873 !important;
+  }
   .text-art {
     /* Text-Color-OrangeArtesum*/ 
     color: #E38F38 !important; /* Cambia il colore del testo in bianco */
@@ -147,5 +150,3 @@
   border-bottom-width: 6px !important;
   border-bottom-style: solid !important;
 }
-
-

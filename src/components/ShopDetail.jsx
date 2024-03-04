@@ -8,17 +8,10 @@ function ShopDetail(){
     const [shopDetail, setShopDetail] = useState(null);
     const [shopProducts, setShopProducts] = useState([]);
     const [reviewShop, setReviewShop] = useState([]);
-    const [selectedOption, setSelectedOption] = useState("Più recente"); // Imposta l'opzione predefinita
-    const [selectedOptionReview, setSelectedOptionReview] = useState("Suggeriti");
+
 
     const navigate = useNavigate();
-    
-    const handleSelect = (eventKey) => {
-        setSelectedOption(eventKey);
-      };
-    const handleSelectReview = (eventKey) => {
-        setSelectedOptionReview(eventKey);
-    };  
+     
 
 
     const getShop = (shopId)=>{
@@ -138,39 +131,15 @@ const calculateAverageRating = () => {
                 ) : (
                   <p>Loading...</p>
                 )}
-                <Container className="mt-4">
-                    <Row className="d-flex align-items-center my-4">
-                        <Col><div><h6>Articoli</h6></div></Col>
-                        <Col><div><h6>Recensioni</h6></div></Col>
-                        <Col><div><h6>Informazioni</h6></div></Col>
-                        <Col><div><h6>Condizioni di vendita</h6></div></Col>
-                        <Col md={4}>
-                        <InputGroup className="mb-3" style={{ borderRadius: '20px' }}>
-                            <Form.Control
-                                placeholder="Cerca tutto quello che vuoi"
-                                aria-label="Cerca"
-                                aria-describedby="basic-addon1"
-                                style={{ borderRadius: '20px', borderRight: 'none' }}
-                            />   
-                        </InputGroup>
-                        </Col>
-                    </Row>
+                <div  style={{width:"82%", margin:"0 auto"}}>
+
                     <Row>
-                        <Col><h3>Articoli</h3></Col>
-                        <Col className="d-flex justify-content-end">
-                        <Dropdown onSelect={handleSelect}>
-                            <Dropdown.Toggle id="dropdown-basic" className=' icon-effect rounded-pill px-5 fs-5' >
-                             Ordina: {selectedOption}
-                            </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                <Dropdown.Item eventKey="Più recente">Più recente</Dropdown.Item>
-                                <Dropdown.Item eventKey="Prezzo più basso">Prezzo più basso</Dropdown.Item>
-                                <Dropdown.Item eventKey="Prezzo più alto">Prezzo più alto</Dropdown.Item>
-                                </Dropdown.Menu>
-                        </Dropdown>
+                        <Col className="mt-3 mb-4">
+                            <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">Prodotti del Negozio</span></h1>
                         </Col>
                     </Row>
-                <Row xs={1} md={5}>
+                  
+                <Row xs={1} md={5} >
              {shopProducts && shopProducts.map((product)=>{
                 return(
                     <Col key={product.productId} className="hoover-card pt-3" >
@@ -223,78 +192,85 @@ const calculateAverageRating = () => {
                 )
                 })}
                 </Row>
-                <Row className="d-flex flex-column pt-4 mt-5 mb-4 border-top border-2">
-                    <Row>
-                    <Col className="d-flex align-items-center"><h5>Recensioni:</h5></Col>
-                    <Col className="d-flex flex-row align-items-center">
-                        <p className="m-0 me-2">Media recensioni: </p>
-                        <StarRating rating={averageRating}/>
-                        <p className="m-0 ms-2">({reviewShop.length})</p>
-                    </Col>
-                    <Col className="d-flex justify-content-end">
-                    <Dropdown onSelect={handleSelectReview}>
-                            <Dropdown.Toggle id="dropdown-basic" className=' icon-effect rounded-pill px-5 fs-5' >
-                             Ordina: {selectedOptionReview}
-                            </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                <Dropdown.Item eventKey="Suggeriti">Suggeriti</Dropdown.Item>
-                                <Dropdown.Item eventKey="Più recenti">Più recenti</Dropdown.Item>
-                                </Dropdown.Menu>
-                        </Dropdown>
-                    </Col>
-                    </Row>
   {/* ------------------------------------------------------------    MAP delle recensioni      -------------------------------------------------------------------------*/}
-                    <Row className="mt-3" >
-                            <Col></Col>
-                            <Col md={8}>
-                                <Row className="d-flex flex-column">
+                <Row>
+                    <Col className="mt-3 mb-4">
+                        <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">Recensioni del Negozio</span></h1>
+                     </Col>  
+                </Row>
+                
+                       
+                    <Row className="d-flex flex-row justify-content-center">
+                        <Col xs={5} >
+                        <div className="d-flex flex-row align-items-center mb-5 justify-content-center">
+                            <p className="m-0 me-2">Media recensioni: </p>
+                            <StarRating rating={averageRating}/>
+                            <p className="m-0 ms-2">({reviewShop.length})</p>
+                         </div>
                                 {reviewShop && reviewShop.map((reviews)=>{
-                                    return(
-                                        <Row key={reviews.reviewId} className="mb-3 border-bottom">
-                                    <Col xs={1}  className="m-0 p-0">
-                                    <img src={reviews.buyerReview.avatar} alt="review" style={{                   
-                                        width: "50px",   // Assicura che l'immagine occupi l'intero spazio del contenitore
-                                        height: "50px",  // Assicura che l'immagine occupi l'intero spazio del contenitore
-                                        objectFit: "cover", // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
-                                        aspectRatio: '1 / 1', // Imposta un rapporto d'aspetto 1:1
-                                        overflow: 'hidden', // Nasconde le parti dell'immagine che eccedono il contenitore
-                                        borderRadius: '50%', // Imposta i bordi arrotondati al massimo
-                                        padding:"0"
-                                    }}/>
-                                    </Col>
-                                    <Col className="mb-4">
-                                        <p><span className="orange-on-hover">{reviews.buyerReview.name} {reviews.buyerReview.surname}</span> il {reviews.dateReview}</p>
-                                        <StarRating rating={reviews.rating}/>
-                                        <p className="mt-2 mb-0">{reviews.description}</p>
-                                        <Button className='my-3 fs-6 icon-effect rounded-pill px-3 d-flex align-items-center'>
-                                            Contatta acquirente
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="ms-2" viewBox="0 0 16 16">
-  <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"/>
-                                            </svg>             
-                                            </Button>
-                                            <div className="d-flex align-items-center">
-                                                <div><img src={reviews.photoReview} alt="reviews" style={{
-                                                    width: "120px",   // Assicura che l'immagine occupi l'intero spazio del contenitore
-                                                    height: "80px",  // Assicura che l'immagine occupi l'intero spazio del contenitore
+                                    return(                                                           
+                                        <Row key={reviews.reviewId} className="mb-3 shodow-p-nh rounded-3 p-4 ">
+                                            <Col className="d-flex">
+                                                <Row className="d-flex flex-column">
+                                                    <Col className="d-flex align-items-center ">
+                                                        <img src={reviews.buyerReview.avatar} alt="review" style={{                   
+                                                            width: "70px",   // Assicura che l'immagine occupi l'intero spazio del contenitore
+                                                            height: "70px",  // Assicura che l'immagine occupi l'intero spazio del contenitore
+                                                            objectFit: "cover", // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
+                                                            aspectRatio: '1 / 1', // Imposta un rapporto d'aspetto 1:1
+                                                            overflow: 'hidden', // Nasconde le parti dell'immagine che eccedono il contenitore
+                                                            borderRadius: '50%', // Imposta i bordi arrotondati al massimo
+                                                            padding:"0"
+                                                        }}/>
+                                                            <p className="m-0 ms-3 fw-bold text-capitalize fs-5">{reviews.buyerReview.name} {reviews.buyerReview.surname}</p>
+                                                    </Col>
+                                                    <Col>
+                                                     <StarRating rating={reviews.rating} />
+                                                    <p className="mt-2 mb-0">{reviews.description}</p>
+                                                    <p className="mt-2 mb-0">{reviews.dateReview}</p>
+                                                    </Col>
+                                                </Row>
+                                            </Col>
+                                            <Col className="d-flex align-items-center justify-content-center p-0">
+                                           
+                                                <img src={reviews.photoReview} alt="reviews" style={{
+                                                    width: "200px",   // Assicura che l'immagine occupi l'intero spazio del contenitore
+                                                    height: "200px",  // Assicura che l'immagine occupi l'intero spazio del contenitore
                                                     objectFit: "cover", // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
                                                     aspectRatio: '1 / 1', // Imposta un rapporto d'aspetto 1:1
                                                     overflow: 'hidden', // Nasconde le parti dell'immagine che eccedono il contenitore
                                                     borderRadius: '8px', 
                                                     padding:"0"
-                                                }}/></div>
-                                                <div><h6 className="ms-4">{reviews.productReview.title}</h6></div>
-                                            </div>
-                                    </Col>
-                                    </Row>
+                                                }}/>
+                                            
+                                            </Col>
+                                        </Row>                                    
                                             )
                                         })}
-                                     </Row>                               
-                            </Col>
-                            <Col></Col>
-                        </Row>
- {/* --------------------------------------------------------    fine MAP delle recensioni      ------------------------------------------------------------------------*/}
+                                              
+                                        </Col>
+                                    </Row>
+     {/*   ------------------------------    fine MAP delle recensioni      ------------------------------------------------------------------------*/}
+           
+            <Row>
+                    <Col className="mt-3 mb-4">
+                        <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">Informazioni del Negozio</span></h1>
+                     </Col>  
+                </Row>
+            <Row className="d-flex flex-row justify-content-center align-items-center">
+                <Col xs={6}>
+                <p>
+                    Benvenuti nel nostro negozio di artigianato, un luogo dove la creatività e l'abilità artigianale si fondono per offrire pezzi unici e distintivi. 
+                    Siamo orgogliosi di presentare una vasta selezione di creazioni artigianali, realizzate con passione e cura dai nostri artigiani locali. 
+                    Dalle opere d'arte alle creazioni in ceramica, gioielli fatti a mano, tessuti artigianali e molto altro ancora, ogni articolo nel nostro negozio 
+                    porta con sé il carattere e l'individualità che solo l'artigianato può offrire. Ogni pezzo è frutto di ore di lavoro artigianale, con un'attenzione scrupolosa 
+                    ai dettagli e un rispetto per le tradizioni artigianali. Sia che tu stia cercando un regalo unico o desideri arricchire la tua casa con opere d'arte originali, 
+                    siamo qui per soddisfare le tue esigenze con la nostra collezione eclettica e autentica. 
+                    Esplora il nostro negozio e lasciati ispirare dalla bellezza dell'artigianato fatto a mano.
+                </p>
+                </Col>
             </Row>
-            </Container>
+            </div>
         </>
     )
 }
