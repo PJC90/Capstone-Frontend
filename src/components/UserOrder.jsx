@@ -114,33 +114,39 @@ function UserOrder(){
                             .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate)) // Ordina in base alla data dell'ordine
                             .map((order, i)=>{
                         return(
-                        <Row key={i} className="mb-4">
-                            <Col className=" px-4 pt-4  order-card">
-                                <div className="d-flex justify-content-between border-bottom pb-2">
-                                <p>Acquistato il: {formatDate(order.orderDate)} </p>
-                                <p onClick={()=>{navigate(`/shop/${order.products[0].shop.shopId}`)}} className=" ms-2" style={{cursor:"pointer"}} > 
-                                    Negozio: <span className="fw-bold">{order.products[0].shop.shopName}</span>
-                                </p>
+                        <Row key={i} className="mb-4 d-flex justify-content-center">
+                            <Col className=" px-4 pt-3  shodow-p-nh rounded-3 bg-body-tertiary" xs={10}>
+                                <div className="d-flex justify-content-between border-bottom pb-3">
+                                    <div>
+                                        <p className="m-0 p-0 text-body-tertiary">Acquistato il: <span className="text-black">{formatDate(order.orderDate)}</span> </p>
+                                        <p className="m-0 p-0 text-body-tertiary">Spedizione: <span className="text-black">{(order.statusOrder == "IN_PROGRESS") ? "In consegna" : "Consegnato"}</span></p>
+                                    </div>
+
+                                    <div className="d-flex align-items-center">
+                                    <p onClick={()=>{navigate(`/shop/${order.products[0].shop.shopId}`)}} className=" m-0" style={{cursor:"pointer"}} > 
+                                        Negozio: <span className="fw-bold">{order.products[0].shop.shopName}</span>
+                                    </p>
+                                    </div>
                                 </div>
                                     {order.products && order.products.map((product, i)=>{
                                         return(
-                                        <Row key={i} className="mt-4">
+                                        <Row key={i} className="mt-4 ">
                                             <Col >
                                                 <Row>
-                                                    <Col xs={2} className="text-center">
-                                                    <img src={product.photo1} alt={product.title} style={{width:"50px", height:"50px", objectFit:"cover"}}/>
+                                                    <Col xs={2} className="text-center p-0">
+                                                    <img src={product.photo1} alt={product.title} className="rounded-2 " style={{width:"80px", height:"60px", objectFit:"cover"}}/>
                                                     </Col>
-                                                    <Col className="d-flex align-items-center">
-                                                    <p>{product.title}</p>
+                                                    <Col className="d-flex align-items-center p-0">
+                                                    <p ><span className="border-art-light fw-bold">{product.title}</span></p>
                                                     </Col>
-                                                    <Col className="d-flex align-items-center justify-content-center" xs={4}>
+                                                    <Col className="d-flex align-items-center justify-content-end pe-0" xs={4}>
                                                     <p>
                                                     {review[`${product.productId}-${order.orderId}`] ? 
                                                     <div>
                                                         <div className="d-flex align-items-center">
                                                         <StarRating rating={review[`${product.productId}-${order.orderId}`].rating} />
                                                         <div onClick={() => handleShow(`${product.productId}-${order.orderId}`)} style={{cursor:"pointer"}} className="me-3 text-center">
-                                                        <EyeFill className="ms-2 fs-5" style={{color:"#e39038b4"}}/>    
+                                                        <EyeFill className="ms-2 me-0 pe-0 fs-5" style={{color:"#e39038b4"}}/>    
                                                         </div>
                                                         </div>
                                                         <Modal centered show={showModal[`${product.productId}-${order.orderId}`]} onHide={() => handleClose(`${product.productId}-${order.orderId}`)}>
@@ -188,16 +194,16 @@ function UserOrder(){
                                         </Row>
                                         )
                                     })} 
-                                    <Row>
-                                        <Col className="d-flex justify-content-end border-top mt-4">
+                                    <Row className="mb-2">
+                                        <Col className="d-flex align-items-center border-top mt-4 pt-2 pb-2">
+                                        <Button variant="outline-dark" className="px-4 mt-2">Visualizza Ricevuta</Button>
+                                        </Col>
+                                        <Col className="d-flex justify-content-end border-top mt-4 pt-2">
                                             <p className="mt-3">Totale dell'ordine: <span className="fw-bold">{order.payment.total}€</span></p>                                              
                                         </Col>
                                     </Row>
                             </Col>
-                            <Col xs={3} className="d-flex flex-column align-items-center justify-content-center">
-                            <h5>{(order.statusOrder == "IN_PROGRESS") ? "In consegna" : "Consegnato"}</h5>
-                            <Button className="a-b-o px-4">Visualizza Ricevuta</Button>
-                            </Col>
+                            
                         </Row>
                         )
                     })}

@@ -16,13 +16,6 @@ const [finishEdit, setFinishEdit] = useState(false)
 const [showAlert, setShowAlert] = useState(false)
 const [deleteSuccess, setDeleteSuccess] = useState(false)
 
-// CHIUDE GLI INPUT PER LA MODIFICA DEI CAMPI (Modifica Profilo)
-const [edit1, setEdit1] = useState(false)
-const [edit2, setEdit2] = useState(false)
-const [edit3, setEdit3] = useState(false)
-const [edit4, setEdit4] = useState(false)
-const [edit5, setEdit5] = useState(false)
-const [edit6, setEdit6] = useState(false)
 // PAYLOAD
 const [name, setName] = useState(null)
 const [surname, setSurname] = useState(null)
@@ -146,96 +139,92 @@ useEffect(() => {
     return(
         <Container>
             <Row className="d-flex justify-content-center">
-{/*-------------------------------------------------------COL1---------------------------------------------------------------------------------------------------- */}
-
                 <Col xs={4}>
-                <img src={user.avatar} alt="image-profile" className="w-100 h-100 img-fluid" style={{maxHeight:"400px",objectFit:"cover"}}/>
-                    <Form  
+            <h4 className=" mb-5"><span className="border-art">Modifica profilo</span></h4>
+                </Col>
+                <Col xs={4}></Col>
+            </Row>
+            <Row className="d-flex justify-content-center">
+
+{/*-------------------------------------------------------COL1---------------------------------------------------------------------------------------------------- */}
+                <Col xs={4}>
+                <Form onSubmit={(e)=>{e.preventDefault(); editProfile()}}>
+                    <Form.Group  className="mb-3" >
+                        <Form.Label column >Nome:</Form.Label>
+                        <Col >
+                        <Form.Control type="text" placeholder={user.name} value={name} onChange={(e)=>{setName(e.target.value)}} />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group className="mb-3" >
+                        <Form.Label column >Cognome:</Form.Label>
+                        <Col >
+                        <Form.Control type="text" placeholder={user.surname} value={surname} onChange={(e)=>{setSurname(e.target.value)}}/>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group className="mb-3" >
+                        <Form.Label column >Username:</Form.Label>
+                        <Col >
+                        <Form.Control type="text" placeholder={user.username} value={username} onChange={(e)=>{setUsername(e.target.value)}}/>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group  className="mb-3" controlId="formPlaintextEmail">
+                        <Form.Label column >Email:</Form.Label>
+                        <Col >
+                        <Form.Control type="text" placeholder={user.email} value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group  className="mb-3" controlId="formPlaintextPassword">
+                        <Form.Label column >Password:</Form.Label>
+                        <Col >
+                        <Form.Control type="password" placeholder="*****" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group  className="mb-3" >
+                        <Form.Label column >
+                        Data di nascita:
+                        </Form.Label>
+                        <Col>
+                       <Form.Control type="date" value={birthday}  onChange={(e)=>{setBirthday(e.target.value)}} />
+                        </Col>
+                    </Form.Group>
+                    <Row >
+                        <Col className="d-flex justify-content-start mt-3">
+                            <Button type="submit" className="a-b-o-h">Conferma</Button>
+                        </Col>
+                        <Col className="d-flex justify-content-end mt-3">
+                            <Button variant="dark" onClick={()=>{deleteUser()}} >Elimina profilo</Button>
+                            {deleteSuccess && <Alert>Profilo Eliminato</Alert>}
+                        </Col>
+                    </Row>
+      
+                    
+                {showAlert && <Alert className="mt-3">Modifica effettuata con successo</Alert>}
+                </Form>
+                </Col>
+{/*-------------------------------------------------------COL2---------------------------------------------------------------------------------------------------- */}
+
+        <Col xs={4} className="d-flex flex-column align-items-center mt-4">
+                <img src={user.avatar} alt="image-profile" className="rounded-3" style={{width:"250px", height:"250px",objectFit:"cover"}}/>
+                    <Form 
                         onSubmit={(e) => {
                             e.preventDefault();
                             uploadImage()
                             setImageIsUploading(true)
                         }}>
                          <Row>
-                            <Col className="d-flex flex-row align-items-center">
-                                <Button type="submit" className="bg-white text-black border border-1 mt-3">
-                                {imageIsUploading ? (<Spinner/>) : ("Upload")}
-                                </Button>
-                                   <Form.Control className="mt-3 ms-3" type="file" size="sm" required
+                            <Col className="d-flex flex-column align-items-center">
+                                   <Form.Control className="mt-3" type="file" size="sm" required style={{width:"250px"}} 
                                    onChange={(e)=>{setImage(e.target.files)}}
                                   />
+                                <Button type="submit" className="a-b-o-h mt-3">
+                                {imageIsUploading ? (<Spinner/>) : ("Upload")}
+                                </Button>
                             </Col>
                         </Row>
                      </Form>
-{/*------------------------------------------------- ELIMINA PROFILO----------------------------------------------------------------------------------------- */}
-                     <Row className="d-flex flex-column" style={{height:"300px"}}>
-                        <Col className="m-0 d-flex align-items-center">
-                            <Button className="bg-dark d-flex align-items-center border border-0" onClick={()=>{deleteUser()}}>
-                                <XCircleFill className="me-3"/> 
-                                Elimina profilo
-                            </Button>
-                        </Col>
-                        <Col>
-                            {deleteSuccess && <Alert>Profilo Eliminato</Alert>}
-                        </Col>
-                     </Row>
-                </Col>
-{/*-------------------------------------------------------COL2---------------------------------------------------------------------------------------------------- */}
-                <Col xs={4}>
-                <Form onSubmit={(e)=>{e.preventDefault(); editProfile()}}>
-                    <Form.Group  className="mb-3" >
-                        <Form.Label column >
-                        Nome: <span className="fw-bold text-capitalize">{user.name}</span><PencilSquare className="ms-2" style={{cursor:"pointer"}} onClick={()=>{setEdit1(!edit1)}}/>
-                        </Form.Label>
-                        <Col >
-                        {edit1 && <Form.Control type="text" placeholder="min 3, max 30 caratteri" value={name} onChange={(e)=>{setName(e.target.value)}} />}
-                        </Col>
-                    </Form.Group>
-                    <Form.Group className="mb-3" >
-                        <Form.Label column >
-                        Cognome: <span className="fw-bold text-capitalize">{user.surname}</span><PencilSquare className="ms-2" style={{cursor:"pointer"}} onClick={()=>{setEdit2(!edit2)}}/>
-                        </Form.Label>
-                        <Col >
-                        {edit2 && <Form.Control type="text" placeholder="min 3, max 30 caratteri" value={surname} onChange={(e)=>{setSurname(e.target.value)}}/>}
-                        </Col>
-                    </Form.Group>
-                    <Form.Group className="mb-3" >
-                        <Form.Label column >
-                        Username:<span className="fw-bold text-capitalize">{user.username}</span><PencilSquare className="ms-2" style={{cursor:"pointer"}} onClick={()=>{setEdit3(!edit3)}}/>
-                        </Form.Label>
-                        <Col >
-                        {edit3 && <Form.Control type="text" placeholder="min 3, max 30 caratteri" value={username} onChange={(e)=>{setUsername(e.target.value)}}/>}
-                        </Col>
-                    </Form.Group>
-                    <Form.Group  className="mb-3" controlId="formPlaintextEmail">
-                        <Form.Label column >
-                        Email: <span className="fw-bold">{user.email}</span><PencilSquare className="ms-2" style={{cursor:"pointer"}} onClick={()=>{setEdit4(!edit4)}}/>
-                        </Form.Label>
-                        <Col >
-                        {edit4 && <Form.Control type="text" placeholder="example@mail.it" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>}
-                        </Col>
-                    </Form.Group>
 
-                    <Form.Group  className="mb-3" controlId="formPlaintextPassword">
-                        <Form.Label column >
-                        Password: <span className="fw-bold text-capitalize">*******</span><PencilSquare className="ms-2" style={{cursor:"pointer"}} onClick={()=>{setEdit5(!edit5)}}/>
-                        </Form.Label>
-                        <Col >
-                        {edit5 && <Form.Control type="password" placeholder="Password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>}
-                        </Col>
-                    </Form.Group>
-                    <Form.Group  className="mb-3" >
-                        <Form.Label column >
-                        Data di nascita: <span className="fw-bold text-capitalize">{user.birthday}</span><PencilSquare className="ms-2" style={{cursor:"pointer"}} onClick={()=>{setEdit6(!edit6)}}/>
-                        </Form.Label>
-                        <Col>
-                        {edit6 && <Form.Control type="date" value={birthday} onChange={(e)=>{setBirthday(e.target.value)}} />}
-                        </Col>
-                    </Form.Group>
-                    <Button type="submit" className="icon-effect border border-black">Conferma</Button>
-                {showAlert && <Alert className="mt-3">Modifica effettuata con successo</Alert>}
-                </Form>
-                </Col>
+                </Col>                
             </Row>
         </Container>
     )

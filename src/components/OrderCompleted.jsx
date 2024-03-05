@@ -47,13 +47,18 @@ useEffect(()=>{
                     </div>                   
                     <p>Prodotti aquistati:</p>
                     {order && order.products && order.products.map((product, index) => (
-                        <Row key={index} className="border my-1 px-1 py-3">
+                        <Row key={index} className=" my-1 px-1 py-3 d-flex justify-content-center" >
                             <Col xs={2}>
-                            <img src={product.photo1} alt={product.title} style={{width:"80px", height:"80px", objectFit:"cover"}}/>
+                            <img src={product.photo1} alt={product.title} style={{width:"100%", height:"80px", objectFit:"cover"}} className="rounded-3"/>
                             </Col>
-                            <Col className="d-flex flex-column justify-content-center">
-                            <p> {product.title}</p>
-                            <p> {(product.productType == "DIGITAL")?"Pronto per il download":""}</p>
+                            <Col className="d-flex flex-column justify-content-center" >
+                            <p className="m-0"> {product.title}</p>
+                            <p className="m-0"> {(product.productType == "DIGITAL")?"Pronto per il download":""}</p>
+                            <p className="text-art fw-bold"> {product.price} €</p>
+                            </Col>
+                            <Col className="d-flex flex-column justify-content-center align-items-end" >
+                            <p className="m-0">Venduto da</p>
+                            <p className="fw-bold text-capitalize">{product.shop.shopName}</p>
                             </Col>
                         </Row>
                         ))}

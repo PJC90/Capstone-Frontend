@@ -150,7 +150,7 @@ if(photo){
 
                 {reviewByID && 
                 <>
-                <p className="my-3 mx-3 py-3 rounded-2 d-flex justify-content-center a-b-o ">Carica una foto del prodotto</p>
+                <p className=" mx-3 border-top pt-3 rounded-2 d-flex justify-content-center "><span className="border-art-light">Carica una foto del prodotto:</span></p>
                 <div className="d-flex justify-content-center">
                 <img src={reviewByID.photoReview} alt="image-review" style={{width:"200px", height:"200px", objectFit:"cover"}}/>
                 </div>
