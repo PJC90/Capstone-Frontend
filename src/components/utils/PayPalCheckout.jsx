@@ -121,7 +121,7 @@ function PayPalCheckOut({ cartItems, total, onClose, onSuccess, onOrderIdChange 
     return(
       
         <PayPalScriptProvider options={{ 'client-id': paypalClientId, }}>
-            <PayPalButtons className="mt-4"
+            <PayPalButtons className="mt-3"
               style={{ layout: 'vertical' }} createOrder={createOrder} onApprove={onApprove} onError={onError}/> 
       </PayPalScriptProvider>
     )

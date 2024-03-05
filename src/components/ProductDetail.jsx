@@ -147,6 +147,13 @@ function ProductDetail(){
       getReviews(productId);
     }, [productId]); // Assicurati di fare la richiesta ogni volta che cambia l'ID del prodotto
   
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      return date.toLocaleDateString('it-IT', options);
+    }
+
+
     return(
     <>
     <Container className="mt-5">
@@ -291,7 +298,7 @@ function ProductDetail(){
                                                   <Col>
                                                   <StarRating rating={reviews.rating} />
                                                   <p className="mt-2 mb-0">{reviews.description}</p>
-                                                  <p className="mt-2 mb-0">{reviews.dateReview}</p>
+                                                  <p className="mt-2 mb-0">{formatDate(reviews.dateReview)}</p>
                                                   </Col>
                                               </Row>
                                           </Col>

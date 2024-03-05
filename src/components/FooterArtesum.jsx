@@ -5,6 +5,7 @@ function FooterArtesum(){
     
     return(
         <Container fluid className="text-center border-top" style={{boxShadow: "0px -4px 10px 0px rgba(0,0,0,0.05), 0px 3px 20px 0px rgba(0,0,0,0.1)"}}>
+            {/* <p className="mt-5"><span className="">Art Ergo Sum</span></p> */}
                 <Row className="mt-5 mb-5">
                     <Col>
                         <Instagram className="mx-2"/>

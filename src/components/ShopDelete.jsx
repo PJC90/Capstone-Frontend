@@ -68,18 +68,30 @@ useEffect(()=>{
             {myShop && 
             <>
                 <Row className="mt-5">
-                    <Col xs={2}>
-                    <img src={myShop.logoShop} alt={myShop.shopName} style={{width:"100%", height:"100%"}}/>
+                    <Col>
+                        <div style={{position:"relative"}}>
+                            <img src={myShop.coverImageShop} alt={myShop.shopName} className="img-fluid w-100 rounded-3" style={{height:"200px", objectFit: 'cover'}}/>
+                            <div style={{position:"absolute", left:"40px", bottom:"-20px"}}>
+                                <div className="p-1 bg-white rounded-3">
+                                    <img src={myShop.logoShop} alt={myShop.shopName}  style={{width:"100px"}} className="rounded-3"/>
+                                </div>
+                            </div>
+                        </div>
                     </Col>
-                    <Col  >
-                        <p>Negozio di : {myShop.seller.name} {myShop.seller.surname}</p>
-                        <p className="fs-6 fw-bold">Nome Negozio: {myShop.shopName}</p>
-                        <p >Nazione: {myShop.nation} </p>
-                        <p >Località: {myShop.locality} </p>
-                        <p >Num Vendite: {myShop.numberOfSales} </p>
+                    <Col className="d-flex flex-column justify-content-center" >
+                        <p className="fs-6 fw-bold text-capitalize fs-4"><span className="border-art">{myShop.shopName}</span></p>
+                        <p>di <span className="text-capitalize fw-bold">{myShop.seller.name} {myShop.seller.surname}</span></p>
+                        <p className="text-capitalize"> {myShop.nation} ({myShop.locality}) </p>
+                        <p >{myShop.numberOfSales} Vendite</p>
                     </Col>
                 </Row>
-                <Button className="mt-5 px-5 icon-effect border border-2 rounded-pill" onClick={handleDeleteShop}>
+                <Row>
+                    <Col className="mt-5">
+                    <p>Ci dispiace che tu non voglia proseguire questa avventura</p>
+                    <p>Eliminando il Negozio ogni modifica andrà persa</p>
+                    </Col>
+                </Row>
+                <Button variant="dark" className="mt-2 px-5" onClick={handleDeleteShop}>
                     Elimina Negozio
                 </Button>
                 {showDeleteMessage &&

@@ -150,8 +150,9 @@ function ShopUpdateDetail({ shopId }){
         <>
                 {myShop && 
                 <>
-                <Row>
-                    <Col xs={12} style={{height:"300px"}} className="mt-3">      
+                <h3 className="fw-bold text-center mt-5"><span className=" border-art">Modifica i dettagli del negozio</span></h3>
+                <Row className="mx-5 d-flex justify-content-center">
+                    <Col style={{height:"300px"}} className="mt-3 " xs={8}>      
                     <div style={{position:"relative"}}>
                         <img src={myShop.coverImageShop} alt={myShop.shopName} className="img-fluid w-100" style={{height:"300px", objectFit: 'cover', position:"absolute"}}/>
                         <div style={{position:"absolute", bottom:"-285px", right:"10px"}}>
@@ -163,7 +164,7 @@ function ShopUpdateDetail({ shopId }){
                                 }}
                                 >
                                 <div className="d-flex align-items-center">
-                                    <Button type="submit" className="bg-white text-black border border-1  me-2 py-1">{imageUploading ? (<Spinner/>) : ("Upload")}</Button>
+                                    <Button type="submit" className="a-b-o  me-4 py-1">{imageUploading ? (<Spinner/>) : ("Upload")}</Button>
                                     <Form.Control 
                                     type="file"
                                     size="sm"
@@ -176,14 +177,14 @@ function ShopUpdateDetail({ shopId }){
                     </div>     
                     </Col>
                         </Row>   
-                    <Row className="d-flex justify-content-start">
+                <Row className=" mx-5 d-flex justify-content-center">
                     <Col xs={3}>
                     <img src={myShop.logoShop} alt={myShop.shopName} className="img-fluid w-100 mt-3" style={{height:"320px", objectFit: 'cover'}}/>
-                    <Form className="mt-0 d-flex justify-content-between" onSubmit={(e) => {
+                    <Form className="mt-0 d-flex justify-content-center" onSubmit={(e) => {
                         e.preventDefault();
                         uploadPhoto(shopId);
                         setImageUploading2(true);}}>
-                            <Button type="submit" className="bg-white text-black border border-1 mt-3">{imageUploading2 ? (<Spinner/>) : ("Upload")}</Button>
+                            <Button type="submit" className="me-4 a-b-o mt-3">{imageUploading2 ? (<Spinner/>) : ("Upload")}</Button>
                                    <Form.Control style={{width:"280px"}} className="mt-4 " 
                                   type="file"
                                   size="sm"
@@ -191,13 +192,13 @@ function ShopUpdateDetail({ shopId }){
                                  onChange={(e)=>{setPhoto(e.target.files)}} />
                             </Form>
                     </Col>
-                    <Col xs={3}> 
+                    <Col xs={5}> 
                     <Form onSubmit={(e)=>{
                         e.preventDefault(); 
                         updateMySingleShop(shopId)
                         }}>
-                    <p className="mt-4 fs-5">Negozio di {myShop.seller.name} {myShop.seller.surname}:</p>
-                    <p className="fs-6 ">Nome Negozio: <span className="fw-bold">{myShop.shopName} </span><PencilSquare style={{cursor:"pointer"}} onClick={()=>{setUpdate(!update)}}/></p>
+                    <p className="mt-4 fs-5">Negozio di <span className="text-capitalize fw-bold border-art-light">{myShop.seller.name} {myShop.seller.surname}</span></p>
+                    <p className="fs-6 ">Nome Negozio: <span className="fw-bold">{myShop.shopName} </span><PencilSquare className="ms-2 fs-5" style={{cursor:"pointer"}} onClick={()=>{setUpdate(!update)}}/></p>
                     {update && <Form.Control
                             type="text"
                             placeholder="Cambia il nome del negozio"
@@ -206,7 +207,7 @@ function ShopUpdateDetail({ shopId }){
                             className="border-black mb-3"
                             style={{borderColor:"rgb(0, 140, 255)"}}
                         />}
-                    <p className="fs-6">Descrizione: <span className="fw-bold">{myShop.description} </span><PencilSquare style={{cursor:"pointer"}} onClick={()=>{setUpdate2(!update2)}}/></p>
+                    <p className="fs-6">Descrizione: <span className="fw-bold">{myShop.description} </span><PencilSquare className="fs-5 ms-2" style={{cursor:"pointer"}} onClick={()=>{setUpdate2(!update2)}}/></p>
                     {update2 && <Form.Control
                             type="text"
                             placeholder="Cambia la descrizione del negozio"
@@ -215,7 +216,7 @@ function ShopUpdateDetail({ shopId }){
                             className="border-black mb-3"
                             style={{borderColor:"rgb(0, 140, 255)"}}
                         />}
-                    <p className="fs-6 ">Nazione: <span className="fw-bold">{myShop.nation} </span> <PencilSquare style={{cursor:"pointer"}} onClick={()=>{setUpdate3(!update3)}}/></p>
+                    <p className="fs-6 ">Nazione: <span className="fw-bold">{myShop.nation} </span> <PencilSquare className="fs-5 ms-2" style={{cursor:"pointer"}} onClick={()=>{setUpdate3(!update3)}}/></p>
                     {update3 && <Form.Control
                             type="text"
                             placeholder="Cambia La nazione di dove si trova il negozio"
@@ -224,7 +225,7 @@ function ShopUpdateDetail({ shopId }){
                             className="border-black mb-3"
                             style={{borderColor:"rgb(0, 140, 255)"}}
                         />}
-                    <p className="fs-6">Località: <span className="fw-bold">{myShop.locality} </span> <PencilSquare style={{cursor:"pointer"}} onClick={()=>{setUpdate4(!update4)}}/></p>
+                    <p className="fs-6">Località: <span className="fw-bold">{myShop.locality} </span> <PencilSquare className="fs-5 ms-2" style={{cursor:"pointer"}} onClick={()=>{setUpdate4(!update4)}}/></p>
                     {update4 && <Form.Control
                             type="text"
                             placeholder="Cambia la località del negozio"
@@ -233,15 +234,13 @@ function ShopUpdateDetail({ shopId }){
                             className="border-black mb-1"
                             style={{borderColor:"rgb(0, 140, 255)"}}
                         />}
-                    {(update || update2 || update3 || update4) && <Button type="submit" className="my-3 icon-effect border border-black">Modifica</Button>}
+                    {(update || update2 || update3 || update4) && <Button type="submit" className="my-3 a-b-o">Modifica</Button>}
                     </Form>
                     {finishUpdate &&
                 <Alert>Modifica effettuata con successo!</Alert>
                     }
                     </Col>
-                    <Col className="d-flex justify-content-end mt-3">
-                        
-                    </Col>
+
                 </Row>
                 </>
                 }

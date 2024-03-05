@@ -269,14 +269,18 @@ useEffect(()=>{
     }
 },[shopId, photo1Uploading, photo2Uploading, photo3Uploading, deleteSuccess])
 
-
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return date.toLocaleDateString('it-IT', options);
+  }
 
 
     return(
         <>
         {(viewAggiungiInserzione && !dontViewCard) &&
-        <div className="d-flex justify-content-center mt-4 pb-4 border-bottom">
-        <Button className="d-flex align-items-center px-5 bg-dark" 
+        <div className="d-flex justify-content-center mt-5 pb-4 border-bottom ">
+        <Button variant="dark" className="d-flex align-items-center px-5" 
         onClick={()=>{
             setMyProduct(null)
             setCreateProduct(true)
@@ -294,21 +298,21 @@ useEffect(()=>{
             {myProduct &&
             myProduct.map((product)=>{
                 return(
-                    <Card  key={product.productId} className={`mx-4 mb-4 ${animation === product.productId ? `animate__animated animate__backOutDown`:``}`}>
-                        <Card.Img variant="top" src={product.photo1} style={{ width: "237px", height:"237px", objectFit:"cover" }}/>
+                    <Card  key={product.productId} className={`mx-4 mb-5 border-0 shodow-p ${animation === product.productId ? `animate__animated animate__backOutDown`:``}`}>
+                        <Card.Img variant="top" src={product.photo1} style={{ width: "310px", height:"237px", objectFit:"cover" }}/>
                         <Card.Body className="p-0">
                             <div className="p-3">
-                            <Card.Title>{product.title}</Card.Title>
-                            <Card.Text>€ {product.price}</Card.Text>
-                            <Card.Text>{product.quantity} disponibili</Card.Text>
-                            <Card.Text>Creato il {product.dateCreation}</Card.Text>
+                            <Card.Title className="text-capitalize fw-bold"><span className="border-art-light">{product.title}</span></Card.Title>
+                            <Card.Text className="text-art fw-bold fs-2">€ {product.price}</Card.Text>
+                            <Card.Text>Quantità: {product.quantity}</Card.Text>
+                            <Card.Text>Creato il {formatDate(product.dateCreation)}</Card.Text>
                             </div>
-                            <Card.Text className="border-top p-1 d-flex justify-content-around">
+                            <Card.Text className="border-top p-1 d-flex justify-content-between">
                                 <div style={{width:"40px", height:"40px", cursor:"pointer"}} className="d-flex justify-content-center align-items-center icon-effect rounded-pill">
-                                <TrashFill className="fs-4 text-secondary "  onClick={()=>{deleteProduct(product.productId)}}/>
+                                <TrashFill className="fs-4  "  onClick={()=>{deleteProduct(product.productId)}}/>
                                 </div>
                                 <div style={{width:"40px", height:"40px", cursor:"pointer"}} className="d-flex justify-content-center align-items-center icon-effect rounded-pill">
-                                <GearFill className="fs-4 text-secondary" 
+                                <GearFill className="fs-4 text-art" 
                                 onClick={()=>{
                                     getSingleProduct(product.productId); 
                                     setMyProduct(!myProduct);
@@ -395,61 +399,68 @@ useEffect(()=>{
             }
             {singleProduct && 
             <>
-                <Row >
+  {/* --------------------------------------------------------------Modifica Prodotto----2COL------------------------------------------------------*/}
+            <Row>
+  {/*---------------------------------------------------------------- COL 1 -> IMMAGINI Prodotto------------------------------------------------------------ */}
+                <Col className="d-flex justify-content-center">
+                <Row className="d-flex flex-column">
                     <Col>
-                        <img src={singleProduct.photo1} alt={singleProduct.title} style={{ width: "280px", height:"280px", objectFit:"cover" }}/>
+                        <img src={singleProduct.photo1} alt={singleProduct.title} style={{ width: "240px", height:"170px", objectFit:"cover" }} className="rounded-3"/>
                         <Form className="" 
                         onSubmit={(e) => {
                         e.preventDefault();
                         uploadPhoto1(singleProduct.productId);
                         setPhoto1Uploading(true);
                         }}>
-                                   <Form.Control style={{width:"280px"}} className="mt-3" 
+                                   <Form.Control style={{width:"240px"}} className="mt-2" 
                                   type="file"
                                   size="sm"
                                   required
                                  onChange={(e)=>{setPhoto1(e.target.files)}} />
-                            <Button type="submit" className="bg-white text-black border border-1 mt-3">{photo1Uploading ? (<Spinner/>) : ("Upload")}</Button>
+                            <Button type="submit" className="a-b-o mt-2 mb-4">{photo1Uploading ? (<Spinner/>) : ("Upload")}</Button>
                             </Form>
                     </Col>
-                    <Col>
-                        <img src={singleProduct.photo2} alt={singleProduct.title} style={{ width: "280px", height:"280px", objectFit:"cover" }}/>
+                    <Col className="">
+                        <img src={singleProduct.photo2} alt={singleProduct.title} style={{ width: "240px", height:"170px", objectFit:"cover" }} className="rounded-3"/>
                         <Form className="" 
                         onSubmit={(e) => {
                         e.preventDefault();
                         uploadPhoto2(singleProduct.productId);
                         setPhoto2Uploading(true);}}>
-                                   <Form.Control style={{width:"280px"}} className="mt-3" 
+                                   <Form.Control style={{width:"240px"}} className="mt-2" 
                                   type="file"
                                   size="sm"
                                   required
                                  onChange={(e)=>{setPhoto2(e.target.files)}} />
-                            <Button type="submit" className="bg-white text-black border border-1 mt-3">{photo2Uploading ? (<Spinner/>) : ("Upload")}</Button>
+                            <Button type="submit" className="a-b-o mt-2 mb-4 ">{photo2Uploading ? (<Spinner/>) : ("Upload")}</Button>
                             </Form>
                     </Col>
                     <Col>
-                        <img src={singleProduct.photo3} alt={singleProduct.title} style={{ width: "280px", height:"280px", objectFit:"cover" }}/>
+                        <img src={singleProduct.photo3} alt={singleProduct.title} style={{ width: "240px", height:"170px", objectFit:"cover" }} className="rounded-3"/>
                         <Form className="" 
                         onSubmit={(e) => {
                         e.preventDefault();
                         uploadPhoto3(singleProduct.productId);
                         setPhoto3Uploading(true);}}>
-                                   <Form.Control style={{width:"280px"}} className="mt-3" 
+                                   <Form.Control style={{width:"240px"}} className="mt-2" 
                                   type="file"
                                   size="sm"
                                   required
                                  onChange={(e)=>{setPhoto3(e.target.files)}} />
-                            <Button type="submit" className="bg-white text-black border border-1 mt-3">{photo3Uploading ? (<Spinner/>) : ("Upload")}</Button>
+                            <Button type="submit" className="a-b-o mt-2">{photo3Uploading ? (<Spinner/>) : ("Upload")}</Button>
                             </Form>
-                    </Col>
-                    
+                    </Col>                  
                 </Row>
+                </Col>
+   {/*---------------------------------------------------------------- COL 2 -> SETTAGGI Prodotto------------------------------------------------------------ */}               
+                <Col xs={8}>
                 <Row>
+                    <h3 className="mt-5 fw-bold"><span className="border-art">Cambia i dettagli del Prodotto:</span></h3>
                     <Form className="d-flex" 
                          onSubmit={(e)=>{
                         e.preventDefault(); 
                         editProduct(singleProduct.productId)}}>
-                    <Col xs={6}>
+                    <Col xs={9}>
                         <Form.Group className="mt-3">
                             <Form.Label>Titolo: <span className="fw-bold">{singleProduct.title} </span></Form.Label>
                             <Form.Control placeholder="Modifica il titolo del prodotto"
@@ -509,7 +520,7 @@ useEffect(()=>{
                                     <Form.Check
                                         inline
                                         label="PHYSICAL"
-                                        type="checkbox"
+                                        type="radio"
                                         id="physical"
                                         checked={tipoProdotto === "PHYSICAL"}
                                         onChange={() => setTipoProdotto("PHYSICAL")}
@@ -517,17 +528,21 @@ useEffect(()=>{
                                     <Form.Check
                                         inline
                                         label="DIGITAL"
-                                        type="checkbox"
+                                        type="radio"
                                         id="digital"
                                         checked={tipoProdotto === "DIGITAL"}
                                         onChange={() => setTipoProdotto("DIGITAL")}
                                     />
                                 </div>
                             </Form.Group>
-                    <Button type="submit">Conferma Modifica</Button>
+                    <Button type="submit" className="a-b-o">Conferma Modifica</Button>
                     </Col>
                     </Form>
                 </Row>
+                </Col>
+            </Row>
+                
+                
             </>
             }
             

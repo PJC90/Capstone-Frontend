@@ -147,7 +147,7 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                     </Col>
 {/* ----------------------------------------------------------------------------DETTAGLI PAGAMENTO------------------------------------------------------------------ */}
                     <Col className="mt-5 mx-5 text-center">
-                        <div className="mx-4">
+                        <div>
                         <div className="d-flex justify-content-between">
                         <p>Totale articoli:</p>
                         <p>{calculateTotal()} €</p>
@@ -164,11 +164,11 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                         </div>
                         <div className="d-flex justify-content-between mt-3">
                         <p>Totale Iva Inclusa:</p>
-                        <p>{(calculateTotal() * 1.22).toFixed(2)}  €</p>
+                        <p className="fw-bold">{(calculateTotal() * 1.22).toFixed(2)}  €</p>
                         {/* <p> {(product.quantity * product.price * 1.22).toFixed(2)} €</p> */}
                         </div>
                         </div>
-                        <Button className="bg-dark px-5 rounded-pill border-0 mt-3" onClick={()=>{setShowPayPal(true)}}>Procedi all'acquisto</Button>
+                        <Button variant="dark" className="px-5 py-2 fs-4 w-100 mt-3" onClick={()=>{setShowPayPal(true)}}>Procedi all'acquisto</Button>
                         {showPayPal &&
                         <PayPalCheckOut
                             cartItems={productsInCart}
