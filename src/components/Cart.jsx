@@ -1,3 +1,4 @@
+import Checkmark from "./utils/Checkmark";
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import PayPalCheckOut from "./utils/PayPalCheckout";
@@ -79,7 +80,8 @@ function Cart(){
         // Passo l'orderId nel componente di Ordine Completato
         setTimeout(()=>{
             navigate(`/order/${orderId}`)
-        },1900)
+            window.location.reload()
+        },3500)
     };
 
     useEffect(()=>{
@@ -178,13 +180,17 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                             onOrderIdChange={handleOrderId} // Passa la funzione di callback come prop al componente PayPalCheckOut
                         />
                         }
+                        {showSuccessMessage && (
+                                            <div className="d-flex justify-content-center mt-3">
+                                                <Checkmark/>
+                                            </div>          
+                            )}
                         <p className="mt-4 text-body-tertiary mt-4"> Imposte locali incluse (dove applicabili)</p>
                         <p className="text-body-tertiary"> È possibile che vengano applicati oneri e tasse aggiuntivi</p>
-                        {showSuccessMessage && (
-                                <Alert variant="success">Pagamento completato con successo!</Alert>
-                            )}
                     </Col> 
-                        
+                        <div className='bg-dark'>
+                    
+                        </div>
                 
             </Row>
         </Container>

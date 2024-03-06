@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import {  Col, Container, Row } from "react-bootstrap"
 import Flicking from "@egjs/react-flicking";
 import "@egjs/react-flicking/dist/flicking-inline.css";
+import { useNavigate } from "react-router-dom";
 // https://naver.github.io/egjs-flicking/
 
 function Category(){
     const [category, setCategory] = useState(null);
+    const navigate = useNavigate()
 
     const getCategory = () => {
         fetch("http://localhost:3010/category?page=0&size=100&order=nameCategory", {
@@ -48,10 +50,10 @@ function Category(){
         {category && category.map((cat, index) => {
                     return (
                         <div className="panel my-3" key={index}  >
-                            <div className="shodow-p mx-2 border border-1">
+                            <div className="shodow-p mx-2 border border-1" onClick={()=>{navigate(`/category/${cat.categoryId}`)}} style={{cursor:"pointer"}}>
                                 <img src={cat.photoCategory} alt={cat.nameCategory} 
                                 className=" mb-3 " 
-                                style={{ width: '350px', height: '500px',cursor: 'pointer', objectFit:"cover" }} />
+                                style={{ width: '350px', height: '500px', objectFit:"cover" }} />
                                 <div className="text-center pb-4 pt-3" >
                                 <h5 >{cat.nameCategory}</h5>
                                 </div>

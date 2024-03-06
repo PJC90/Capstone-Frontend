@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { HeartFill, PencilSquare } from "react-bootstrap-icons";
-
+import Checkmark from "./utils/Checkmark";
 
 
 function ShopUpdateDetail({ shopId }){
@@ -73,7 +73,7 @@ function ShopUpdateDetail({ shopId }){
                 setUpdate4(false)
                 setTimeout(()=>{
                     setFinishUpdate(false)
-                },4000)
+                },5000)
                 
             }else{
                 throw new Error("Errore nel modificare i dati")
@@ -164,7 +164,12 @@ function ShopUpdateDetail({ shopId }){
                                 }}
                                 >
                                 <div className="d-flex align-items-center">
-                                    <Button type="submit" className="a-b-o  me-4 py-1">{imageUploading ? (<Spinner/>) : ("Upload")}</Button>
+                                    <Button type="submit" className="a-b-o  me-4 py-1">
+                                        {imageUploading ? 
+                                                (<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>) 
+                                                : 
+                                                ("Upload")}
+                                    </Button>
                                     <Form.Control 
                                     type="file"
                                     size="sm"
@@ -184,7 +189,12 @@ function ShopUpdateDetail({ shopId }){
                         e.preventDefault();
                         uploadPhoto(shopId);
                         setImageUploading2(true);}}>
-                            <Button type="submit" className="me-4 a-b-o mt-3">{imageUploading2 ? (<Spinner/>) : ("Upload")}</Button>
+                            <Button type="submit" className="me-4 a-b-o mt-3">
+                                                    {imageUploading2 ? 
+                                                    (<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>) 
+                                                    : 
+                                                    ("Upload")}
+                                </Button>
                                    <Form.Control style={{width:"280px"}} className="mt-4 " 
                                   type="file"
                                   size="sm"
@@ -236,9 +246,7 @@ function ShopUpdateDetail({ shopId }){
                         />}
                     {(update || update2 || update3 || update4) && <Button type="submit" className="my-3 a-b-o">Modifica</Button>}
                     </Form>
-                    {finishUpdate &&
-                <Alert>Modifica effettuata con successo!</Alert>
-                    }
+                    {finishUpdate && <Checkmark/>  }
                     </Col>
 
                 </Row>

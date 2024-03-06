@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Alert, Button, Card, Col, Dropdown, Form, Row, Spinner } from "react-bootstrap"
 import { GearFill, Plus, TrashFill } from "react-bootstrap-icons"
+import Checkmark from "./utils/Checkmark"
 
 function ShopUpdateProduct({ shopId }){
 const [viewAggiungiInserzione, setViewAggiungiInserzione] = useState(true)    
@@ -25,6 +26,7 @@ const [photo3, setPhoto3] = useState(null)
 const [photo3Uploading, setPhoto3Uploading] = useState(false)
 const [dontViewCard, setDontViewCard] = useState(false)
 const [deleteSuccess, setDeleteSuccess] = useState(false)
+const [editSuccess, setEditSuccess] = useState(false)
 
 const handleSelectCategory = (eventKey) => {
     setSelectCategory(eventKey)
@@ -107,7 +109,7 @@ const saveProduct = () =>{
             setTitle("")
         setTimeout(()=>{
             setCreateProductSuccess(false)
-        },2500)
+        },4000)
     })
     .catch((err)=>{
         console.log(err)
@@ -170,6 +172,8 @@ const editProduct = (productId) => {
         if(res.ok){
             console.log(res)
             setTitle(null)
+            setEditSuccess(true)
+           
         }else{
             throw new Error("Errore nel modificare il prodotto")
         }
@@ -394,7 +398,7 @@ function formatDate(dateString) {
             </Form.Group>
             <Button type="submit" className="mt-2 bg-dark text-white border-0">Crea Inserzione</Button>
             </Form>
-            {createProductSuccess && <Alert className="my-4">Inserzione creata!</Alert>}
+            {createProductSuccess && (<div className="mt-3"><Checkmark/></div>)}
             </Col>
             }
             {singleProduct && 
@@ -417,7 +421,11 @@ function formatDate(dateString) {
                                   size="sm"
                                   required
                                  onChange={(e)=>{setPhoto1(e.target.files)}} />
-                            <Button type="submit" className="a-b-o mt-2 mb-4">{photo1Uploading ? (<Spinner/>) : ("Upload")}</Button>
+                            <Button type="submit" className="a-b-o-h mt-2 mb-4">
+                                            {photo1Uploading ? 
+                                                                (<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>) 
+                                                                : ("Upload")}
+                            </Button>
                             </Form>
                     </Col>
                     <Col className="">
@@ -432,7 +440,11 @@ function formatDate(dateString) {
                                   size="sm"
                                   required
                                  onChange={(e)=>{setPhoto2(e.target.files)}} />
-                            <Button type="submit" className="a-b-o mt-2 mb-4 ">{photo2Uploading ? (<Spinner/>) : ("Upload")}</Button>
+                            <Button type="submit" className="a-b-o-h mt-2 mb-4 ">
+                                                                    {photo2Uploading ? 
+                                                                    (<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>) 
+                                                                    : ("Upload")}
+                                </Button>
                             </Form>
                     </Col>
                     <Col>
@@ -447,7 +459,12 @@ function formatDate(dateString) {
                                   size="sm"
                                   required
                                  onChange={(e)=>{setPhoto3(e.target.files)}} />
-                            <Button type="submit" className="a-b-o mt-2">{photo3Uploading ? (<Spinner/>) : ("Upload")}</Button>
+                            <Button type="submit" className="a-b-o-h mt-2">
+                                                                {photo3Uploading ? 
+                                                                (<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>) 
+                                                                : 
+                                                                ("Upload")}
+                                </Button>
                             </Form>
                     </Col>                  
                 </Row>
@@ -536,6 +553,7 @@ function formatDate(dateString) {
                                 </div>
                             </Form.Group>
                     <Button type="submit" className="a-b-o">Conferma Modifica</Button>
+                    {editSuccess && (<div className="mt-3"><Checkmark/></div>)}
                     </Col>
                     </Form>
                 </Row>

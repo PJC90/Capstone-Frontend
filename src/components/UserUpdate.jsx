@@ -70,15 +70,14 @@ const handleViewModifica = () => {
                         <Col className="d-flex flex-column align-items-start mt-5" > 
                         <div className=" text-capitalize ms-4 d-flex flex-column align-items-center">
                         <img src={userMe.avatar} alt="image-profile" className="rounded-pill" style={{width:"80px", height:"80px", objectFit:"cover"}} />
-                        <p className="fw-bold fs-6 mb-0">{userMe.name}</p>
-                        <p className="fw-bold fs-6 mt-0">{userMe.surname}</p>
+                        <p className="fw-bold fs-6 mb-0 mt-1"><span className="border-art-light">{userMe.name} {userMe.surname}</span></p>
                         </div>
-                        <Button className="my-3 rounded-pill icon-effect" onClick={()=>{handleViewModifica(); setViewModifica(!viewModifica)}}>
+                        <Button className={viewModifica ? "a-b-o-t my-3 pe-4 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect" } onClick={()=>{handleViewModifica(); setViewModifica(!viewModifica)}}>
                         <PencilFill/> Modifica Profilo 
                         </Button>
                         <Button className="my-3 rounded-pill icon-effect" >
                           <HeartFill/> Preferiti</Button>
-                        <Button className="my-3 rounded-pill icon-effect" onClick={()=>{handleViewOrdini(); setViewOrdini(!viewOrdini)}}>
+                        <Button className={viewOrdini? "a-b-o-t my-3 pe-5 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect"} onClick={()=>{handleViewOrdini(); setViewOrdini(!viewOrdini)}}>
                             <ArchiveFill/> Ordini
                         </Button>
                         <Button className="my-3 rounded-pill icon-effect"><BarChartFill/> Statistiche</Button>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { PencilSquare, XCircleFill } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import Checkmark from "./utils/Checkmark";
 
 function UserUpdateDetail(props){
 // Utilizzo destructuring per estrarre il valore di user dalle props
@@ -49,19 +50,13 @@ const editProfile = () =>{
             setShowAlert(true)
             setTimeout(()=>{
                 setShowAlert(false)
-            },3000)
+            },4000)
             setName(null)
-            setEdit1(false)
             setSurname(null)
-            setEdit2(false)
             setUsername(null)
-            setEdit3(false)
             setEmail(null)
-            setEdit4(false)
             setPassword(null)
-            setEdit5(false)
             setBirthday(null)
-            setEdit6(false)
         }else{
             throw new Error("Errore nel modificare i dati")
         }
@@ -199,7 +194,11 @@ useEffect(() => {
                     </Row>
       
                     
-                {showAlert && <Alert className="mt-3">Modifica effettuata con successo</Alert>}
+                {showAlert && (
+                            <div className="d-flex justify-content-center mt-3">
+                                <Checkmark/>
+                            </div> 
+                )}
                 </Form>
                 </Col>
 {/*-------------------------------------------------------COL2---------------------------------------------------------------------------------------------------- */}
@@ -218,7 +217,10 @@ useEffect(() => {
                                    onChange={(e)=>{setImage(e.target.files)}}
                                   />
                                 <Button type="submit" className="a-b-o-h mt-3">
-                                {imageIsUploading ? (<Spinner/>) : ("Upload")}
+                                {imageIsUploading ? 
+                                (<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>) 
+                                : 
+                                ("Upload")}
                                 </Button>
                             </Col>
                         </Row>

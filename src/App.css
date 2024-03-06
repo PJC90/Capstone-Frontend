@@ -62,7 +62,7 @@
     transition: box-shadow 0.3s, transform 0.3s; /* Aggiunge transizioni per ombra e trasformazione */
   }
   .a-b-o:hover {
-    transform: scale(1.1); 
+    transform: scale(1.02); 
   }
   .a-b-o-h {
     /* Artesum-Button-Orange*/ 
@@ -75,6 +75,12 @@
     background-color: white !important; 
     color: #E38F38 !important;
     box-shadow: inset 0 0 0 1px #E38F38 !important; /* Brodo Interno*/
+  }
+  .a-b-o-t {
+    /* Artesum-Button-Orange-TAG*/ 
+    background-color: #E38F38 !important; /* Rimuove lo sfondo */
+    color: white !important; /* Cambia il colore del testo in bianco */
+    border: none !important; /* Rimuove il bordo */
   }
   .a-b-22{
     background-color: #e3903873 !important;
@@ -174,5 +180,7 @@
 .border-art-b{
   border-color: #E38F38 !important;
 }
+
+
 
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Form, Modal, Spinner } from "react-bootstrap";
+import Checkmark from "./utils/Checkmark";
 
 const Review = ({ orderId, productId, shopId, onClose }) => {
     const [show, setShow] = useState(true);
@@ -141,10 +142,14 @@ if(photo){
                         />
                     </Form.Group>
                     {!reviewId &&
-                <Button className="a-b-o px-4 mt-4" type="submit">
+                <Button className="a-b-o-h px-4 mt-4" type="submit">
                     Invia recensione
                 </Button>}
-            {showReviewSuccess && <Alert className="mt-4 mb-0" variant="warning">Recensione Salvata!</Alert>}
+            {showReviewSuccess && (
+                                    <div className="d-flex justify-content-center mt-3">
+                                    <Checkmark/>
+                                </div>  
+                                )}
                 </Form>
                 </Modal.Body>   
 
@@ -167,7 +172,12 @@ if(photo){
                         size="sm"
                         required
                         onChange={(e)=>{setPhoto(e.target.files)}} style={{width:"270px"}}/>
-                        <Button type="submit" className="a-b-o px-4 me-2 mt-3 py-1">{imageUploading ? (<Spinner/>) : ("Upload")}</Button>
+                        <Button type="submit" className="a-b-o px-4 me-2 mt-3 py-1">
+                            {imageUploading ? 
+                                            (<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>) 
+                                            : 
+                                            ("Upload")}
+                        </Button>
                         </div>
                     </Form>   
                 </div>

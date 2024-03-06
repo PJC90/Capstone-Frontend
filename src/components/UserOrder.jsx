@@ -180,7 +180,7 @@ function UserOrder(){
                                                         </Modal>
                                                     </div>    
                                                         : 
-                                                    <div className="icon-effect px-2 rounded-pill" style={{cursor:"pointer"}}>
+                                                    <div className="a-b-o-h py-2 px-3 rounded-2" style={{cursor:"pointer"}}>
                                                         <p onClick={() => handleToggleModal(product.productId)} className="m-0 p-0">Scrivi una recensione</p>
                                                         {showModalReview[product.productId] &&
                                                          <Review orderId={order.orderId} productId={product.productId} shopId={product.shop.shopId} onClose={() => handleToggleModal(product.productId)}/>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Row } from "react-bootstrap";
+import Checkmark from "./utils/Checkmark";
 
 function ShopDelete({ shopId }){
 
@@ -95,7 +96,7 @@ useEffect(()=>{
                     Elimina Negozio
                 </Button>
                 {showDeleteMessage &&
-                <Alert className="mt-5">Negozio Eliminato!</Alert>
+                (<div className="mt-3"><Checkmark/></div>)
                 }
             </>
             }

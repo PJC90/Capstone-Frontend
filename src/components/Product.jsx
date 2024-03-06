@@ -68,7 +68,7 @@ useEffect(()=>{
                 <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">Prodotti più venduti</span></h1>
             </Col>
           </Row>
-        <Row xs={1} md={2} lg={3} xl={4} className="g-4">
+        <Row xs={1} md={2} lg={3} xl={5} className="g-4">
           {visibleProducts && visibleProducts.map((product) => (
             <Col key={product.productId} className=" py-2 px-2">
               <div className="shodow-p p-3 rounded-3" onClick={() => {navigate(`/product/${product.productId}`);}} style={{cursor:"pointer"}}>
@@ -120,11 +120,11 @@ useEffect(()=>{
               {/* Contenuto */}
               <div>
                   <Row className="mt-3">
-                    <Col xs={8} className="ms-1">
+                    <Col xs={8} className="ms-1 w-100">
                         <p className="text-capitalize fs-5">{product.title}</p>
-                        <h3>{product.price} €</h3>
                     </Col>
-                    <Col className="d-flex justify-content-end align-items-center">
+                    <Col className="d-flex justify-content-between align-items-center">
+                        <h3 className="ms-1">{product.price} €</h3>
                       <div className="me-2 a-b-o d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}>
                         <img src="/Cart-Stramb.svg" alt="cart-icon"/>
                       </div>

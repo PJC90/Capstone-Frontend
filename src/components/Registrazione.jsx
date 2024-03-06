@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Col, Row, Form, Button, Modal, Alert } from "react-bootstrap";
+import Checkmark from "./utils/Checkmark";
 
 
 const Registrazione = (props) => {
@@ -42,7 +43,7 @@ const Registrazione = (props) => {
         setTimeout(() => {
           setRegisterSuccess(false);
           props.onHide();
-        }, 1000);
+        }, 3000);
       })
       .catch((err) => {
         console.log(err);
@@ -138,7 +139,10 @@ const Registrazione = (props) => {
                     </Button>
             </div>
 
-              {registerSuccess && (<Alert variant="success" className="mt-3 p-2">Utente registrato correttamente!</Alert>)}
+              {registerSuccess && (
+                                            <div className="d-flex justify-content-center">
+                                                <Checkmark/>
+                                            </div>  )}
                                                
           </Form>
           </Col>
