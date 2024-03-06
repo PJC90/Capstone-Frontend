@@ -41,7 +41,7 @@ function Shop(){
       <div style={{width:"82%", margin:"0 auto"}} >
       <Row >
         <Col className="mt-5 mb-4">
-            <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">Scopri i negozi</span></h1>
+            <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">{shop && shop.length > 0 ? "Scopri i negozi" : ""}</span></h1>
         </Col>
       </Row>
     <Row xs={1} md={2} lg={3} xl={5} className="g-4 ">

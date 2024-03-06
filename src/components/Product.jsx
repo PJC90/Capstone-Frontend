@@ -62,10 +62,10 @@ useEffect(()=>{
           <Row>
             <Col className="mt-5"></Col>
           </Row>
-          <Row>
             {/* PER CREARE MARGINI */}
+          <Row>
             <Col className="mt-5 mb-4">
-                <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">Prodotti più venduti</span></h1>
+                <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">{visibleProducts && visibleProducts.length > 0 ? "Prodotti più venduti" : ""}</span></h1>
             </Col>
           </Row>
         <Row xs={1} md={2} lg={3} xl={5} className="g-4">

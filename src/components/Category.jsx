@@ -37,7 +37,7 @@ function Category(){
           <Row>
          
             <Col className="mt-5 mb-4">
-                <h1 className="fs-4 mt-5 fw-bold mb-0"><span className="border-art">Cerca per categoria</span></h1>
+                <h1 className="fs-4 mt-5 fw-bold mb-0"><span className="border-art">{category && category.length > 0 ? "Cerca per categoria" : ""}</span></h1>
             </Col>
           </Row>
         <Row xs={1} md={2} lg={3} xl={4} className="g-4">

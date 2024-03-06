@@ -134,13 +134,13 @@ const Registrazione = (props) => {
             </Form.Group>
             
             <div className="d-flex mb-4">
-                    <Button className='a-b-o flex-grow-1 mt-5 py-2 mb-5' type="submit" >
+                    <Button className='a-b-o flex-grow-1 mt-5 py-2 mb-2' type="submit" >
                     Registrati
                     </Button>
             </div>
 
               {registerSuccess && (
-                                            <div className="d-flex justify-content-center">
+                                            <div className="d-flex justify-content-center mb-4">
                                                 <Checkmark/>
                                             </div>  )}
                                                

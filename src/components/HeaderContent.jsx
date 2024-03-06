@@ -7,7 +7,7 @@ function HeaderContent(){
 
 
     return(
-        <Container fluid className="mb-5 mt-2">
+        <Container fluid className="mb-5 mt-4">
             <Row >
             <Col></Col>
             <Col xs={10} className="mb-5 mt-4 artesum-color rounded-5">
