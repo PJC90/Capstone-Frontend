@@ -98,6 +98,9 @@
   .bg-header{
     background: linear-gradient(to bottom, #E38F38 0%, #FFFFFF 100%);
   }
+  .bg-header-black{
+    background: linear-gradient(to bottom, black 0%, #FFFFFF 100%);
+  }
   
   .text-content{
     color:rgb(146, 97, 6) !important;

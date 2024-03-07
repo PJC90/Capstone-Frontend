@@ -10,7 +10,7 @@ function Product(){
     const [isHovered, setIsHovered] = useState(null)
     const navigate = useNavigate();
 
-    const getProduct = (page = 0, size = 8, order = 'dateCreation')=>{
+    const getProduct = (page = 0, size = 10, order = 'dateCreation')=>{
         fetch(`http://localhost:3010/product?page=${page}&size=${size}&order=${order}`,{
             headers:{Authorization: localStorage.getItem("tokenAdmin")}
         })
@@ -56,15 +56,10 @@ useEffect(()=>{
     
     return(
         <div style={{width:"82%", margin:"0 auto"}}>
-          <Row>
-            <Col className="mt-5"></Col>
-          </Row>
-          <Row>
-            <Col className="mt-5"></Col>
-          </Row>
+          
             {/* PER CREARE MARGINI */}
           <Row>
-            <Col className="mt-5 mb-4">
+            <Col className="mt-4 mb-4">
                 <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">{visibleProducts && visibleProducts.length > 0 ? "Prodotti più venduti" : ""}</span></h1>
             </Col>
           </Row>

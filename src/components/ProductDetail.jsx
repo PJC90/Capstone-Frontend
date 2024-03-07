@@ -159,7 +159,7 @@ function ProductDetail(){
     <Container className="mt-5">
               <Row>
 {/* ---------------------------------------------     LEFT PAGE -----------------------------------------------------------------------*/}
-                <Col lg={7}>
+                <Col lg={7} className="d-flex align-items-end">
                     {productDetail ? (
                   <Row>
                     <Col xs={1} className="d-block d-md-none">
