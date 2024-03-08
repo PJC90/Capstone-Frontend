@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
-import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
-import { HeartFill, PencilSquare } from "react-bootstrap-icons";
+import {  Button, Col, Form, Row, Spinner } from "react-bootstrap";
+
 import Checkmark from "./utils/Checkmark";
 
 
 function ShopUpdateDetail({ shopId }){
 
     
-    const [update, setUpdate] = useState(false)
-    const [update2, setUpdate2] = useState(false)
-    const [update3, setUpdate3] = useState(false)
-    const [update4, setUpdate4] = useState(false)
     const [finishUpdate, setFinishUpdate] = useState(false)
     const [myShop, setMyShop] = useState(null);
     const [shopName, setShopName] = useState(null)
@@ -64,13 +60,9 @@ function ShopUpdateDetail({ shopId }){
                 console.log("dati modificati" + res);
                 setFinishUpdate(true)
                 setShopName(null)
-                setUpdate(false)
                 setDescription(null)
-                setUpdate2(false)
                 setNation(null)
-                setUpdate3(false)
                 setLocality(null)
-                setUpdate4(false)
                 setTimeout(()=>{
                     setFinishUpdate(false)
                 },5000)
@@ -154,7 +146,7 @@ function ShopUpdateDetail({ shopId }){
                 <Row className="mx-5 d-flex justify-content-center">
                     <Col style={{height:"300px"}} className="mt-3 " xs={8}>      
                     <div style={{position:"relative"}}>
-                        <img src={myShop.coverImageShop} alt={myShop.shopName} className="img-fluid w-100" style={{height:"300px", objectFit: 'cover', position:"absolute"}}/>
+                        <img src={myShop.coverImageShop} alt={myShop.shopName} className="img-fluid w-100 rounded-2" style={{height:"300px", objectFit: 'cover', position:"absolute"}}/>
                         <div style={{position:"absolute", bottom:"-285px", right:"10px"}}>
                             <Form
                                 onSubmit={(e) => {
@@ -164,13 +156,14 @@ function ShopUpdateDetail({ shopId }){
                                 }}
                                 >
                                 <div className="d-flex align-items-center">
-                                    <Button type="submit" className="a-b-o  me-4 py-1">
+                                    <Button type="submit" variant="dark" className="me-4 py-1 border border-white">
                                         {imageUploading ? 
                                                 (<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>) 
                                                 : 
                                                 ("Upload")}
                                     </Button>
                                     <Form.Control 
+                                    className="custom-file-input" 
                                     type="file"
                                     size="sm"
                                     required
@@ -184,18 +177,18 @@ function ShopUpdateDetail({ shopId }){
                         </Row>   
                 <Row className=" mx-5 d-flex justify-content-center">
                     <Col xs={3}>
-                    <img src={myShop.logoShop} alt={myShop.shopName} className="img-fluid w-100 mt-3" style={{height:"320px", objectFit: 'cover'}}/>
+                    <img src={myShop.logoShop} alt={myShop.shopName} className="img-fluid w-100 mt-3 rounded-2" style={{height:"320px", objectFit: 'cover'}}/>
                     <Form className="mt-0 d-flex justify-content-center" onSubmit={(e) => {
                         e.preventDefault();
                         uploadPhoto(shopId);
                         setImageUploading2(true);}}>
-                            <Button type="submit" className="me-4 a-b-o mt-3">
+                            <Button type="submit" variant="dark" className="me-4 mt-3 border border-white">
                                                     {imageUploading2 ? 
                                                     (<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>) 
                                                     : 
                                                     ("Upload")}
                                 </Button>
-                                   <Form.Control style={{width:"280px"}} className="mt-4 " 
+                                   <Form.Control style={{width:"280px"}} className="mt-4 custom-file-input" 
                                   type="file"
                                   size="sm"
                                   required
@@ -203,50 +196,52 @@ function ShopUpdateDetail({ shopId }){
                             </Form>
                     </Col>
                     <Col xs={5}> 
-                    <Form onSubmit={(e)=>{
+                    <Form className="mx-5 pe-5"
+                    onSubmit={(e)=>{
                         e.preventDefault(); 
                         updateMySingleShop(shopId)
                         }}>
-                    <p className="mt-4 fs-5">Negozio di <span className="text-capitalize fw-bold border-art-light">{myShop.seller.name} {myShop.seller.surname}</span></p>
-                    <p className="fs-6 ">Nome Negozio: <span className="fw-bold">{myShop.shopName} </span><PencilSquare className="ms-2 fs-5" style={{cursor:"pointer"}} onClick={()=>{setUpdate(!update)}}/></p>
-                    {update && <Form.Control
+                    <p className="fs-6 mt-4">Nome Negozio: <span className="fw-bold text-capitalize">{myShop.shopName} </span></p>
+                    <Form.Control
                             type="text"
                             placeholder="Cambia il nome del negozio"
                             value={shopName}
                             onChange={(e)=>{setShopName(e.target.value)}}
                             className="border-black mb-3"
                             style={{borderColor:"rgb(0, 140, 255)"}}
-                        />}
-                    <p className="fs-6">Descrizione: <span className="fw-bold">{myShop.description} </span><PencilSquare className="fs-5 ms-2" style={{cursor:"pointer"}} onClick={()=>{setUpdate2(!update2)}}/></p>
-                    {update2 && <Form.Control
+                        />
+                    <p className="fs-6">Descrizione: <span className="fw-bold">{myShop.description} </span></p>
+                    <Form.Control
                             type="text"
                             placeholder="Cambia la descrizione del negozio"
                             value={description}
                             onChange={(e)=>{setDescription(e.target.value)}}
                             className="border-black mb-3"
                             style={{borderColor:"rgb(0, 140, 255)"}}
-                        />}
-                    <p className="fs-6 ">Nazione: <span className="fw-bold">{myShop.nation} </span> <PencilSquare className="fs-5 ms-2" style={{cursor:"pointer"}} onClick={()=>{setUpdate3(!update3)}}/></p>
-                    {update3 && <Form.Control
+                        />
+                    <p className="fs-6 ">Nazione: <span className="fw-bold">{myShop.nation} </span> </p>
+                    <Form.Control
                             type="text"
                             placeholder="Cambia La nazione di dove si trova il negozio"
                             value={nation}
                             onChange={(e)=>{setNation(e.target.value)}}
                             className="border-black mb-3"
                             style={{borderColor:"rgb(0, 140, 255)"}}
-                        />}
-                    <p className="fs-6">Località: <span className="fw-bold">{myShop.locality} </span> <PencilSquare className="fs-5 ms-2" style={{cursor:"pointer"}} onClick={()=>{setUpdate4(!update4)}}/></p>
-                    {update4 && <Form.Control
+                        />
+                    <p className="fs-6">Località: <span className="fw-bold">{myShop.locality} </span></p>
+                    <Form.Control
                             type="text"
                             placeholder="Cambia la località del negozio"
                             value={locality}
                             onChange={(e)=>{setLocality(e.target.value)}}
                             className="border-black mb-1"
                             style={{borderColor:"rgb(0, 140, 255)"}}
-                        />}
-                    {(update || update2 || update3 || update4) && <Button type="submit" className="my-3 a-b-o">Modifica</Button>}
+                        />
+                        <div className="d-flex align-items-center">
+                            <Button type="submit" className="my-3 a-b-o me-5">Modifica</Button>
+                            {finishUpdate && <Checkmark/>  }
+                        </div>
                     </Form>
-                    {finishUpdate && <Checkmark/>  }
                     </Col>
 
                 </Row>

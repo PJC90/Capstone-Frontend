@@ -65,7 +65,7 @@ function Shop(){
                 />
                 </div>
                 <div className="d-flex flex-column align-items-center justify-content-center mt-3">          
-                    <h1 className="fs-4 fw-bold border-art">{shop.shopName}</h1>             
+                    <h1 className="fs-4 fw-bold border-art text-capitalize">{shop.shopName}</h1>             
                     <p className="mb-1">{shop.description}</p>
                 </div>
               </div>

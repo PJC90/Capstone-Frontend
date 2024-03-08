@@ -32,7 +32,7 @@ function HeaderContentCarousel(){
                        <h3 className="text-center text-white fw-bold py-5 px-5"><span className="border-art">Artesum dal greco significa Esperto</span></h3>
                       </Carousel.Item>
                       <Carousel.Item>
-                      <h3 className="text-center text-white fw-bold py-5 px-5"><span className="border-art">Dal Latino invece è una simpatica "storpiatura" del motto Cogito Ergo Sum</span></h3>
+                      <h3 className="text-center text-white fw-bold py-5 px-5"><span className="border-art">Artesum è una simpatica alterazione dela celebre locuzione latina Cogito Ergo Sum</span></h3>
                       </Carousel.Item>
                       <Carousel.Item>
                       <h3 className="text-center text-white fw-bold py-5 px-5"><span className="border-art">Qui trovi solo prodotti unici, derivati dal genio Italiano!</span> </h3>

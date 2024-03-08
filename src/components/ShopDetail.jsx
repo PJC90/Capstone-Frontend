@@ -109,7 +109,7 @@ const calculateAverageRating = () => {
                 </Row>
                   <Row className="mt-5 border rounded-3 shodow-p-nh mx-1">           
                     <Col className="ms-5 ps-5 my-3 d-flex flex-column justify-content-center">
-                    <p className="fs-2 fw-bold m-0 text-art">{shopDetail.shopName}</p>
+                    <p className="fs-2 fw-bold m-0 text-art text-capitalize">{shopDetail.shopName}</p>
                     <p className="fs-4 m-0">{shopDetail.description ? shopDetail.description : "Inserisci descrizione negozio"}</p>
                     
                     <p className="fs-5 mt-2">Totale Vendite: {shopDetail.numberOfSales}</p>
@@ -123,7 +123,7 @@ const calculateAverageRating = () => {
                             <Col className="d-flex flex-column align-items-start">
                             <h3 className="text-capitalize">{shopDetail.seller.name} {shopDetail.seller.surname}</h3>
                             <p className="m-0 text-capitalize">{shopDetail.locality} ( {shopDetail.nation} )</p>
-                            <p className="m-0 mt-1">Proprietario di {shopDetail.shopName}</p>
+                            <p className="m-0 mt-1">Proprietario di <span className="text-capitalize">{shopDetail.shopName}</span></p>
                             </Col>
                         </Row>
                     </Col>

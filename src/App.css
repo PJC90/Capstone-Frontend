@@ -127,6 +127,20 @@
 .search-custom{
   background-color: #E38F38 !important; /* Cambia il colore di sfondo */
 }
+.custom-file-input {
+  /*----Personalizzazione Input Caricamento Immagini---------*/
+  background-color: black !important;
+  color: white !important; /* Cambia il colore del testo per garantire la leggibilità */
+}
+.custom-file-input::-webkit-file-upload-button {
+    /*----Personalizzazione Input Caricamento Immagini---------*/
+  background-color: black !important;
+  color: white !important;
+  /* border-color: black; */
+}
+.custom-file-input::file-selector-button {
+  color: white; /* Cambia il colore del testo del bottone "Scegli file" */
+}
 .placeholder::placeholder {
     color: #777777 !important;
 }
@@ -162,6 +176,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .overlay {
+  /*----Sfondo oscurato quando apre i dropdown nella navbar------*/
   position: absolute;
   top: 0;
   left: 0;
