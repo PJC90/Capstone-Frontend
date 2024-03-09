@@ -41,6 +41,7 @@ function Shop(){
       <div style={{width:"82%", margin:"0 auto"}} >
       <Row >
         <Col className="mt-5 mb-4">
+          {/*---------------------------------------------------------------------------------------- SCOPRI I NEGOZI */}
             <h1 className="fs-4 mt-5 fw-bold "><span className="border-art">{shop && shop.length > 0 ? "Scopri i negozi" : ""}</span></h1>
         </Col>
       </Row>
@@ -49,17 +50,18 @@ function Shop(){
             <Col key={shop.shopId} className="d-flex mb-5">
               <div className="d-flex flex-column shodow-p p-3 rounded-3" onClick={() => {navigate(`/shop/${shop.shopId}`); }} style={{cursor:"pointer"}}>
               <div style={{
-                          width: "250px", // Imposta la larghezza desiderata del div
-                          height: "250px", // Imposta l'altezza desiderata del div
-                          overflow: "hidden", // Assicura che le immagini non fuoriuscano dai confini del div
+                          width: "250px", 
+                          height: "250px", 
+                          overflow: "hidden", 
                       }}>
                 <img
                   src={shop.logoShop}
                   alt={shop.shopName}
+                  className="rounded-2"
                   style={{
                     width: "100%", 
                     height:"100%",                     
-                    objectFit: "cover",  // Fai in modo che l'immagine copra l'intero spazio mantenendo le proporzioni
+                    objectFit: "cover",  
                   }}
                   
                 />

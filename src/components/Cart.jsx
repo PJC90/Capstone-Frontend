@@ -119,7 +119,7 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                                     <Col className="d-flex flex-column justify-content-center justify-content-between my-4">
                                         <div>
                                                 <p className="fw-bold text-capitalize fs-5 m-0">{product.title}</p>
-                                                <p className="fw-bold text-capitalize fs-2 text-art m-0"> {product.price} €</p>
+                                                <p className="fw-bold text-capitalize fs-2 text-art m-0"> {product.price.toFixed(2)} €</p>
                                                 <p>{product.productType === "PHYSICAL" ? "Consegna in 7 giorni" :
                                                     (product.productType === "DIGITAL") ? "Download istantaneo" : ""}</p>
                                         </div>
@@ -152,7 +152,7 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                         <div>
                         <div className="d-flex justify-content-between">
                         <p>Totale articoli:</p>
-                        <p>{calculateTotal()} €</p>
+                        <p>{calculateTotal().toFixed(2)} €</p>
                         {/* <p>{product.quantity * product.price} €</p> */}
                         </div>
                         <div className="d-flex justify-content-between  border-bottom">
@@ -161,7 +161,7 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                         </div>
                         <div className="d-flex justify-content-between border-bottom mt-2">
                         <p>Subtotale</p>
-                        <p>{calculateTotal()} €</p>
+                        <p>{calculateTotal().toFixed(2)} €</p>
                         {/* <p>{product.quantity * product.price} €</p> */}
                         </div>
                         <div className="d-flex justify-content-between mt-3">

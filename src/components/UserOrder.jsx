@@ -199,7 +199,7 @@ function UserOrder(){
                                         <Button variant="outline-dark" className="px-4 mt-2">Visualizza Ricevuta</Button>
                                         </Col>
                                         <Col className="d-flex justify-content-end border-top mt-4 pt-2">
-                                            <p className="mt-3">Totale dell'ordine: <span className="fw-bold">{order.payment.total}€</span></p>                                              
+                                            <p className="mt-3">Totale dell'ordine: <span className="fw-bold">{order.payment.total.toFixed(2)}€</span></p>                                              
                                         </Col>
                                     </Row>
                             </Col>

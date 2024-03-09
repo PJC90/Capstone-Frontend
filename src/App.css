@@ -65,13 +65,13 @@
     transform: scale(1.02); 
   }
   .a-b-o-h {
-    /* Artesum-Button-Orange*/ 
+    /* Artesum-Button-Orange-over_OUTLINE*/ 
     background-color: #E38F38 !important; /* Rimuove lo sfondo */
     color: white !important; /* Cambia il colore del testo in bianco */
     border: none !important; /* Rimuove il bordo */
   }
   .a-b-o-h:hover {
-    /* Artesum-Button-Orange*/ 
+    /* Artesum-Button-Orange-over_OUTLINE*/ 
     background-color: white !important; 
     color: #E38F38 !important;
     box-shadow: inset 0 0 0 1px #E38F38 !important; /* Brodo Interno*/
@@ -127,17 +127,18 @@
 .search-custom{
   background-color: #E38F38 !important; /* Cambia il colore di sfondo */
 }
+/*--------------------------------------------------------------------------------------------------------Personalizzazione Input Caricamento Immagini---------*/
 .custom-file-input {
-  /*----Personalizzazione Input Caricamento Immagini---------*/
-  background-color: black !important;
-  color: white !important; /* Cambia il colore del testo per garantire la leggibilità */
+  background-color: rgb(126, 126, 126) !important;
+  color: white !important; 
 }
 .custom-file-input::-webkit-file-upload-button {
-    /*----Personalizzazione Input Caricamento Immagini---------*/
   background-color: black !important;
   color: white !important;
   /* border-color: black; */
+    /* padding: 0.2em !important; */
 }
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 .custom-file-input::file-selector-button {
   color: white; /* Cambia il colore del testo del bottone "Scegli file" */
 }
@@ -198,6 +199,28 @@
 .border-art-b{
   border-color: #E38F38 !important;
 }
+.border-spazio {
+  box-shadow: 
+    -4px 0 0 rgb(255, 255, 255), /* Primo bordo a sinistra */
+   -8px 0 0 #E38F38 ; /* Secondo bordo a sinistra */
+}
+
+.animate__animated.animate__fadeInTopLeft{
+  --animate-duration: 3s;
+}
+.animate__animated.animate__fadeInTopRight{
+  --animate-duration: 3s;
+}
+.animate__animated.animate__fadeInRight{
+  --animate-duration: 4s;
+}
+.animate__animated.animate__fadeInLeft{
+  --animate-duration: 3s;
+}
+.animate__animated.animate__zoomIn{
+  --animate-duration: 2s;
+}
+
 
 
 

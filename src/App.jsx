@@ -20,8 +20,8 @@ function App() {
 
   return (
     
-    <BrowserRouter>
-    <div className="d-flex flex-column " style={{minHeight:"100vh"}}>
+    <BrowserRouter >
+    <div className="d-flex flex-column " style={{minHeight:"100vh"}} >
     <CustomNavbar/>
     <div className="flex-grow-1 mb-5">
     <Routes>

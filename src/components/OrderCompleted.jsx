@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { CheckCircle } from "react-bootstrap-icons";
+import { CheckCircle, Paypal } from "react-bootstrap-icons";
 import { Link, useParams } from "react-router-dom";
 
 
@@ -43,7 +43,7 @@ useEffect(()=>{
                     <>
                     <div className="d-flex justify-content-between">
                     <p>STATO: {order.statusOrder}</p>
-                    <p>Tipo di pagamento: {order.payment.paymentType}</p>
+                    <p>Tipo di pagamento: <Paypal className="mb-1 me-1"/>{order.payment.paymentType}</p>
                     </div>                   
                     <p>Prodotti aquistati:</p>
                     {order && order.products && order.products.map((product, index) => (
@@ -54,7 +54,7 @@ useEffect(()=>{
                             <Col className="d-flex flex-column justify-content-center" >
                             <p className="m-0"> {product.title}</p>
                             <p className="m-0"> {(product.productType == "DIGITAL")?"Pronto per il download":""}</p>
-                            <p className="text-art fw-bold"> {product.price} €</p>
+                            <p className="fs-5 fw-bold"> {product.price.toFixed(2)} €</p>
                             </Col>
                             <Col className="d-flex flex-column justify-content-center align-items-end" >
                             <p className="m-0">Venduto da</p>

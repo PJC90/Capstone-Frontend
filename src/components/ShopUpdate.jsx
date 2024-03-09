@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { ArchiveFill, BarChartFill, BoxSeamFill, ChatRightFill, PencilFill, XCircleFill } from "react-bootstrap-icons";
+import { ArchiveFill, BagPlus, BarChartFill, BoxSeamFill, CardList, ChatRightFill, ChatSquareText, GraphUpArrow, PencilFill, PencilSquare, XCircleFill, XSquare } from "react-bootstrap-icons";
 import {  useNavigate } from "react-router-dom";
 import ShopUpdateDetail from "./ShopUpdateDetail";
 import ShopDelete from "./ShopDelete";
@@ -81,19 +81,19 @@ function ShopUpdate(){
                     <Row key={myshop.shopId} className="mt-5 ms-1">
                         <Col className="d-flex flex-column align-items-start mt-5"> 
                         <p className=" ms-2 my-1 text-capitalize"><span className="border-art-light fw-bold ">{myshop.shopName}</span></p>
-                        <Button className={viewEditShop ? "a-b-o-t my-3 pe-4 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect" } 
+                        <Button className={viewEditShop ? "border-spazio a-b-o-t my-3 pe-4 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect" } 
                                                         onClick={() => {handleViewEditShop(); setViewEditShop(!viewEditShop); handleEditShop(myshop.shopId)}}>
-                        <PencilFill/> Modifica negozio 
+                        <PencilSquare className="mb-1 me-1"/> Modifica negozio 
                         </Button>
-                        <Button className={viewProductShop ? "a-b-o-t my-3 pe-5 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect" } 
+                        <Button className={viewProductShop ? "border-spazio a-b-o-t my-3 pe-5 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect" } 
                                                         onClick={()=>{handleViewProductShop(); setViewProductShop(!viewProductShop); handleEditShop(myshop.shopId)}}>
-                          <BoxSeamFill/> Inserzioni</Button>
-                        <Button className="my-3 rounded-pill icon-effect"><ArchiveFill/> Ordini</Button>
-                        <Button className="my-3 rounded-pill icon-effect"><BarChartFill/> Statistiche</Button>
-                        <Button className="my-3 rounded-pill icon-effect"><ChatRightFill/> Messaggi</Button>
-                        <Button className={formDelete ? "a-b-o-t my-3 pe-4 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect" } 
+                          <BagPlus className="mb-1 me-1"/> Inserzioni</Button>
+                        <Button className="my-3 rounded-pill icon-effect"><CardList className="mb-1 me-1"/> Ordini</Button>
+                        <Button className="my-3 rounded-pill icon-effect"><GraphUpArrow className="mb-1 me-1"/> Statistiche</Button>
+                        <Button className="my-3 rounded-pill icon-effect"><ChatSquareText className="mb-1 me-1"/> Messaggi</Button>
+                        <Button className={formDelete ? "border-spazio a-b-o-t my-3 pe-4 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect" } 
                                                            onClick={()=>{handleFormeDelete();setFormDelete(!formDelete); handleEditShop(myshop.shopId)}}>
-                          <XCircleFill/> Elimina Negozio</Button>
+                          <XSquare className="mb-1 me-1"/> Elimina Negozio</Button>
                         </Col>
                     </Row>
         ))

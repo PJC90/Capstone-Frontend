@@ -142,7 +142,7 @@ function ShopUpdateDetail({ shopId }){
         <>
                 {myShop && 
                 <>
-                <h3 className="fw-bold text-center mt-5"><span className=" border-art">Modifica i dettagli del negozio</span></h3>
+                <h4 className="fw-bold text-center mt-4"><span className=" border-art">Modifica i dettagli del negozio</span></h4>
                 <Row className="mx-5 d-flex justify-content-center">
                     <Col style={{height:"300px"}} className="mt-3 " xs={8}>      
                     <div style={{position:"relative"}}>

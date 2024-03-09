@@ -97,8 +97,8 @@ useEffect(()=>{
               <div>
                   <Row className="mt-3">
                     <Col xs={8} className="ms-1">
-                        <p className="text-capitalize fs-5">{product.title}</p>
-                        <h3>{product.price} €</h3>
+                                  <p className="text-capitalize fs-5 m-0">{product.title.length > 15 ? (product.title.substring(0,15) + "...") : (product.title)}</p>
+                                  <h3 className=" fw-bold">{product.price.toFixed(2)} €</h3>
                     </Col>
                     <Col className="d-flex justify-content-end align-items-center">
                       <div className="me-2 a-b-o d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}>

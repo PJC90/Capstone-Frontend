@@ -84,7 +84,7 @@ const deleteUser = () =>{
             setTimeout(()=>{
                 navigate("/")
                 window.location.reload()
-            },2000)
+            },3000)
         }else{
             confirm("Non è stato possile eliminare il tuo profilo, magari ci sono ancora ordini in corso, oppure hai ancora negozi aperti!")
             throw new Error("Non è stato possibile cancellare")
@@ -188,11 +188,9 @@ useEffect(() => {
                             <Button type="submit" className="a-b-o-h">Conferma</Button>
                         </Col>
                         <Col className="d-flex justify-content-end mt-3">
-                            <Button variant="dark" onClick={()=>{deleteUser()}} >Elimina profilo</Button>
-                            {deleteSuccess && <Alert>Profilo Eliminato</Alert>}
+                            <Button variant="outline-dark" onClick={()=>{deleteUser()}} >Elimina profilo</Button>
                         </Col>
                     </Row>
-      
                     
                 {showAlert && (
                             <div className="d-flex justify-content-center mt-3">
@@ -213,7 +211,7 @@ useEffect(() => {
                         }}>
                          <Row>
                             <Col className="d-flex flex-column align-items-center">
-                                   <Form.Control className="mt-3" type="file" size="sm" required style={{width:"250px"}} 
+                                   <Form.Control className="mt-3 custom-file-input" type="file" size="sm" required style={{width:"250px"}} 
                                    onChange={(e)=>{setImage(e.target.files)}}
                                   />
                                 <Button type="submit" className="a-b-o-h mt-3">
@@ -226,6 +224,12 @@ useEffect(() => {
                         </Row>
                      </Form>
 
+            {deleteSuccess && 
+                                    <div className="d-flex flex-column justify-content-center align-items-center mt-3">
+                                    <Alert variant="secondary" className="text-center mt-2">Grazie per aver fatto parte della nostra community, ti auguriamo il meglio per il futuro.</Alert>
+                                    <Checkmark/>
+                                </div> 
+                                }
                 </Col>                
             </Row>
         </Container>

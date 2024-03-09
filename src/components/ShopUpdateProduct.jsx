@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Alert, Button, Card, Col, Dropdown, Form, Row, Spinner } from "react-bootstrap"
-import { GearFill, Plus, TrashFill } from "react-bootstrap-icons"
+import { GearFill, PencilSquare, Plus, TrashFill, XSquare } from "react-bootstrap-icons"
 import Checkmark from "./utils/Checkmark"
 
 function ShopUpdateProduct({ shopId }){
@@ -289,7 +289,7 @@ function formatDate(dateString) {
             setMyProduct(null)
             setCreateProduct(true)
             }}>
-            <Plus className="fs-1"/>Aggiungi  inserzione
+            <Plus className="fs-1 me-3"/>Aggiungi  inserzione
         </Button>
         </div>
         }
@@ -305,18 +305,19 @@ function formatDate(dateString) {
                     <Card  key={product.productId} className={`mx-4 mb-5 border-0 shodow-p ${animation === product.productId ? `animate__animated animate__backOutDown`:``}`}>
                         <Card.Img variant="top" src={product.photo1} style={{ width: "310px", height:"237px", objectFit:"cover" }}/>
                         <Card.Body className="p-0">
-                            <div className="p-3">
+                            <div className="px-3 pt-3">
                             <Card.Title className="text-capitalize fw-bold"><span className="border-art-light">{product.title}</span></Card.Title>
+                            <div className="d-flex justify-content-between align-items-center pt-1">
                             <Card.Text className="text-art fw-bold fs-2">€ {product.price}</Card.Text>
                             <Card.Text>Quantità: {product.quantity}</Card.Text>
-                            <Card.Text>Creato il {formatDate(product.dateCreation)}</Card.Text>
+                            </div>
                             </div>
                             <Card.Text className="border-top p-1 d-flex justify-content-between">
                                 <div style={{width:"40px", height:"40px", cursor:"pointer"}} className="d-flex justify-content-center align-items-center icon-effect rounded-pill">
-                                <TrashFill className="fs-4  "  onClick={()=>{deleteProduct(product.productId)}}/>
+                                <XSquare className="fs-4  "  onClick={()=>{deleteProduct(product.productId)}}/>
                                 </div>
                                 <div style={{width:"40px", height:"40px", cursor:"pointer"}} className="d-flex justify-content-center align-items-center icon-effect rounded-pill">
-                                <GearFill className="fs-4 text-art" 
+                                <PencilSquare className="fs-4 " 
                                 onClick={()=>{
                                     getSingleProduct(product.productId); 
                                     setMyProduct(!myProduct);
@@ -416,7 +417,7 @@ function formatDate(dateString) {
                         uploadPhoto1(singleProduct.productId);
                         setPhoto1Uploading(true);
                         }}>
-                                   <Form.Control style={{width:"240px"}} className="mt-2" 
+                                   <Form.Control style={{width:"240px"}} className="mt-2 custom-file-input" 
                                   type="file"
                                   size="sm"
                                   required
@@ -435,7 +436,7 @@ function formatDate(dateString) {
                         e.preventDefault();
                         uploadPhoto2(singleProduct.productId);
                         setPhoto2Uploading(true);}}>
-                                   <Form.Control style={{width:"240px"}} className="mt-2" 
+                                   <Form.Control style={{width:"240px"}} className="mt-2 custom-file-input" 
                                   type="file"
                                   size="sm"
                                   required
@@ -454,7 +455,7 @@ function formatDate(dateString) {
                         e.preventDefault();
                         uploadPhoto3(singleProduct.productId);
                         setPhoto3Uploading(true);}}>
-                                   <Form.Control style={{width:"240px"}} className="mt-2" 
+                                   <Form.Control style={{width:"240px"}} className="mt-2 custom-file-input" 
                                   type="file"
                                   size="sm"
                                   required
@@ -479,6 +480,7 @@ function formatDate(dateString) {
                         editProduct(singleProduct.productId)}}>
                     <Col xs={9}>
                         <Form.Group className="mt-3">
+                        <Card.Text>Creato il {formatDate(singleProduct.dateCreation)}</Card.Text>
                             <Form.Label>Titolo: <span className="fw-bold">{singleProduct.title} </span></Form.Label>
                             <Form.Control placeholder="Modifica il titolo del prodotto"
                             type="text"

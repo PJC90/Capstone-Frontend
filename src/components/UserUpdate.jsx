@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap"
-import { ArchiveFill, BarChartFill, ChatRightFill, HeartFill, PencilFill, XCircleFill } from "react-bootstrap-icons";
+import { Button, CardTitle, Col, Container, Row } from "react-bootstrap"
+import { ArchiveFill, BarChartFill, CardChecklist, CardList, CartDashFill, ChatRightFill, ChatSquareText, GraphUpArrow, Heart, HeartFill, PencilFill, PencilSquare, XCircleFill } from "react-bootstrap-icons";
 import UserUpdateDetail from "./UserUpdateDetail";
 import UserOrder from "./UserOrder";
 import { useLocation } from "react-router-dom";
@@ -69,19 +69,19 @@ const handleViewModifica = () => {
                         {userMe ? (
                         <Col className="d-flex flex-column align-items-start mt-5" > 
                         <div className=" text-capitalize ms-4 d-flex flex-column align-items-center">
-                        <img src={userMe.avatar} alt="image-profile" className="rounded-pill" style={{width:"80px", height:"80px", objectFit:"cover"}} />
+                        <img src={userMe.avatar} alt="image-profile" className="rounded-3" style={{width:"80px", height:"80px", objectFit:"cover"}} />
                         <p className="fw-bold fs-6 mb-0 mt-1"><span className="border-art-light">{userMe.name} {userMe.surname}</span></p>
                         </div>
-                        <Button className={viewModifica ? "a-b-o-t my-3 pe-4 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect" } onClick={()=>{handleViewModifica(); setViewModifica(!viewModifica)}}>
-                        <PencilFill/> Modifica Profilo 
+                        <Button className={viewModifica ? "border-spazio a-b-o-t my-3 pe-4 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect" } onClick={()=>{handleViewModifica(); setViewModifica(!viewModifica)}}>
+                        <PencilSquare className="mb-1 me-1"/> Modifica Profilo 
                         </Button>
                         <Button className="my-3 rounded-pill icon-effect" >
-                          <HeartFill/> Preferiti</Button>
-                        <Button className={viewOrdini? "a-b-o-t my-3 pe-5 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect"} onClick={()=>{handleViewOrdini(); setViewOrdini(!viewOrdini)}}>
-                            <ArchiveFill/> Ordini
+                          <Heart className="mb-1 me-1"/> Preferiti</Button>
+                        <Button className={viewOrdini? "border-spazio a-b-o-t my-3 pe-5 rounded-end-pill rounded-start-0" : "my-3 rounded-pill icon-effect"} onClick={()=>{handleViewOrdini(); setViewOrdini(!viewOrdini)}}>
+                            <CardList className="mb-1 me-1"/> Ordini
                         </Button>
-                        <Button className="my-3 rounded-pill icon-effect"><BarChartFill/> Statistiche</Button>
-                        <Button className="my-3 rounded-pill icon-effect"><ChatRightFill/> Messaggi</Button>
+                        <Button className="my-3 rounded-pill icon-effect"><GraphUpArrow className="mb-1 me-1"/> Statistiche</Button>
+                        <Button className="my-3 rounded-pill icon-effect"><ChatSquareText className="mb-1 me-1"/> Messaggi</Button>
                         </Col>
                             ):(
                                 <Col>

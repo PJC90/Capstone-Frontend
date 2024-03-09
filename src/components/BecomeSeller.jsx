@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Row, Form, Spinner } from "react-bootstrap";
-import { Airplane } from "react-bootstrap-icons";
+import { Button, Col, Container, Row, Form } from "react-bootstrap";
+
 
 
 // per installare le animazioni https://animate.style/

@@ -199,7 +199,7 @@ function ProductDetail(){
                                      </span>
                               </p>
                           </div>
-                          <div><span className="fw-bold fs-1 text-art">{productDetail.price} €</span></div>
+                          <div><span className="fw-bold fs-1 text-art">{productDetail.price.toFixed(2)} €</span></div>
                           <Row>
                                     <Col className="d-flex">
                                           <Button variant="dark" className=" py-2 my-2 d-block w-100">Acquista</Button>

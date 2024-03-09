@@ -116,7 +116,7 @@ function Login(props) {
                 <p className="text-body-tertiary" style={{cursor:"pointer"}}>Password dimenticata?</p>
               </div>
                 <div className="d-flex">
-                    <Button className='a-b-o flex-grow-1 mt-2 py-2' type="submit" >
+                    <Button className='a-b-o-h flex-grow-1 mt-2 py-2' type="submit" >
                     Login
                     </Button>
                 </div>
