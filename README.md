@@ -1,8 +1,7 @@
-<img src="/public/artesum.svg">
+<img src="/artesum-orange.png">
 
-# Artesum
-
-This website allows the purchase of handicraft products, and the sale by creating your own shop.
+**Art ergo sum**
+**This website allows the purchase of handicraft products, and the sale by creating your own shop.**
 
 ## Programming Languages
 
@@ -12,17 +11,17 @@ This website allows the purchase of handicraft products, and the sale by creatin
 
 ## Functionality
 
-- **Registration and login**
-- **Edit and delete user**
-- **View all products**
-- **View all products by category**
-- **View all products by search**
-- **Buy products by paypal**
-- **Leave a review on a purchased product**
-- **Create a shop**
-- **Edit and delete shop**
-- **Create a product**
-- **Edit and delete product**
+- Registration and login
+- Edit and delete user
+- View all products
+- View all products by category
+- View all products by search
+- Buy products by paypal
+- Leave a review on a purchased product
+- Create a shop
+- Edit and delete shop
+- Create a product
+- Edit and delete product
 
 ## BackEnd
 
@@ -57,5 +56,4 @@ Currently, two official plugins are available:
 
 ## Author
 
-Colasante Pierpaolo
-[Linkedin](https://linkedin.com/in/pierpaolo-colasante-developer)
+[Colasante Pierpaolo](https://linkedin.com/in/pierpaolo-colasante-developer)
