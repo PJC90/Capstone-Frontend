@@ -17,8 +17,11 @@
 - View all products
 - View all products by category
 - View all products by search
+- Insert products into the cart
+- Add and delete products into the cart
 - Buy products by paypal
-- Leave a review on a purchased product
+- See purchased products
+- Write a review on a purchased product
 - Create a shop
 - Edit and delete shop
 - Create a product
@@ -40,6 +43,10 @@ https://github.com/PJC90/Capstone-Backend
 - `npm install @egjs/flicking-plugins`
 - `npm install @reduxjs/toolkit`
 - `npm install react-redux`
+
+## Configuring the .env file
+
+Create a new file called .env in the project root and define the environment variables as defined in the .env.example file.
 
 ## Start
 
