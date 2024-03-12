@@ -1,6 +1,7 @@
-<img src="/artesum-orange.png">
+<img src="/public/artesum-orange.png">
 
-**Art ergo sum**
+## Art ergo sum
+
 **This website allows the purchase of handicraft products, and the sale by creating your own shop.**
 
 ## Programming Languages
