@@ -47,8 +47,3 @@ function App() {
 
 export default App
 
-// Le impostazioni della privacy di Etsy
-// Per offrirti la migliore esperienza, utilizziamo i cookie e altre tecnologie simili per le prestazioni, i dati statistici, 
-// la personalizzazione, la pubblicità e per coadiuvare la funzione del sito. 
-// Desideri maggiori informazioni? Leggi il nostro Regolamento sui cookie. 
-// Puoi modificare le tue preferenze in qualsiasi momento nelle Impostazioni della privacy.

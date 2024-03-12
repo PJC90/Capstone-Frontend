@@ -206,10 +206,10 @@
 }
 
 .animate__animated.animate__fadeInTopLeft{
-  --animate-duration: 3s;
+  --animate-duration: 2s;
 }
 .animate__animated.animate__fadeInTopRight{
-  --animate-duration: 3s;
+  --animate-duration: 2s;
 }
 .animate__animated.animate__fadeInRight{
   --animate-duration: 4s;

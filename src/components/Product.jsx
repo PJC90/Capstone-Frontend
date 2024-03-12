@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { Cart, Heart } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 
 function Product(){
