@@ -1,22 +1,27 @@
 import { useEffect, useState } from 'react';
 import { Button, Col, Dropdown, Form, InputGroup, Row} from 'react-bootstrap';
-import { Alarm, Archive, BoxArrowDownLeft, BoxArrowLeft, ChatLeft, Gear, GearWideConnected, List, Person, Search, Star } from 'react-bootstrap-icons';
+import { Archive, BoxArrowLeft, ChatLeft, Gear, GearWideConnected, Person, Search, Star } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Login from './Login';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { getProductInCartAction } from '../redux/actions'
 
 function CustomNavbar() {
   const [modalShow, setModalShow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [productCart, setProductCart] = useState([]);
+  
   const [categories, setCategories] = useState([])
   const [search, setSearch] = useState(``)
   const [productBySearch, setProductBySearch] = useState([])
   const [myProfile, setMyProfile] = useState(null)
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
+
+  const dispatch = useDispatch()
+  const productCart = useSelector((state) => state.cart.content)
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -54,26 +59,6 @@ function CustomNavbar() {
     })
   }
 
-  const getProductInMyCart = () =>{
-    fetch("http://localhost:3010/cart/productInCart",{
-      headers:{Authorization:localStorage.getItem("tokenAdmin")},
-    })
-    .then((res)=>{
-      if(res.ok){
-        return res.json()
-      }else{
-        throw new Error("Errore nel recupero del tuo carrello")
-      }
-    })
-    .then((data)=>{
-        setProductCart(data)
-        console.log("Prodotti nel mio carrello:")
-        console.log(data)
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
 
   const getCategories = () =>{
     fetch("http://localhost:3010/category?page=0&size=100&order=nameCategory",{
@@ -131,7 +116,7 @@ function CustomNavbar() {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (isLoggedIn === "true") {
         setIsLoggedIn(true);
-        getProductInMyCart();
+        dispatch(getProductInCartAction())
         getUser();
       }
     //  viene eseguito solo al montaggio iniziale(componentDidMount) 
@@ -253,8 +238,8 @@ function CustomNavbar() {
       <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
           </svg>
           {productCart && (productCart.length > 0) ? (
-          <div style={{position:"absolute", bottom:"-3px", right:"-3px", width:"20px", height:"20px", fontSize:"0.8em"}} 
-          className='bg-danger rounded-pill text-white d-flex justify-content-center align-items-center '>
+          <div style={{position:"absolute", bottom:"-3px", right:"-3px", width:"20px", height:"20px", fontSize:"0.8em", backgroundColor:"#E38F38"}} 
+          className=' rounded-pill text-white d-flex justify-content-center align-items-center '>
             {productCart && productCart.length}</div>
           ) : ("")}
     </div>

@@ -4,12 +4,15 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { Cart, Heart, HeartFill } from "react-bootstrap-icons";
 import StarRating from "./StarRating";
 import Carousel from 'better-react-carousel' //$ npm install better-react-carousel --save
+import { useDispatch } from "react-redux";
+import { addToCartAction } from "../redux/actions";
 
 function ProductDetail(){
     const { productId } = useParams(); // Ottieni l'ID del prodotto dall'URL
     const [productDetail, setProductDetail] = useState(null);
     const [review, setReview] = useState([]);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
   
     // Funzione per recuperare i dettagli del prodotto
     const getProductDetail = (productId) => {
@@ -51,31 +54,6 @@ function ProductDetail(){
       })
       .catch((err)=>{
         console.log(err);
-      })
-    }
-
-    const addProductToCart = (productId) => {
-      fetch(`http://localhost:3010/cart/${productId}/addproduct`,{
-        method:"POST",
-        headers:{
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("tokenAdmin")
-        },
-      })
-      .then((res)=>{
-        if(res.ok){
-          return res.json()
-        }else{
-          throw new Error("Errore nell'aggiungere il prodotto nel carrello")
-        }
-      })
-      .then((data)=>{
-        console.log("Carrello: ")
-          console.log(data)
-          window.location.reload()
-      })
-      .catch((err)=>{
-        console.log(err)
       })
     }
 
@@ -207,7 +185,7 @@ function ProductDetail(){
                                   <Col className="d-flex">
                                           <Button className="a-b-o-h pb-2 d-block my-2 w-100" 
                                           onClick={()=>{
-                                            addProductToCart(productDetail.productId);
+                                            dispatch(addToCartAction(productDetail.productId))
                                           }}>
                                           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"  viewBox="0 0 16 16">
                           <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>

@@ -3,33 +3,30 @@ import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import PayPalCheckOut from "./utils/PayPalCheckout";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCartAction, getProductInCartAction } from "../redux/actions";
 
 function Cart(){
     const navigate = useNavigate();
-    const[productsInCart, setProductsInCart] = useState([])
     const [showPayPal, setShowPayPal] = useState(false);
+    const [deleteProductSuccess, setDeleteProductSuccess] = useState(false);
+    const [addProductSuccess, setAddProductSuccess] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    
 
-    const getAllProductInCart = () => {
-        fetch("http://localhost:3010/cart/productInCart",{
-            headers:{Authorization:localStorage.getItem("tokenAdmin")}
-        })
-        .then((res)=>{
-            if(res.ok){
-                return res.json()
-            }else{
-                throw new Error("Errore nel ricevere i prodotti del tuo carrello")
-            }
-        })
-        .then((data)=>{
-            setProductsInCart(data)
-            console.log("Prdotti nel carrello:")
-            console.log(data)
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-    }
+
+    const dispatch = useDispatch()
+    const productsInCart = useSelector((state) => state.cart.content)
+
+    const handleOrderId = (orderId) => {
+        // Gestisci l'orderId ricevuto dal componente figlio qui nel componente genitore
+        console.log("Order ID ricevuto nel genitore:", orderId);
+        // Passo l'orderId nel componente di Ordine Completato
+        setTimeout(()=>{
+            navigate(`/order/${orderId}`)
+            window.location.reload()
+        },3500)
+    };
 
     const deleteProductInCart = (productId) =>{
         fetch(`http://localhost:3010/cart/${productId}/removeproduct`,{
@@ -39,7 +36,7 @@ function Cart(){
         .then((res)=>{
             if(res.ok){
                 console.log("Prodotto Eliminato" + res)
-                    window.location.reload()
+                setDeleteProductSuccess(!deleteProductSuccess)
             }else{
                 throw new Error("Errore nell'eliminare il prodotto nel carrello")
             }
@@ -47,7 +44,7 @@ function Cart(){
         .catch((err)=>{
             console.log(err)
         })
-    }
+    } 
 
     const addProductToCart = (productId) => {
         fetch(`http://localhost:3010/cart/${productId}/addproduct`,{
@@ -67,42 +64,24 @@ function Cart(){
         .then((data)=>{
           console.log("Carrello: ")
             console.log(data)
-            window.location.reload()
+            setAddProductSuccess(!addProductSuccess)
         })
         .catch((err)=>{
           console.log(err)
         })
       }
 
-    const handleOrderId = (orderId) => {
-        // Gestisci l'orderId ricevuto dal componente figlio qui nel componente genitore
-        console.log("Order ID ricevuto nel genitore:", orderId);
-        // Passo l'orderId nel componente di Ordine Completato
-        setTimeout(()=>{
-            navigate(`/order/${orderId}`)
-            window.location.reload()
-        },3500)
-    };
 
-    useEffect(()=>{
-        getAllProductInCart()
-    }, [])
-
-
-    // Raggruppa i prodotti per productId e conta le quantità
-const groupedProducts = productsInCart.reduce((acc, product) => {
-    if (acc[product.productId]) {
-      acc[product.productId].quantity += 1; // Incrementa la quantità
-    } else {
-      acc[product.productId] = { ...product, quantity: 1 }; // Crea un nuovo oggetto con la quantità iniziale 1
-    }
-    return acc;
-  }, {});
 
   const calculateTotal = () => {
     return productsInCart.reduce((total, item) => total + item.price, 0);
   };
   
+  
+  useEffect(()=>{
+    dispatch(getProductInCartAction())
+}, [deleteProductSuccess, addProductSuccess])
+
     return(
         <Container>
             <Row className="d-flex flex-column flex-lg-row mt-5" >
@@ -110,7 +89,16 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
 
                 <Col  >
                     <Row className="d-flex flex-column ">
-        {Object.values(groupedProducts).map((product) => (
+                            {Object.values(productsInCart.reduce((acc, product) => {
+                                 // Raggruppa i prodotti per productId e conta le quantità
+                                                if (acc[product.productId]) {
+                                                    acc[product.productId].quantity += 1;
+                                                } else {
+                                                    acc[product.productId] = { ...product, quantity: 1 };
+                                                }
+                                                return acc;
+                                            }, {}))
+                        .map((product) => (
                             <Col className="p-3" key={product.productId}>
                                 <Row className="shodow-p p-3 rounded-3">
                                     <Col  className="">
@@ -119,7 +107,7 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                                     <Col className="d-flex flex-column justify-content-center justify-content-between my-4">
                                         <div>
                                                 <p className="fw-bold text-capitalize fs-5 m-0">{product.title}</p>
-                                                <p className="fw-bold text-capitalize fs-2 text-art m-0"> {product.price.toFixed(2)} €</p>
+                                                <p className="fw-bold text-capitalize fs-2 text-art m-0"> {product.price ? product.price.toFixed(2) + " €" : ""}</p>
                                                 <p>{product.productType === "PHYSICAL" ? "Consegna in 7 giorni" :
                                                     (product.productType === "DIGITAL") ? "Download istantaneo" : ""}</p>
                                         </div>
@@ -135,7 +123,7 @@ const groupedProducts = productsInCart.reduce((acc, product) => {
                                                             </Col>
                                                             <Col className="d-flex justify-content-center align-items-center p-0">
                                                                 <Button className="artesum-color-button rounded-circle" style={{width:"40px", height:"40px"}}
-                                                                onClick={() => { addProductToCart(product.productId) }}>+</Button>
+                                                                onClick={() => {addProductToCart(product.productId)}}>+</Button>
                                                             </Col>
                                                     </Row>
                                             </Col>

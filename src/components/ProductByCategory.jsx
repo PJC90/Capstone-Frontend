@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { CloudArrowDownFill, CloudArrowUp, ListCheck } from "react-bootstrap-icons";
+import { useDispatch } from "react-redux";
+import { addToCartAction } from "../redux/actions";
 
 function ProductByCategory(){
     const { categoryId } = useParams()
     const [productCategory, setProductCategory] = useState([])
     const [isHovered, setIsHovered] = useState(null)
     const navigate = useNavigate()
+
+    const dispatch = useDispatch()
+
 
 
 const getProductByCategory = (categoryId) => {
@@ -101,7 +105,8 @@ useEffect(()=>{
                                   <h3 className=" fw-bold">{product.price.toFixed(2)} €</h3>
                     </Col>
                     <Col className="d-flex justify-content-end align-items-center">
-                      <div className="me-2 a-b-o d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}>
+                      <div className="me-2 a-b-o-r d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}
+                      onClick={(e)=>{e.stopPropagation(); dispatch(addToCartAction(product.productId))}}>
                         <img src="/Cart-Stramb.svg" alt="cart-icon"/>
                       </div>
                     </Col>

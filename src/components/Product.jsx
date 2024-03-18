@@ -1,13 +1,27 @@
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addToCartAction } from "../redux/actions";
+import Confetti from 'react-dom-confetti';
+
 
 function Product(){
     const [visibleProducts, setVisibleProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(0); // Pagina corrente
     const [totalPages, setTotalPages] = useState(0); // Numero totale di pagine
     const [isHovered, setIsHovered] = useState(null)
+    const [showConfetti, setShowConfetti] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+
+
+    const handleClick = (productId) => {
+        setShowConfetti(productId);
+        setTimeout(() => {
+            setShowConfetti(null);
+        }, 2000);
+    };
 
     const getProduct = (page = 0, size = 10, order = 'dateCreation')=>{
         fetch(`http://localhost:3010/product?page=${page}&size=${size}&order=${order}`,{
@@ -119,8 +133,28 @@ useEffect(()=>{
                         <h3 className="ms-1 fw-bold">{product.price.toFixed(2)} €</h3>
                     </Col>
                     <Col className="d-flex justify-content-end">
-                      <div className="me-2 a-b-o d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}>
-                        <img src="/Cart-Stramb.svg" alt="cart-icon"/>
+                      <div className="me-2 a-b-o-r d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}
+                      onClick={(e)=>{e.stopPropagation(); 
+                      dispatch(addToCartAction(product.productId)); 
+                      handleClick(product.productId)
+                      }}>
+   {/* Aggiungendo e.stopPropagation() all'evento onClick dell'icona del carrello, impedisci che l'evento di click si propaghi fino al <div> genitore che 
+    gestisce la navigazione verso /product/${product.productId}. In questo modo, solo l'azione addToCartAction verrà eseguita quando viene cliccata l'icona del carrello. */}
+                        <img src="/Cart-Stramb.svg" alt="cart-icon" />
+                        <Confetti active={showConfetti === product.productId} 
+                                  style={{zIndex:"9999"}} 
+                                  config={{ angle: "90",
+                                             spread: "100",
+                                             startVelocity: "43",
+                                             position: 'fixed',
+                                              elementCount: 70,
+                                              dragFriction: "0.25",
+                                              duration: "1900",
+                                              stagger: "8",
+                                              width: "10px",
+                                              height: "10px",
+                                              perspective: "887px",
+                                              colors: ["orange", "#e3903873", "#E38F38"] }} />
                       </div>
                     </Col>
                   </Row>

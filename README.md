@@ -41,6 +41,7 @@ https://github.com/PJC90/Capstone-Backend
 - `npm install better-react-carousel --save`
 - `npm install @egjs/react-flicking`
 - `npm install @egjs/flicking-plugins`
+- `npm install react-dom-confetti`
 - `npm install @reduxjs/toolkit`
 - `npm install react-redux`
 
