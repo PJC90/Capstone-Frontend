@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
+import { addToCartAction } from "../redux/actions";
+import { useDispatch } from "react-redux";
 
 function ProductBySearch(){
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch()
     console.log('OGGETTO LOCATION', location)
     // lo stato viene passato da navigate in customnavbar
     const { searchValue } = location.state ;
@@ -80,7 +83,8 @@ function ProductBySearch(){
                                     <h3 className=" fw-bold">{product.price.toFixed(2)} €</h3>
                   </Col>
                   <Col className="d-flex justify-content-end align-items-center">
-                    <div className="me-2 a-b-o d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}>
+                    <div className="me-2 a-b-o-r d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}
+                    onClick={(e)=>{e.stopPropagation(); dispatch(addToCartAction(product.productId))}}>
                       <img src="/Cart-Stramb.svg" alt="cart-icon"/>
                     </div>
                   </Col>
