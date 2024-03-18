@@ -10,6 +10,10 @@
 - BackEnd: Java, Spring Boot
 - Strore: PostgreSql
 
+## Demo
+
+[Video](https://drive.google.com/file/d/1UVcbPHPWxHO46mwvxPkcxqX_fFtuRXU2/view?usp=drive_link)
+
 ## Functionality
 
 - Registration and login
