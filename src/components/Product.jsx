@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCartAction } from "../redux/actions";
@@ -133,29 +133,29 @@ useEffect(()=>{
                         <h3 className="ms-1 fw-bold">{product.price.toFixed(2)} €</h3>
                     </Col>
                     <Col className="d-flex justify-content-end">
-                      <div className="me-2 a-b-o-r d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}
+                      <div className="me-2 a-b-o-r d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px", zIndex:"0"}}
                       onClick={(e)=>{e.stopPropagation(); 
                       dispatch(addToCartAction(product.productId)); 
                       handleClick(product.productId)
                       }}>
    {/* Aggiungendo e.stopPropagation() all'evento onClick dell'icona del carrello, impedisci che l'evento di click si propaghi fino al <div> genitore che 
     gestisce la navigazione verso /product/${product.productId}. In questo modo, solo l'azione addToCartAction verrà eseguita quando viene cliccata l'icona del carrello. */}
-                        <img src="/Cart-Stramb.svg" alt="cart-icon" />
-                        <Confetti active={showConfetti === product.productId} 
-                                  style={{zIndex:"9999"}} 
-                                  config={{ angle: "90",
-                                             spread: "100",
-                                             startVelocity: "43",
-                                             position: 'fixed',
-                                              elementCount: 70,
-                                              dragFriction: "0.25",
-                                              duration: "1900",
-                                              stagger: "8",
-                                              width: "10px",
-                                              height: "10px",
-                                              perspective: "887px",
-                                              colors: ["orange", "#e3903873", "#E38F38"] }} />
+                        <img src="/Cart-Stramb.svg" alt="cart-icon"  />
                       </div>
+                      <div style={{zIndex:"100"}}>
+                        <Confetti active={showConfetti === product.productId} 
+                                  config={{ angle: 90,
+                                    spread: "88",
+                                    startVelocity: 40,
+                                    elementCount: 70,
+                                    dragFriction: 0.12,
+                                    duration: 990,
+                                    stagger: "3",
+                                    width: "10px",
+                                    height: "10px",
+                                    perspective: "808px",
+                                    colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"] }} />
+                     </div>
                     </Col>
                   </Row>
               </div>

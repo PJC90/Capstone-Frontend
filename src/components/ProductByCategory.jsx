@@ -3,14 +3,23 @@ import { Col, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCartAction } from "../redux/actions";
+import Confetti from 'react-dom-confetti';
 
 function ProductByCategory(){
     const { categoryId } = useParams()
     const [productCategory, setProductCategory] = useState([])
     const [isHovered, setIsHovered] = useState(null)
+    const [showConfetti, setShowConfetti] = useState(null);
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
+
+    const handleClick = (productId) => {
+      setShowConfetti(productId);
+      setTimeout(() => {
+          setShowConfetti(null);
+      }, 2000);
+  };
 
 
 
@@ -105,10 +114,27 @@ useEffect(()=>{
                                   <h3 className=" fw-bold">{product.price.toFixed(2)} €</h3>
                     </Col>
                     <Col className="d-flex justify-content-end align-items-center">
-                      <div className="me-2 a-b-o-r d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px"}}
-                      onClick={(e)=>{e.stopPropagation(); dispatch(addToCartAction(product.productId))}}>
+                      <div className="me-2 a-b-o-r d-flex justify-content-center align-items-center rounded-pill" style={{width:"50px", height:"50px", zIndex:"0"}}
+                      onClick={(e)=>{e.stopPropagation(); 
+                      dispatch(addToCartAction(product.productId));
+                      handleClick(product.productId)
+                      }}>
                         <img src="/Cart-Stramb.svg" alt="cart-icon"/>
                       </div>
+                      <div style={{zIndex:"100"}}>
+                        <Confetti active={showConfetti === product.productId} 
+                                  config={{ angle: 90,
+                                    spread: "88",
+                                    startVelocity: 40,
+                                    elementCount: 70,
+                                    dragFriction: 0.12,
+                                    duration: 990,
+                                    stagger: "3",
+                                    width: "10px",
+                                    height: "10px",
+                                    perspective: "808px",
+                                    colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"] }} />
+                     </div>
                     </Col>
                   </Row>
               </div>
